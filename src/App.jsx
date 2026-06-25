@@ -1,10 +1,15 @@
-import React from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom'
 import { isSupabaseConfigured } from './lib/supabase.js'
+import { getSession, onAuthChange } from './lib/auth.js'
 import CampList from './pages/CampList.jsx'
 import CampDashboard from './pages/CampDashboard.jsx'
 import Advisor from './pages/Advisor.jsx'
 import CampForm from './components/CampForm.jsx'
+import Login from './pages/Login.jsx'
+import AuthGuard from './components/AuthGuard.jsx'
+import DayPlanner from './pages/DayPlanner.jsx'
+import PublicSite from './pages/PublicSite.jsx'
 
 function SetupBanner() {
   return (
@@ -17,26 +22,53 @@ function SetupBanner() {
   )
 }
 
+function AppShell({ configured, session }) {
+  return (
+    <div className="app">
+      <header className="app-header">
+        <a href="/camps" className="app-logo">Camp Business Advisor</a>
+        {session && (
+          <nav className="app-nav">
+            <Link to="/planner" className="app-nav-link">Day Planner</Link>
+          </nav>
+        )}
+      </header>
+      {!configured && <SetupBanner />}
+      <main className="app-main">
+        <Routes>
+          <Route path="/" element={<Navigate to="/camps" replace />} />
+          <Route path="/camps" element={<CampList />} />
+          <Route path="/camps/new" element={<CampForm />} />
+          <Route path="/camps/:id" element={<CampDashboard />} />
+          <Route path="/camps/:id/advisor" element={<Advisor />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/planner" element={
+            <AuthGuard>
+              <DayPlanner />
+            </AuthGuard>
+          } />
+        </Routes>
+      </main>
+    </div>
+  )
+}
+
 export default function App() {
   const configured = isSupabaseConfigured()
+  const [session, setSession] = useState(undefined)
+
+  useEffect(() => {
+    getSession().then(({ data }) => setSession(data.session || null))
+    const { data: listener } = onAuthChange((_event, sess) => setSession(sess))
+    return () => listener.subscription.unsubscribe()
+  }, [])
 
   return (
     <BrowserRouter>
-      <div className="app">
-        <header className="app-header">
-          <a href="/camps" className="app-logo">Camp Business Advisor</a>
-        </header>
-        {!configured && <SetupBanner />}
-        <main className="app-main">
-          <Routes>
-            <Route path="/" element={<Navigate to="/camps" replace />} />
-            <Route path="/camps" element={<CampList />} />
-            <Route path="/camps/new" element={<CampForm />} />
-            <Route path="/camps/:id" element={<CampDashboard />} />
-            <Route path="/camps/:id/advisor" element={<Advisor />} />
-          </Routes>
-        </main>
-      </div>
+      <Routes>
+        <Route path="/site" element={<PublicSite />} />
+        <Route path="/*" element={<AppShell configured={configured} session={session} />} />
+      </Routes>
     </BrowserRouter>
   )
 }

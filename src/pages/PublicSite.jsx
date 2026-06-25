@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
+import { createPortal } from 'react-dom'
 import { supabase } from '../lib/supabase.js'
 
 function GuestModal({ guest, onClose }) {
@@ -12,7 +13,7 @@ function GuestModal({ guest, onClose }) {
     return () => document.removeEventListener('keydown', onKey)
   }, [onClose])
 
-  return (
+  return createPortal(
     <div className="modal-backdrop" onClick={handleBackdrop}>
       <div className="modal-box">
         <button className="modal-close" onClick={onClose} aria-label="Close">✕</button>
@@ -29,7 +30,8 @@ function GuestModal({ guest, onClose }) {
         </div>
         {guest.bio && <p className="modal-guest-bio">{guest.bio}</p>}
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }
 

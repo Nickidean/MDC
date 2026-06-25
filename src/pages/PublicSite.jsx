@@ -55,20 +55,18 @@ function PublicDayCard({ day }) {
         {day.description && <p className="public-day-description">{day.description}</p>}
         {day.special_guest && (
           <div className="public-guest-panel">
-            <div className="public-guest-top">
-              {day.special_guest_image_url ? (
-                <img src={day.special_guest_image_url} alt={day.special_guest} className="public-guest-avatar" />
-              ) : (
-                <div className="public-guest-avatar public-guest-avatar-placeholder" />
-              )}
-              <div className="public-guest-text">
-                <span className="public-guest-label">Special guest</span>
-                <span className="public-guest-name">{day.special_guest}</span>
-              </div>
-            </div>
-            {day.special_guest_bio && (
-              <p className="public-guest-bio">{day.special_guest_bio}</p>
+            {day.special_guest_image_url ? (
+              <img src={day.special_guest_image_url} alt={day.special_guest} className="public-guest-avatar" />
+            ) : (
+              <div className="public-guest-avatar public-guest-avatar-placeholder" />
             )}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.1rem', flex: 1 }}>
+              <span className="public-guest-label">Special guest</span>
+              <span className="public-guest-name">{day.special_guest}</span>
+              {day.special_guest_bio && (
+                <p className="public-guest-bio">{day.special_guest_bio}</p>
+              )}
+            </div>
           </div>
         )}
         <div className="public-day-footer">

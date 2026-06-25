@@ -207,11 +207,6 @@ export default function PublicSite() {
           <p className="public-empty">We're getting the programme ready — check back soon.</p>
         ) : (
           <>
-            <div className="pricing-banner">
-              <span className="pricing-banner-price">£40 <span className="pricing-banner-unit">per day</span></span>
-              <span className="pricing-banner-divider" />
-              <span className="pricing-banner-note">Book individual days or the full two weeks. <strong>20% sibling discount</strong> when booking more than one child. HAF-funded places available for eligible families — <a href="https://www.gov.uk/government/publications/holiday-activities-and-food-programme" target="_blank" rel="noopener noreferrer" className="pricing-banner-link">find out if you qualify</a>.</span>
-            </div>
             <section className="public-week">
               <h2 className="public-week-heading">Week 1 — 17–21 August</h2>
               <div className="public-cards-grid">

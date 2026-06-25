@@ -55,8 +55,12 @@ export default function Dashboard({ camp, metrics, bookings, costs, funding }) {
     <div>
       {profitConfirmedOnly < 0 && (
         <div className="alert alert-error" style={{ marginBottom: '1rem' }}>
-          <strong>At Risk:</strong> With only confirmed funding, the camp projects a loss of {fmt(Math.abs(profitConfirmedOnly))}.
-          {totalFunding > confirmedFunding && ` Unconfirmed funding of ${fmt(totalFunding - confirmedFunding)} would close this gap if it comes through.`}
+          <strong>At Risk:</strong> The camp is currently projecting a loss of {fmt(Math.abs(profitConfirmedOnly))}. You need either more bookings or confirmed funding to close this gap.
+        </div>
+      )}
+      {profitConfirmedOnly >= 0 && profitWithAllFunding > profitConfirmedOnly && (
+        <div className="alert" style={{ marginBottom: '1rem', background: 'var(--bg-secondary)', borderColor: 'var(--border)', color: 'var(--text-muted)' }}>
+          Projecting a surplus of <strong>{fmt(profitConfirmedOnly)}</strong> on confirmed funding. {fmt(totalFunding - confirmedFunding)} in unconfirmed grants could add to this if they land.
         </div>
       )}
 
@@ -95,19 +99,19 @@ export default function Dashboard({ camp, metrics, bookings, costs, funding }) {
         />
 
         <MetricCard
-          label="Net P&L — Best Case"
-          value={fmt(profitWithAllFunding)}
-          explanation="Revenue plus all funding (including grants not yet confirmed) minus total costs. This is the upside scenario if everything comes through."
-          sub={`Includes ${fmt(totalFunding)} total funding`}
-          color={profitColor(profitWithAllFunding)}
+          label="Net P&L"
+          value={fmt(profitConfirmedOnly)}
+          explanation="Revenue plus confirmed funding (received in the bank) minus total costs. This is your real position today — treat this as the number to act on."
+          sub={`${fmt(confirmedFunding)} confirmed funding included`}
+          color={profitColor(profitConfirmedOnly)}
         />
 
         <MetricCard
-          label="Net P&L — Confirmed Only"
-          value={fmt(profitConfirmedOnly)}
-          explanation="Revenue plus only the funding you've actually received, minus total costs. This is the honest position today — the number to act on if any unconfirmed grants don't land."
-          sub={`${fmt(confirmedFunding)} received · ${fmt(awardedFunding - confirmedFunding > 0 ? awardedFunding - confirmedFunding : 0)} awarded but not yet paid`}
-          color={profitColor(profitConfirmedOnly)}
+          label="Upside if All Funding Lands"
+          value={fmt(profitWithAllFunding)}
+          explanation={`If all unconfirmed grants come through (${fmt(totalFunding - confirmedFunding)} still outstanding), this is what the P&L would look like. Don't plan around this — treat it as a bonus if it happens.`}
+          sub={`${fmt(totalFunding)} total funding pipeline`}
+          color="neutral"
         />
 
         <MetricCard

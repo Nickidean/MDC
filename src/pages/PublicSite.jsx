@@ -52,7 +52,19 @@ function PublicDayCard({ day }) {
           <span className="public-day-weekday">{day.weekday}</span>
           <span className="public-day-label">{day.date_label}</span>
         </div>
-        {day.description && <p className="public-day-description">{day.description}</p>}
+        {day.description && (
+          <div className="public-day-description">
+            {day.description.split('\n').map((line, i) => {
+              const trimmed = line.trim()
+              if (!trimmed) return null
+              const isBullet = trimmed.startsWith('- ') || trimmed.startsWith('• ')
+              const text = isBullet ? trimmed.slice(2) : trimmed
+              return isBullet
+                ? <div key={i} className="public-day-bullet">· {text}</div>
+                : <div key={i}>{text}</div>
+            })}
+          </div>
+        )}
         {day.special_guest && (
           <div className="public-guest-panel">
             {day.special_guest_image_url ? (

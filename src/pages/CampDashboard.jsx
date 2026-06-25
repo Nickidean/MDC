@@ -7,9 +7,10 @@ import BookingTable from '../components/BookingTable.jsx'
 import CostTable from '../components/CostTable.jsx'
 import FundingTable from '../components/FundingTable.jsx'
 import ImportCSV from '../components/ImportCSV.jsx'
+import HafTab from '../components/HafTab.jsx'
 import CampForm from '../components/CampForm.jsx'
 
-const TABS = ['overview', 'bookings', 'costs', 'funding', 'import']
+const TABS = ['overview', 'bookings', 'haf', 'costs', 'funding', 'import']
 
 export default function CampDashboard() {
   const { id } = useParams()
@@ -94,7 +95,19 @@ export default function CampDashboard() {
       </div>
 
       {tab === 'overview' && <Dashboard camp={camp} metrics={metrics} bookings={bookings} costs={costs} funding={funding} />}
-      {tab === 'bookings' && <BookingTable campId={id} bookings={bookings} onChanged={fetchAll} />}
+      {tab === 'bookings' && <BookingTable campId={id} bookings={bookings.filter(b => !(b.fee === 0 && b.deposit_paid === 0))} onChanged={fetchAll} />}
+      {tab === 'haf' && (
+        <HafTab
+          campId={id}
+          hafPlaces={camp.haf_places || 50}
+          bookings={bookings}
+          onChanged={fetchAll}
+          onUpdateHafPlaces={async (n) => {
+            await supabase.from('camps').update({ haf_places: n }).eq('id', id)
+            await fetchAll()
+          }}
+        />
+      )}
       {tab === 'costs' && <CostTable campId={id} costs={costs} onChanged={fetchAll} />}
       {tab === 'funding' && <FundingTable campId={id} funding={funding} onChanged={fetchAll} />}
       {tab === 'import' && <ImportCSV campId={id} campDayPrice={camp?.price_day} onImported={fetchAll} />}

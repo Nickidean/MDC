@@ -11,6 +11,7 @@ const EMPTY = {
   price_day: '',
   price_week: '',
   price_two_week: '',
+  haf_places: '',
   notes: '',
 }
 
@@ -25,6 +26,7 @@ export default function CampForm({ camp, onSaved }) {
     price_day: camp.price_day ?? '',
     price_week: camp.price_week ?? '',
     price_two_week: camp.price_two_week ?? '',
+    haf_places: camp.haf_places ?? '',
     notes: camp.notes || '',
   } : { ...EMPTY })
   const [saving, setSaving] = useState(false)
@@ -58,6 +60,7 @@ export default function CampForm({ camp, onSaved }) {
       price_day: Number(form.price_day) || 0,
       price_week: Number(form.price_week) || 0,
       price_two_week: Number(form.price_two_week) || 0,
+      haf_places: Number(form.haf_places) || 0,
       notes: form.notes.trim() || null,
     }
 
@@ -122,6 +125,11 @@ export default function CampForm({ camp, onSaved }) {
               <label>Two-Week Price (£)</label>
               <input type="number" min="0" step="0.01" value={form.price_two_week} onChange={e => set('price_two_week', e.target.value)} placeholder="0.00" />
             </div>
+          </div>
+
+          <div className="form-group" style={{ maxWidth: '200px' }}>
+            <label>HAF Places Allocated</label>
+            <input type="number" min="0" value={form.haf_places} onChange={e => set('haf_places', e.target.value)} placeholder="e.g. 50" />
           </div>
 
           <div className="form-group">

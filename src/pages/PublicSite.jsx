@@ -102,7 +102,7 @@ export default function PublicSite() {
             <span>·</span>
             <span>HAF-funded places available</span>
           </div>
-          <a href="#" className="btn btn-hero">Book a place</a>
+          <a href="https://litton-lakes-summer-camp.classforkids.io/camps" target="_blank" rel="noopener noreferrer" className="btn btn-hero">Book a place</a>
         </div>
       </section>
 

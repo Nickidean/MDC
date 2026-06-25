@@ -485,7 +485,7 @@ tr:hover td { background: var(--surface); }
   border-left: 4px solid var(--brand-secondary);
   padding-left: 0.75rem;
 }
-.public-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.25rem; }
+.public-cards-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem; }
 
 .public-day-card {
   background: #fff;

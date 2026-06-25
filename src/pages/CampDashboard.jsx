@@ -97,7 +97,7 @@ export default function CampDashboard() {
       {tab === 'bookings' && <BookingTable campId={id} bookings={bookings} onChanged={fetchAll} />}
       {tab === 'costs' && <CostTable campId={id} costs={costs} onChanged={fetchAll} />}
       {tab === 'funding' && <FundingTable campId={id} funding={funding} onChanged={fetchAll} />}
-      {tab === 'import' && <ImportCSV campId={id} onImported={fetchAll} />}
+      {tab === 'import' && <ImportCSV campId={id} campDayPrice={camp?.price_day} onImported={fetchAll} />}
     </div>
   )
 }

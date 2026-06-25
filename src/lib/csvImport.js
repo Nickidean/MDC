@@ -58,12 +58,30 @@ function looksLikeSummaryRow(row) {
 }
 
 /**
+ * Infer days from deposit amount.
+ * Deposit rate = £10/day. Sibling discount = 20%, so effective rate = £8/day.
+ * We detect sibling discount from discountTotal > 0.
+ */
+function inferDaysFromDeposit(depositAmount, hasDiscount, depositRatePerDay = 10, siblingDiscountPct = 0.20) {
+  if (depositAmount <= 0) return null
+  const effectiveRate = hasDiscount ? depositRatePerDay * (1 - siblingDiscountPct) : depositRatePerDay
+  const days = Math.round(depositAmount / effectiveRate)
+  return days > 0 ? days : null
+}
+
+function bookingTypeFromDays(days) {
+  if (days >= 9) return 'two_week'
+  if (days >= 4) return 'week'
+  return 'day'
+}
+
+/**
  * Parse ClassForKids rows into booking objects.
  *
- * defaultDays: number of days to assign (user-specified at import time)
- * defaultBookingType: 'day' | 'week' | 'two_week'
+ * campDayPrice: the camp's price per day (used to calculate total fee for deposit bookings)
+ * depositRatePerDay: £ per day charged as deposit (default £10)
  */
-export function buildBookingsFromCFK(rows, headers, campId, defaultDays = 1, defaultBookingType = 'week') {
+export function buildBookingsFromCFK(rows, headers, campId, campDayPrice = 0, depositRatePerDay = 10) {
   const idx = buildCFKIndex(headers)
   const bookings = []
 
@@ -81,40 +99,55 @@ export function buildBookingsFromCFK(rows, headers, campId, defaultDays = 1, def
 
     const paymentClass = detectPaymentClass(classCol)
     const amountPaid = parseAmount(valueRaw)
+    const hasSiblingDiscount = discountTotal > 0
 
-    let fee = amountPaid
+    let fee = 0
     let depositPaid = amountPaid
     let balanceDue = 0
-    let bookingType = defaultBookingType
+    let days = null
     let notes = customer ? `Parent: ${customer}` : ''
 
     if (paymentClass === 'haf') {
       fee = 0
       depositPaid = 0
       balanceDue = 0
-      bookingType = defaultBookingType
+      days = inferDaysFromDeposit(0, false, depositRatePerDay) // unknown, will use fallback
       notes = (notes ? notes + ' | ' : '') + 'HAF Funded'
     } else if (paymentClass === 'deposit') {
-      // We only know the deposit; total fee and balance are unknown
-      fee = amountPaid  // best guess: we'll show deposit as fee until user updates
-      depositPaid = amountPaid
-      balanceDue = 0   // unknown — user should update
-      notes = (notes ? notes + ' | ' : '') + 'Deposit paid — balance TBC'
+      days = inferDaysFromDeposit(amountPaid, hasSiblingDiscount, depositRatePerDay)
+      if (days && campDayPrice > 0) {
+        const fullFee = days * campDayPrice
+        const discountedFee = hasSiblingDiscount ? fullFee * 0.8 : fullFee
+        fee = Math.round(discountedFee * 100) / 100
+        balanceDue = Math.max(0, Math.round((fee - amountPaid) * 100) / 100)
+      } else {
+        fee = amountPaid // fallback until camp price is set
+        balanceDue = 0
+        notes = (notes ? notes + ' | ' : '') + 'Balance TBC — set camp day price to auto-calculate'
+      }
     } else if (paymentClass === 'full') {
       fee = amountPaid
       depositPaid = amountPaid
       balanceDue = 0
+      // For pay-in-full, infer days from fee / day price if available
+      if (campDayPrice > 0) {
+        const effectivePrice = hasSiblingDiscount ? campDayPrice * 0.8 : campDayPrice
+        days = Math.round(amountPaid / effectivePrice) || null
+      }
     }
 
-    if (discountTotal > 0) {
-      notes = (notes ? notes + ' | ' : '') + `Discount: ${discountName || ''} £${discountTotal.toFixed(2)}`
+    if (hasSiblingDiscount) {
+      notes = (notes ? notes + ' | ' : '') + `Sibling discount: £${discountTotal.toFixed(2)}${discountName ? ' (' + discountName + ')' : ''}`
     }
+
+    const resolvedDays = days || 5 // fallback to 5 (1 week) if can't infer
+    const bookingType = bookingTypeFromDays(resolvedDays)
 
     bookings.push({
       camp_id: campId,
       child_name: child,
       booking_type: bookingType,
-      days: defaultDays,
+      days: resolvedDays,
       fee,
       deposit_paid: depositPaid,
       balance_due: balanceDue,

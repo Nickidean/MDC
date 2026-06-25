@@ -9,7 +9,7 @@ const BOOKING_TYPE_OPTIONS = [
   { value: 'two_week', label: 'Two weeks (10 days)' },
 ]
 
-export default function ImportCSV({ campId, onImported }) {
+export default function ImportCSV({ campId, campDayPrice = 0, onImported }) {
   const [headers, setHeaders] = useState([])
   const [rows, setRows] = useState([])
   const [isCFK, setIsCFK] = useState(false)
@@ -19,9 +19,8 @@ export default function ImportCSV({ campId, onImported }) {
   const [importing, setImporting] = useState(false)
   const [error, setError] = useState(null)
 
-  // CFK-specific defaults (set by user before import)
-  const [defaultDays, setDefaultDays] = useState(5)
-  const [defaultBookingType, setDefaultBookingType] = useState('week')
+  // CFK-specific: deposit rate per day
+  const [depositRatePerDay, setDepositRatePerDay] = useState(10)
 
   const fileRef = useRef()
 
@@ -82,7 +81,7 @@ export default function ImportCSV({ campId, onImported }) {
       let bookings = []
 
       if (isCFK) {
-        bookings = buildBookingsFromCFK(rows, headers, campId, Number(defaultDays) || 1, defaultBookingType)
+        bookings = buildBookingsFromCFK(rows, headers, campId, Number(campDayPrice) || 0, Number(depositRatePerDay) || 10)
       } else {
         const objectRows = rows.map(row => {
           const obj = {}
@@ -158,23 +157,27 @@ export default function ImportCSV({ campId, onImported }) {
                 Child names, payment amounts and booking types (Deposit / Pay in full / HAF) will be imported automatically.
                 Because ClassForKids doesn't include the number of days in the export, set a default below — you can adjust individual bookings afterwards.
               </p>
-              <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'flex-end' }}>
                 <label style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', fontSize: '0.9rem' }}>
-                  Default booking type
-                  <select value={defaultBookingType} onChange={e => setDefaultBookingType(e.target.value)}
-                    style={{ padding: '0.4rem 0.6rem', borderRadius: '4px', border: '1px solid var(--border)' }}>
-                    {BOOKING_TYPE_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-                  </select>
+                  Deposit rate (£ per child per day)
+                  <input type="number" min="1" max="100" step="0.01" value={depositRatePerDay}
+                    onChange={e => setDepositRatePerDay(e.target.value)}
+                    style={{ padding: '0.4rem 0.6rem', borderRadius: '4px', border: '1px solid var(--border)', width: '100px' }} />
                 </label>
-                <label style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', fontSize: '0.9rem' }}>
-                  Default days per booking
-                  <input type="number" min="1" max="30" value={defaultDays}
-                    onChange={e => setDefaultDays(e.target.value)}
-                    style={{ padding: '0.4rem 0.6rem', borderRadius: '4px', border: '1px solid var(--border)', width: '80px' }} />
-                </label>
+                {campDayPrice > 0 && (
+                  <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', paddingBottom: '0.4rem' }}>
+                    Camp day price: <strong>£{Number(campDayPrice).toFixed(2)}</strong> — total fees and balances will be calculated automatically.
+                  </div>
+                )}
+                {!campDayPrice && (
+                  <div style={{ fontSize: '0.85rem', color: 'var(--color-amber)', paddingBottom: '0.4rem' }}>
+                    Set a day price on the camp to auto-calculate total fees and balances.
+                  </div>
+                )}
               </div>
               <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.75rem' }}>
-                <strong>Note on deposits:</strong> For deposit bookings, only the deposit amount is recorded — the total fee and balance due will be set to the deposit amount and "balance TBC" in notes. Update them manually once you know the full amount.
+                Days are inferred from the deposit amount (deposit ÷ rate). Sibling discount (20%) is detected automatically from the discount column.
+                {campDayPrice > 0 ? ' Total fee = days × day price (80% for siblings).' : ''}
               </p>
             </div>
           ) : (

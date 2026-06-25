@@ -125,7 +125,7 @@ export default function Dashboard({ camp, metrics, bookings, costs, funding }) {
           }
           explanation={
             breakEvenChildDays != null && breakEvenChildDays <= 0
-              ? "Your current bookings already cover all remaining unpaid costs — any new bookings from here are pure margin."
+              ? "Your current bookings cover all remaining unpaid costs — you won't lose more money by running the camp. Note: the overall P&L may still be negative because of costs already paid that can't be recovered."
               : "How many more child-days you need to book before your remaining (unpaid) costs are covered. Sunk costs are excluded — they're spent regardless."
           }
           color={breakEvenChildDays != null && breakEvenChildDays <= 0 ? 'green' : 'amber'}

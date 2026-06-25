@@ -226,6 +226,38 @@ export default function PublicSite() {
           </>
         )}
       </div>
+
+      {/* Litton Lakes section */}
+      <section className="venue-section">
+        <div className="venue-inner">
+          <div className="venue-left">
+            <h2 className="venue-heading">A special thank you to Litton Lakes</h2>
+            <div className="venue-logo-card">
+              <img src="https://littonlakes.co.uk/wp-content/uploads/2022/03/Litton-Lakes-Logo.png" alt="Litton Lakes" className="venue-logo-img" onError={e => { e.target.style.display='none' }} />
+            </div>
+          </div>
+          <div className="venue-right">
+            <p className="venue-body">We're incredibly grateful to Litton Lakes for hosting our summer camp. It's a truly special place, tucked away in the Dorset countryside, and the perfect setting for children to explore, build confidence and spend time outdoors.</p>
+            <p className="venue-body">If you're not joining us for camp and are simply looking for somewhere to switch off and enjoy time as a family, we honestly couldn't recommend it enough. Whether it's camping, a day by the lakes, or just a great coffee from the café — it's one of those places you'll want to come back to.</p>
+            <a href="https://littonlakes.co.uk" target="_blank" rel="noopener noreferrer" className="btn-venue">Find out more about Litton Lakes</a>
+          </div>
+        </div>
+      </section>
+
+      {/* Founder section */}
+      <section className="founder-section">
+        <div className="founder-inner">
+          <img src="" alt="Nick" className="founder-avatar" style={{ display: 'none' }} />
+          <h2 className="founder-heading">I want to create something more than a typical camp…</h2>
+          <p className="founder-body">an experience where children can grow in confidence, build friendships and feel more independent. Litton Lakes is the perfect location for them to disconnect from the flow of daily life, spend time outdoors and just be kids. Through a mix of sport, outdoor and creative activities and simple life skills, plus guest sessions from local interesting and inspiring people, it's all designed to help children feel part of something and leave with more confidence and resilience than when they arrived — ready to take on their next step.</p>
+          <p className="founder-byline">Nick / Founder of The Mindful Digital Collective</p>
+          <p className="founder-contact">If you have any questions please get in touch and I would be happy to talk about the camp and give you more details. Please call <strong>07830324074</strong> or email me at <a href="mailto:nick@themindfuldigitalcollective.co.uk" className="founder-link">nick@themindfuldigitalcollective.co.uk</a></p>
+        </div>
+      </section>
+
+      <footer className="public-footer">
+        <p>© 2026 The Mindful Digital Collective · <a href="mailto:nick@themindfuldigitalcollective.co.uk" className="footer-link">nick@themindfuldigitalcollective.co.uk</a> · 07830324074</p>
+      </footer>
     </div>
   )
 }

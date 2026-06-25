@@ -529,7 +529,16 @@ tr:hover td { background: var(--surface); }
 .public-day-weekday { font-weight: 700; font-size: 0.95rem; color: var(--brand-primary); }
 .public-day-label { font-size: 0.8rem; color: rgba(19,44,10,0.55); }
 .public-day-description { font-size: 0.875rem; color: #374151; line-height: 1.55; }
-.public-day-guest { font-size: 0.85rem; color: var(--brand-primary); font-style: italic; opacity: 0.8; }
+.public-guest-row { display: flex; align-items: center; gap: 0.5rem; }
+.public-guest-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid var(--brand-secondary); flex-shrink: 0; }
+.public-guest-avatar-placeholder { width: 32px; height: 32px; border-radius: 50%; background: var(--brand-tertiary); flex-shrink: 0; }
+.public-guest-name { font-size: 0.82rem; color: var(--brand-primary); font-style: italic; }
+
+/* Admin day card guest avatar upload */
+.guest-avatar-upload { width: 36px; height: 36px; border-radius: 50%; border: 2px dashed var(--border); overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--bg-subtle); }
+.guest-avatar-upload:hover { border-color: var(--primary); }
+.guest-avatar-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.guest-avatar-placeholder { font-size: 1rem; color: var(--text-muted); line-height: 1; }
 .public-day-footer { display: flex; flex-direction: column; gap: 0.5rem; margin-top: auto; padding-top: 0.75rem; }
 
 /* CTA buttons on day cards */

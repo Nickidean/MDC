@@ -54,9 +54,14 @@ function PublicDayCard({ day }) {
         </div>
         {day.description && <p className="public-day-description">{day.description}</p>}
         {day.special_guest && (
-          <p className="public-day-guest">
-            <em>Special guest: {day.special_guest}</em>
-          </p>
+          <div className="public-guest-row">
+            {day.special_guest_image_url ? (
+              <img src={day.special_guest_image_url} alt={day.special_guest} className="public-guest-avatar" />
+            ) : (
+              <div className="public-guest-avatar public-guest-avatar-placeholder" />
+            )}
+            <span className="public-guest-name">{day.special_guest}</span>
+          </div>
         )}
         <div className="public-day-footer">
           <BookingButton availability={day.availability} book_url={day.book_url} />

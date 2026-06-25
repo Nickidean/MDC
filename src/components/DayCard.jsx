@@ -14,6 +14,7 @@ export default function DayCard({ day, onSaved }) {
     image_url: day.image_url || '',
     description: day.description || '',
     special_guest: day.special_guest || '',
+    special_guest_image_url: day.special_guest_image_url || '',
     availability: day.availability || 'available',
     book_url: day.book_url || '',
     show_on_site: day.show_on_site !== false,
@@ -22,8 +23,10 @@ export default function DayCard({ day, onSaved }) {
   const [imgError, setImgError] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [uploadError, setUploadError] = useState('')
+  const [guestUploading, setGuestUploading] = useState(false)
   const textareaRef = useRef(null)
   const fileRef = useRef(null)
+  const guestFileRef = useRef(null)
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -63,6 +66,28 @@ export default function DayCard({ day, onSaved }) {
     const updated = { ...fields, [field]: value }
     setFields(updated)
     debouncedSave(updated)
+  }
+
+  async function handleGuestImageUpload(e) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setGuestUploading(true)
+    const ext = file.name.split('.').pop()
+    const path = `guest-${day.sort_index}-${Date.now()}.${ext}`
+    const { error: storageError } = await supabase.storage
+      .from('camp-images')
+      .upload(path, file, { upsert: true })
+    if (storageError) {
+      console.error('Guest upload error:', storageError)
+      setGuestUploading(false)
+      return
+    }
+    const { data } = supabase.storage.from('camp-images').getPublicUrl(path)
+    const url = data.publicUrl
+    const updated = { ...fields, special_guest_image_url: url }
+    setFields(updated)
+    await save(updated)
+    setGuestUploading(false)
   }
 
   async function handleImageUpload(e) {
@@ -163,13 +188,35 @@ export default function DayCard({ day, onSaved }) {
 
         <label className="field-label">
           Special guest <span className="field-optional">(optional)</span>
-          <input
-            type="text"
-            value={fields.special_guest}
-            onChange={e => handleChange('special_guest', e.target.value)}
-            placeholder="Name or role"
-            className="field-input"
-          />
+          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginTop: '0.25rem' }}>
+            <div
+              className="guest-avatar-upload"
+              onClick={() => guestFileRef.current?.click()}
+              title={guestUploading ? 'Uploading…' : 'Upload face photo'}
+              style={{ cursor: 'pointer' }}
+            >
+              {fields.special_guest_image_url ? (
+                <img src={fields.special_guest_image_url} alt="" className="guest-avatar-img" />
+              ) : (
+                <span className="guest-avatar-placeholder">{guestUploading ? '…' : '+'}</span>
+              )}
+            </div>
+            <input
+              ref={guestFileRef}
+              type="file"
+              accept="image/*"
+              style={{ display: 'none' }}
+              onChange={handleGuestImageUpload}
+            />
+            <input
+              type="text"
+              value={fields.special_guest}
+              onChange={e => handleChange('special_guest', e.target.value)}
+              placeholder="Name or role"
+              className="field-input"
+              style={{ flex: 1 }}
+            />
+          </div>
         </label>
 
         <label className="field-label">

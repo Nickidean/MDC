@@ -9,6 +9,7 @@ const EMPTY_ROW = {
   fee: '',
   deposit_paid: '',
   balance_due: '',
+  haf_code: '',
   notes: '',
 }
 
@@ -21,6 +22,7 @@ function BookingRow({ booking, onEdit, onDelete }) {
       <td>{fmt(booking.fee)}</td>
       <td>{fmt(booking.deposit_paid)}</td>
       <td>{fmt(booking.balance_due)}</td>
+      <td>{booking.haf_code ? <code style={{ fontSize: '0.8rem' }}>{booking.haf_code}</code> : <span className="text-muted">—</span>}</td>
       <td className="text-muted" style={{ maxWidth: 150, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{booking.notes}</td>
       <td className="col-actions">
         <button className="btn btn-ghost btn-sm" onClick={() => onEdit(booking)}>Edit</button>{' '}
@@ -45,6 +47,7 @@ function InlineForm({ row, onChange, onSave, onCancel, saving }) {
       <td><input type="number" min="0" step="0.01" value={row.fee} onChange={e => onChange('fee', e.target.value)} placeholder="Fee" /></td>
       <td><input type="number" min="0" step="0.01" value={row.deposit_paid} onChange={e => onChange('deposit_paid', e.target.value)} placeholder="Deposit" /></td>
       <td><input type="number" min="0" step="0.01" value={row.balance_due} onChange={e => onChange('balance_due', e.target.value)} placeholder="Balance" /></td>
+      <td><input value={row.haf_code} onChange={e => onChange('haf_code', e.target.value)} placeholder="HAF code" style={{ width: '90px' }} /></td>
       <td><input value={row.notes} onChange={e => onChange('notes', e.target.value)} placeholder="Notes" /></td>
       <td className="col-actions">
         <button className="btn btn-success btn-sm" onClick={onSave} disabled={saving}>Save</button>{' '}
@@ -61,7 +64,7 @@ export default function BookingTable({ campId, bookings, onChanged }) {
   const [error, setError] = useState(null)
 
   function startAdd() { setAddRow({ ...EMPTY_ROW }); setEditRow(null) }
-  function startEdit(b) { setEditRow({ ...b }); setAddRow(null) }
+  function startEdit(b) { setEditRow({ ...b, haf_code: b.haf_code || '' }); setAddRow(null) }
   function changeAdd(f, v) { setAddRow(prev => ({ ...prev, [f]: v })) }
   function changeEdit(f, v) { setEditRow(prev => ({ ...prev, [f]: v })) }
 
@@ -74,6 +77,7 @@ export default function BookingTable({ campId, bookings, onChanged }) {
       fee: Number(row.fee) || 0,
       deposit_paid: Number(row.deposit_paid) || 0,
       balance_due: Number(row.balance_due) || 0,
+      haf_code: row.haf_code?.trim() || null,
       notes: row.notes?.trim() || null,
     }
   }
@@ -113,6 +117,7 @@ export default function BookingTable({ campId, bookings, onChanged }) {
     finally { setSaving(false) }
   }
 
+  const hafBookings = bookings.filter(b => b.haf_code)
   const totalFee = bookings.reduce((s, b) => s + Number(b.fee), 0)
   const totalDeposit = bookings.reduce((s, b) => s + Number(b.deposit_paid), 0)
   const totalBalance = bookings.reduce((s, b) => s + Number(b.balance_due), 0)
@@ -122,7 +127,12 @@ export default function BookingTable({ campId, bookings, onChanged }) {
     <div>
       <div className="page-header">
         <h2 style={{ fontSize: '1.1rem', fontWeight: 600 }}>Bookings ({bookings.length})</h2>
-        <button className="btn btn-primary btn-sm" onClick={startAdd}>+ Add Booking</button>
+        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+          {hafBookings.length > 0 && (
+            <span className="badge badge-green">{hafBookings.length} HAF</span>
+          )}
+          <button className="btn btn-primary btn-sm" onClick={startAdd}>+ Add Booking</button>
+        </div>
       </div>
 
       {error && <div className="alert alert-error">{error}</div>}
@@ -137,6 +147,7 @@ export default function BookingTable({ campId, bookings, onChanged }) {
               <th>Fee</th>
               <th>Deposit</th>
               <th>Balance</th>
+              <th>HAF Code</th>
               <th>Notes</th>
               <th className="col-actions">Actions</th>
             </tr>
@@ -157,11 +168,11 @@ export default function BookingTable({ campId, bookings, onChanged }) {
                 <td>{fmt(totalFee)}</td>
                 <td>{fmt(totalDeposit)}</td>
                 <td>{fmt(totalBalance)}</td>
-                <td colSpan={2} />
+                <td colSpan={3} />
               </tr>
             )}
             {bookings.length === 0 && !addRow && (
-              <tr><td colSpan={8} style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '1.5rem' }}>No bookings yet. Add one above.</td></tr>
+              <tr><td colSpan={9} style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '1.5rem' }}>No bookings yet. Add one above.</td></tr>
             )}
           </tbody>
         </table>

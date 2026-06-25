@@ -1,18 +1,16 @@
 import React from 'react'
 import { fmt, fmtNum } from '../lib/metrics.js'
 
-function MetricCard({ label, value, sub, color = 'neutral', progress }) {
+function MetricCard({ label, value, explanation, sub, color = 'neutral', progress }) {
   return (
     <div className={`metric-card metric-${color}`}>
       <div className="metric-label">{label}</div>
       <div className="metric-value">{value}</div>
-      {sub && <div className="metric-sub">{sub}</div>}
+      {explanation && <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.3rem', lineHeight: 1.4 }}>{explanation}</div>}
+      {sub && <div className="metric-sub" style={{ marginTop: '0.4rem' }}>{sub}</div>}
       {progress != null && (
         <div className="progress-bar">
-          <div
-            className={`progress-fill fill-${color}`}
-            style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
-          />
+          <div className={`progress-fill fill-${color}`} style={{ width: `${Math.min(100, Math.max(0, progress))}%` }} />
         </div>
       )}
     </div>
@@ -55,82 +53,110 @@ export default function Dashboard({ camp, metrics, bookings, costs, funding }) {
 
   return (
     <div>
-      {/* Summary strip */}
       {profitConfirmedOnly < 0 && (
         <div className="alert alert-error" style={{ marginBottom: '1rem' }}>
-          <strong>At Risk:</strong> With confirmed funding only, the camp is currently projecting a loss of {fmt(Math.abs(profitConfirmedOnly))}.
-          {totalFunding > confirmedFunding && ` (Unconfirmed funding of ${fmt(totalFunding - confirmedFunding)} would close this gap.)`}
+          <strong>At Risk:</strong> With only confirmed funding, the camp projects a loss of {fmt(Math.abs(profitConfirmedOnly))}.
+          {totalFunding > confirmedFunding && ` Unconfirmed funding of ${fmt(totalFunding - confirmedFunding)} would close this gap if it comes through.`}
         </div>
       )}
 
       <div className="card-grid" style={{ marginBottom: '1.5rem' }}>
+
         <MetricCard
-          label="Child-Days Booked"
-          value={`${fmtNum(childDays)} / ${fmtNum(capacity)}`}
-          sub={`${capacityPct}% full · ${fmtNum(capacityRemaining)} remaining`}
+          label="Capacity Utilisation"
+          value={`${fmtNum(childDays)} / ${fmtNum(capacity)} child-days`}
+          explanation="Total days attended by all children booked, vs the maximum your camp can take. A child attending for 5 days counts as 5 child-days."
+          sub={`${capacityPct}% full · ${fmtNum(capacityRemaining)} child-days remaining`}
           color={capColor}
           progress={capacityPct}
         />
+
         <MetricCard
-          label="Projected Revenue"
+          label="Gross Revenue"
           value={fmt(projectedRevenue)}
+          explanation="Total fees charged across all bookings — what the camp will bring in from families once everyone has paid in full."
           sub={`from ${bookings.length} booking${bookings.length !== 1 ? 's' : ''}`}
           color="neutral"
         />
+
         <MetricCard
           label="Blended Rate"
-          value={fmt(blendedRate, 2)}
-          sub="per child-day"
+          value={`${fmt(blendedRate, 2)} per child-day`}
+          explanation="Your average revenue per child per day across all booking types. Falls below your day price when week or two-week bundles are popular, because those are priced at a discount."
           color={blendedRate > 0 ? 'neutral' : 'amber'}
         />
+
         <MetricCard
-          label="Total Cost"
+          label="Total Cost Base"
           value={fmt(totalCost)}
-          sub={`${fmt(sunkCost)} sunk · ${fmt(goForwardCost)} to go`}
+          explanation="Everything you're spending to run this camp. Split between sunk costs (already paid — committed regardless of what happens next) and costs still to pay."
+          sub={`${fmt(sunkCost)} already paid · ${fmt(goForwardCost)} still to pay`}
           color="neutral"
         />
+
         <MetricCard
-          label="P&L (all funding)"
+          label="Net P&L — Best Case"
           value={fmt(profitWithAllFunding)}
-          sub={`Funding: ${fmt(totalFunding)} total`}
+          explanation="Revenue plus all funding (including grants not yet confirmed) minus total costs. This is the upside scenario if everything comes through."
+          sub={`Includes ${fmt(totalFunding)} total funding`}
           color={profitColor(profitWithAllFunding)}
         />
+
         <MetricCard
-          label="P&L (confirmed only)"
+          label="Net P&L — Confirmed Only"
           value={fmt(profitConfirmedOnly)}
-          sub={`${fmt(confirmedFunding)} confirmed · ${fmt(awardedFunding)} awarded`}
+          explanation="Revenue plus only the funding you've actually received, minus total costs. This is the honest position today — the number to act on if any unconfirmed grants don't land."
+          sub={`${fmt(confirmedFunding)} received · ${fmt(awardedFunding - confirmedFunding > 0 ? awardedFunding - confirmedFunding : 0)} awarded but not yet paid`}
           color={profitColor(profitConfirmedOnly)}
         />
+
         <MetricCard
-          label="Break-Even Still Needed"
-          value={breakEvenChildDays != null ? (breakEvenChildDays <= 0 ? 'Already covered' : `${fmtNum(breakEvenChildDays)} child-days`) : '—'}
-          sub={breakEvenChildDays != null && breakEvenChildDays > 0 ? 'to cover remaining costs' : undefined}
+          label="Go-Forward Break-Even"
+          value={
+            breakEvenChildDays != null
+              ? breakEvenChildDays <= 0
+                ? 'Already in surplus'
+                : `${fmtNum(breakEvenChildDays)} more child-days`
+              : '—'
+          }
+          explanation={
+            breakEvenChildDays != null && breakEvenChildDays <= 0
+              ? "Your current bookings already cover all remaining unpaid costs — any new bookings from here are pure margin."
+              : "How many more child-days you need to book before your remaining (unpaid) costs are covered. Sunk costs are excluded — they're spent regardless."
+          }
           color={breakEvenChildDays != null && breakEvenChildDays <= 0 ? 'green' : 'amber'}
         />
+
         <MetricCard
           label="Cash Position"
           value={fmt(cashPosition)}
-          sub={`In: ${fmt(cashIn)} · Out: ${fmt(cashOut)}`}
+          explanation="Money actually in vs out right now. In = deposits and payments collected from families. Out = costs you've already paid. Does not include money still owed to you or bills still to pay."
+          sub={`In: ${fmt(cashIn)} collected · Out: ${fmt(cashOut)} paid`}
           color={cashColor(cashPosition)}
         />
+
       </div>
 
-      {/* Funding breakdown */}
       {funding.length > 0 && (
         <div className="card" style={{ marginBottom: '1rem' }}>
           <div className="section-title">Funding Summary</div>
+          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
+            Grants and external funding at each stage of the pipeline.
+          </div>
           <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', fontSize: '0.9rem' }}>
-            <div><span style={{ color: 'var(--text-muted)' }}>Applied: </span><strong>{fmt(funding.filter(f => f.status === 'applied').reduce((s, f) => s + Number(f.amount), 0))}</strong></div>
-            <div><span style={{ color: 'var(--text-muted)' }}>Awarded: </span><strong>{fmt(funding.filter(f => f.status === 'awarded').reduce((s, f) => s + Number(f.amount), 0))}</strong></div>
-            <div><span style={{ color: 'var(--text-muted)' }}>Received: </span><strong style={{ color: 'var(--green)' }}>{fmt(confirmedFunding)}</strong></div>
+            <div><span style={{ color: 'var(--text-muted)' }}>Applied (awaiting decision): </span><strong>{fmt(funding.filter(f => f.status === 'applied').reduce((s, f) => s + Number(f.amount), 0))}</strong></div>
+            <div><span style={{ color: 'var(--text-muted)' }}>Awarded (not yet paid): </span><strong>{fmt(funding.filter(f => f.status === 'awarded').reduce((s, f) => s + Number(f.amount), 0))}</strong></div>
+            <div><span style={{ color: 'var(--text-muted)' }}>Received (in the bank): </span><strong style={{ color: 'var(--green)' }}>{fmt(confirmedFunding)}</strong></div>
           </div>
         </div>
       )}
 
-      {/* Costs breakdown */}
       {costs.length > 0 && (
         <div className="card">
-          <div className="section-title">Costs by Category</div>
+          <div className="section-title">Cost Base by Category</div>
+          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
+            Fixed = same regardless of numbers (venue, insurance). Staff = people costs. Variable = scales with child-days (e.g. consumables).
+          </div>
           <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', fontSize: '0.9rem' }}>
             {['fixed', 'staff', 'variable'].map(cat => {
               const catTotal = costs.filter(c => c.category === cat).reduce((s, c) => s + Number(c.amount), 0)

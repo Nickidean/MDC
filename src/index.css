@@ -549,10 +549,7 @@ tr:hover td { background: var(--surface); }
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--brand-primary);
-  background: var(--brand-secondary);
-  border-radius: 999px;
-  padding: 0.15rem 0.55rem;
+  color: rgba(19,44,10,0.5);
   margin-bottom: 0.3rem;
 }
 .public-guest-name { font-size: 1rem; font-weight: 700; color: var(--brand-primary); line-height: 1.2; margin-bottom: 0.35rem; }

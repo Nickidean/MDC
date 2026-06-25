@@ -1,5 +1,37 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { supabase } from '../lib/supabase.js'
+
+function GuestModal({ guest, onClose }) {
+  const handleBackdrop = useCallback((e) => {
+    if (e.target === e.currentTarget) onClose()
+  }, [onClose])
+
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') onClose() }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [onClose])
+
+  return (
+    <div className="modal-backdrop" onClick={handleBackdrop}>
+      <div className="modal-box">
+        <button className="modal-close" onClick={onClose} aria-label="Close">✕</button>
+        <div className="modal-guest-header">
+          {guest.image ? (
+            <img src={guest.image} alt={guest.name} className="modal-guest-avatar" />
+          ) : (
+            <div className="modal-guest-avatar modal-guest-avatar-placeholder" />
+          )}
+          <div>
+            <div className="modal-guest-label">Special Guest</div>
+            <div className="modal-guest-name">{guest.name}</div>
+          </div>
+        </div>
+        {guest.bio && <p className="modal-guest-bio">{guest.bio}</p>}
+      </div>
+    </div>
+  )
+}
 
 const CFK_URL = 'https://litton-lakes-summer-camp.classforkids.io/camps'
 
@@ -27,9 +59,16 @@ function BookingButton({ availability, book_url }) {
 
 function PublicDayCard({ day }) {
   const [imgError, setImgError] = useState(false)
+  const [guestModal, setGuestModal] = useState(false)
 
   return (
     <div className="public-day-card">
+      {guestModal && day.special_guest && (
+        <GuestModal
+          guest={{ name: day.special_guest, image: day.special_guest_image_url, bio: day.special_guest_bio }}
+          onClose={() => setGuestModal(false)}
+        />
+      )}
       <div className="public-day-img-wrap">
         {day.image_url && !imgError ? (
           <img
@@ -66,19 +105,26 @@ function PublicDayCard({ day }) {
           </div>
         )}
         {day.special_guest && (
-          <div className="public-guest-panel">
+          <div
+            className="public-guest-panel public-guest-panel-clickable"
+            onClick={() => setGuestModal(true)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={e => e.key === 'Enter' && setGuestModal(true)}
+          >
             {day.special_guest_image_url ? (
               <img src={day.special_guest_image_url} alt={day.special_guest} className="public-guest-avatar" />
             ) : (
               <div className="public-guest-avatar public-guest-avatar-placeholder" />
             )}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.1rem', flex: 1 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.1rem', flex: 1, minWidth: 0 }}>
               <span className="public-guest-label">Special guest</span>
               <span className="public-guest-name">{day.special_guest}</span>
               {day.special_guest_bio && (
-                <p className="public-guest-bio">{day.special_guest_bio}</p>
+                <p className="public-guest-bio public-guest-bio-truncated">{day.special_guest_bio}</p>
               )}
             </div>
+            <span className="public-guest-more">›</span>
           </div>
         )}
         <div className="public-day-footer">

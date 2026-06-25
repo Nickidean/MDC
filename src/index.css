@@ -579,6 +579,41 @@ tr:hover td { background: var(--surface); }
 }
 .public-guest-name { font-size: 1rem; font-weight: 700; color: var(--brand-primary); line-height: 1.2; margin-bottom: 0.35rem; }
 .public-guest-bio { font-size: 0.78rem; color: #4b5563; line-height: 1.55; margin: 0; }
+.public-guest-bio-truncated { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.public-guest-panel-clickable { cursor: pointer; transition: background 0.15s, box-shadow 0.15s; }
+.public-guest-panel-clickable:hover { background: #eef2ea; box-shadow: 0 2px 8px rgba(19,44,10,0.1); }
+.public-guest-more { font-size: 1.1rem; color: rgba(19,44,10,0.35); align-self: center; flex-shrink: 0; margin-left: 0.25rem; }
+
+/* Guest modal */
+.modal-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+.modal-box {
+  background: #fff;
+  border-radius: 14px;
+  padding: 2rem;
+  max-width: 460px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+.modal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: none; border: none; cursor: pointer;
+  font-size: 1rem; color: var(--text-muted); line-height: 1;
+  padding: 0.25rem 0.5rem; border-radius: 4px;
+}
+.modal-close:hover { background: var(--bg-subtle); }
+.modal-guest-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+.modal-guest-avatar { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 3px solid var(--brand-secondary); flex-shrink: 0; }
+.modal-guest-avatar-placeholder { width: 72px; height: 72px; border-radius: 50%; background: var(--brand-tertiary); flex-shrink: 0; }
+.modal-guest-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(19,44,10,0.5); margin-bottom: 0.2rem; }
+.modal-guest-name { font-size: 1.3rem; font-weight: 800; color: var(--brand-primary); }
+.modal-guest-bio { font-size: 0.95rem; color: #374151; line-height: 1.7; margin: 0; }
 
 /* Admin day card guest avatar upload */
 .guest-avatar-upload { width: 48px; height: 48px; border-radius: 50%; border: 2px dashed var(--border); overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--bg-subtle); }

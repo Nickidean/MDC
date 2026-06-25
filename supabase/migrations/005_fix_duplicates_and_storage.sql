@@ -4,7 +4,7 @@ delete from camp_days
 where id not in (
   select distinct on (sort_index) id
   from camp_days
-  order by sort_index, created_at
+  order by sort_index, updated_at
 );
 
 -- Add unique constraint so it can't happen again

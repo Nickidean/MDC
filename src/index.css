@@ -475,7 +475,7 @@ tr:hover td { background: var(--surface); }
 }
 .btn-hero:hover { filter: brightness(0.92); transform: translateY(-1px); }
 
-.public-content { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+.public-content { max-width: 100%; padding: 2.5rem 2rem; }
 .public-week { margin-bottom: 2.5rem; }
 .public-week-heading {
   font-size: 1.2rem;

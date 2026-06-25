@@ -30,18 +30,23 @@ function PublicDayCard({ day }) {
 
   return (
     <div className="public-day-card">
-      {day.image_url && !imgError ? (
-        <div className="public-day-img-wrap">
+      <div className="public-day-img-wrap">
+        {day.image_url && !imgError ? (
           <img
             src={day.image_url}
             alt={day.weekday}
             className="public-day-img"
             onError={() => setImgError(true)}
           />
-        </div>
-      ) : (
-        <div className="img-placeholder public-img-placeholder">No image</div>
-      )}
+        ) : (
+          <div className="img-placeholder public-img-placeholder">No image</div>
+        )}
+        {day.availability !== 'available' && (
+          <span className={`img-availability-pill ${day.availability === 'full' ? 'pill-red' : 'pill-amber'}`}>
+            {day.availability === 'full' ? 'Full' : 'Nearly full'}
+          </span>
+        )}
+      </div>
       <div className="public-day-body">
         <div className="public-day-date">
           <span className="public-day-weekday">{day.weekday}</span>
@@ -54,7 +59,6 @@ function PublicDayCard({ day }) {
           </p>
         )}
         <div className="public-day-footer">
-          <AvailabilityPill availability={day.availability} />
           <BookingButton availability={day.availability} book_url={day.book_url} />
         </div>
       </div>

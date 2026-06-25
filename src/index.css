@@ -497,7 +497,21 @@ tr:hover td { background: var(--surface); }
   transition: transform 0.15s, box-shadow 0.15s;
 }
 .public-day-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(19,44,10,0.13); }
-.public-day-img-wrap { width: 100%; aspect-ratio: 16/9; overflow: hidden; }
+.public-day-img-wrap { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; }
+.img-availability-pill {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+.img-availability-pill.pill-amber { background: #f59e0b; color: #fff; }
+.img-availability-pill.pill-red { background: #ef4444; color: #fff; }
 .public-day-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .public-img-placeholder {
   aspect-ratio: 16/9;

@@ -104,16 +104,28 @@ export default function PublicSite() {
           <h1 className="hero-title">Summer Camp at Litton Lakes</h1>
           <p className="hero-dates">17–28 August 2026</p>
           <p className="hero-prose">
-            Every day follows the same rhythm: morning sports and activities, a shared lunch,
-            an afternoon special guest or workshop, then more sport to finish.
-            No screens. Plenty of mud.
+            A fun, active and engaging summer camp where children build confidence, make friends and develop real-world skills.
           </p>
-          <div className="hero-meta">
-            <span>Ages 8–12</span>
-            <span>·</span>
-            <span>From £39/day</span>
-            <span>·</span>
-            <span>HAF-funded places available</span>
+          <div className="hero-snapshot">
+            <div className="hero-snapshot-item">
+              <span className="hero-snapshot-icon">🕘</span>
+              <span>9am – 4pm</span>
+            </div>
+            <div className="hero-snapshot-divider" />
+            <div className="hero-snapshot-item">
+              <span className="hero-snapshot-icon">📍</span>
+              <span>Litton Lakes</span>
+            </div>
+            <div className="hero-snapshot-divider" />
+            <div className="hero-snapshot-item">
+              <span className="hero-snapshot-icon">🧒</span>
+              <span>Ages 7–12</span>
+            </div>
+            <div className="hero-snapshot-divider" />
+            <div className="hero-snapshot-item">
+              <span className="hero-snapshot-icon">📅</span>
+              <span>17–28 August 2026</span>
+            </div>
           </div>
           <a href="https://litton-lakes-summer-camp.classforkids.io/camps" target="_blank" rel="noopener noreferrer" className="btn btn-hero">Book a place</a>
         </div>

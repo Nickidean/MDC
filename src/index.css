@@ -466,6 +466,29 @@ tr:hover td { background: var(--surface); }
 .hero-dates { font-size: 1.1rem; color: var(--brand-tertiary); margin-bottom: 1.25rem; font-weight: 500; }
 .hero-prose { font-size: 1rem; line-height: 1.7; color: rgba(255,255,255,0.8); margin-bottom: 1.25rem; max-width: 540px; margin-left: auto; margin-right: auto; }
 .hero-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; font-size: 0.9rem; color: var(--brand-tertiary); margin-bottom: 2rem; opacity: 0.9; }
+.hero-snapshot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 2rem;
+}
+.hero-snapshot-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #fff;
+  padding: 0.25rem 1rem;
+}
+.hero-snapshot-icon { font-size: 1rem; line-height: 1; }
+.hero-snapshot-divider { width: 1px; height: 1.25rem; background: rgba(255,255,255,0.25); flex-shrink: 0; }
 .btn-hero {
   background: var(--brand-secondary);
   color: var(--brand-primary);

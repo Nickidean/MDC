@@ -468,14 +468,14 @@ tr:hover td { background: var(--surface); }
 .hero-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; font-size: 0.9rem; color: var(--brand-tertiary); margin-bottom: 2rem; opacity: 0.9; }
 .hero-snapshot {
   display: flex;
-  align-items: stretch;
+  align-items: center;
   flex-wrap: nowrap;
   gap: 0;
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.15);
   border-radius: 12px;
   margin-bottom: 2rem;
-  overflow: hidden;
+  padding: 0.75rem 0;
 }
 .hero-snapshot-item {
   display: flex;
@@ -485,12 +485,12 @@ tr:hover td { background: var(--surface); }
   font-size: 0.8rem;
   font-weight: 500;
   color: #fff;
-  padding: 0.85rem 0;
   flex: 1;
   white-space: nowrap;
+  padding: 0 0.5rem;
 }
-.hero-snapshot-icon { font-size: 0.9rem; line-height: 1; }
-.hero-snapshot-divider { width: 1px; background: rgba(255,255,255,0.2); flex-shrink: 0; align-self: stretch; }
+.hero-snapshot-icon { font-size: 0.9rem; line-height: 1; flex-shrink: 0; }
+.hero-snapshot-divider { width: 1px; height: 1.1rem; background: rgba(255,255,255,0.25); flex-shrink: 0; }
 .btn-hero {
   background: var(--brand-secondary);
   color: var(--brand-primary);

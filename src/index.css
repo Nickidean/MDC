@@ -497,14 +497,14 @@ tr:hover td { background: var(--surface); }
   transition: transform 0.15s, box-shadow 0.15s;
 }
 .public-day-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(19,44,10,0.13); }
-.public-day-img { width: 100%; height: 160px; object-fit: cover; display: block; }
+.public-day-img { width: 100%; height: 130px; object-fit: cover; display: block; }
 .public-img-placeholder {
-  height: 120px;
+  height: 90px;
   background: var(--brand-tertiary);
   display: flex; align-items: center; justify-content: center;
   color: var(--brand-primary); opacity: 0.4; font-size: 0.85rem;
 }
-.public-day-body { padding: 1rem; display: flex; flex-direction: column; gap: 0.6rem; flex: 1; }
+.public-day-body { padding: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
 .public-day-date { display: flex; align-items: baseline; gap: 0.4rem; }
 .public-day-weekday { font-weight: 700; font-size: 0.95rem; color: var(--brand-primary); }
 .public-day-label { font-size: 0.8rem; color: rgba(19,44,10,0.55); }

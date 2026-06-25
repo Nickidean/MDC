@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase.js'
 
+const CFK_URL = 'https://litton-lakes-summer-camp.classforkids.io/camps'
+
 function AvailabilityPill({ availability }) {
   if (availability === 'available') {
     return <span className="pill pill-green">Spaces available</span>
@@ -12,24 +14,15 @@ function AvailabilityPill({ availability }) {
 }
 
 function BookingButton({ availability, book_url }) {
+  const url = book_url || CFK_URL
   if (availability === 'full') {
-    if (book_url) {
-      return (
-        <a href={book_url} className="btn-waitlist" target="_blank" rel="noopener noreferrer">
-          Join the waitlist
-        </a>
-      )
-    }
-    return <span className="btn-disabled">Full</span>
+    return null
   }
-  if (book_url) {
-    return (
-      <a href={book_url} className="btn-book" target="_blank" rel="noopener noreferrer">
-        Book this day
-      </a>
-    )
-  }
-  return null
+  return (
+    <a href={url} className="btn-book" target="_blank" rel="noopener noreferrer">
+      Book this day
+    </a>
+  )
 }
 
 function PublicDayCard({ day }) {

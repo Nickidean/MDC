@@ -68,15 +68,17 @@ function PublicDayCard({ day }) {
 
 export default function PublicSite() {
   const [days, setDays] = useState(null) // null = loading
+  const [logoUrl, setLogoUrl] = useState('')
 
   useEffect(() => {
     supabase
       .from('published_plan')
-      .select('days')
+      .select('days, logo_url')
       .eq('id', 1)
       .maybeSingle()
       .then(({ data }) => {
         setDays(data ? data.days : [])
+        setLogoUrl(data?.logo_url || '')
       })
   }, [])
 
@@ -87,6 +89,7 @@ export default function PublicSite() {
     <div className="public-site">
       <section className="hero-section">
         <div className="hero-inner">
+          {logoUrl && <img src={logoUrl} alt="Camp logo" className="hero-logo" />}
           <h1 className="hero-title">Summer Camp at Litton Lakes</h1>
           <p className="hero-dates">17–28 August 2026</p>
           <p className="hero-prose">

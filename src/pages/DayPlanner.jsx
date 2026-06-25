@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useRef } from 'react'
 import { supabase } from '../lib/supabase.js'
 import { signOut } from '../lib/auth.js'
 import { seedCampDays } from '../lib/seedDays.js'
@@ -10,6 +10,10 @@ export default function DayPlanner() {
   const [hasUnpublished, setHasUnpublished] = useState(false)
   const [loading, setLoading] = useState(true)
   const [publishMsg, setPublishMsg] = useState('')
+  const [logoUrl, setLogoUrl] = useState('')
+  const [logoUploading, setLogoUploading] = useState(false)
+  const [logoError, setLogoError] = useState('')
+  const logoFileRef = useRef(null)
 
   const computeUnpublished = useCallback((daysData, publishedData) => {
     if (!publishedData) {
@@ -41,6 +45,7 @@ export default function DayPlanner() {
     })
     setDays(d)
     setPublished(pubData)
+    setLogoUrl(pubData?.logo_url || '')
     computeUnpublished(d, pubData)
     setLoading(false)
   }
@@ -83,13 +88,40 @@ export default function DayPlanner() {
 
     const { error } = await supabase
       .from('published_plan')
-      .upsert({ id: 1, days: daysData, published_at: new Date().toISOString() })
+      .upsert({ id: 1, days: daysData, published_at: new Date().toISOString(), logo_url: logoUrl || null })
 
     if (!error) {
       setPublishMsg('Published ✓')
       setHasUnpublished(false)
       setTimeout(() => setPublishMsg(''), 3000)
     }
+  }
+
+  async function handleLogoUpload(e) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setLogoUploading(true)
+    setLogoError('')
+    const ext = file.name.split('.').pop()
+    const path = `logo-${Date.now()}.${ext}`
+    const { error: storageError } = await supabase.storage
+      .from('camp-images')
+      .upload(path, file, { upsert: true })
+    if (storageError) {
+      setLogoError('Upload failed — check the camp-images bucket exists.')
+      setLogoUploading(false)
+      return
+    }
+    const { data } = supabase.storage.from('camp-images').getPublicUrl(path)
+    const url = data.publicUrl
+    await supabase.from('published_plan').upsert({
+      id: 1,
+      days: published?.days || [],
+      published_at: published?.published_at || new Date().toISOString(),
+      logo_url: url,
+    })
+    setLogoUrl(url)
+    setLogoUploading(false)
   }
 
   async function handleSignOut() {
@@ -125,6 +157,34 @@ export default function DayPlanner() {
       </div>
 
       <div className="planner-content">
+        <div className="logo-upload-section">
+          <h3 className="logo-upload-heading">Site logo</h3>
+          <div className="logo-upload-row">
+            {logoUrl && (
+              <img src={logoUrl} alt="Logo preview" className="logo-preview" />
+            )}
+            <div>
+              <button
+                type="button"
+                className="btn btn-ghost btn-sm"
+                onClick={() => logoFileRef.current?.click()}
+                disabled={logoUploading}
+              >
+                {logoUploading ? 'Uploading…' : logoUrl ? '↑ Replace logo' : '↑ Upload logo'}
+              </button>
+              <input
+                ref={logoFileRef}
+                type="file"
+                accept="image/*"
+                style={{ display: 'none' }}
+                onChange={handleLogoUpload}
+              />
+              {logoError && <p style={{ color: 'var(--danger)', fontSize: '0.78rem', marginTop: '0.25rem' }}>{logoError}</p>}
+              <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>Shown above the title on the public site. Saves instantly.</p>
+            </div>
+          </div>
+        </div>
+
         <section className="week-section">
           <h2 className="week-heading">Week 1 — 17–21 August</h2>
           <div className="day-cards-grid">

@@ -497,9 +497,10 @@ tr:hover td { background: var(--surface); }
   transition: transform 0.15s, box-shadow 0.15s;
 }
 .public-day-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(19,44,10,0.13); }
-.public-day-img { width: 100%; height: 130px; object-fit: cover; display: block; }
+.public-day-img-wrap { width: 100%; aspect-ratio: 16/9; overflow: hidden; }
+.public-day-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .public-img-placeholder {
-  height: 90px;
+  aspect-ratio: 16/9;
   background: var(--brand-tertiary);
   display: flex; align-items: center; justify-content: center;
   color: var(--brand-primary); opacity: 0.4; font-size: 0.85rem;

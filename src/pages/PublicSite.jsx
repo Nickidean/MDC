@@ -31,12 +31,14 @@ function PublicDayCard({ day }) {
   return (
     <div className="public-day-card">
       {day.image_url && !imgError ? (
-        <img
-          src={day.image_url}
-          alt={day.weekday}
-          className="public-day-img"
-          onError={() => setImgError(true)}
-        />
+        <div className="public-day-img-wrap">
+          <img
+            src={day.image_url}
+            alt={day.weekday}
+            className="public-day-img"
+            onError={() => setImgError(true)}
+          />
+        </div>
       ) : (
         <div className="img-placeholder public-img-placeholder">No image</div>
       )}

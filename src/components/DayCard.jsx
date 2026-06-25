@@ -15,6 +15,7 @@ export default function DayCard({ day, onSaved }) {
     description: day.description || '',
     special_guest: day.special_guest || '',
     special_guest_image_url: day.special_guest_image_url || '',
+    special_guest_bio: day.special_guest_bio || '',
     availability: day.availability || 'available',
     book_url: day.book_url || '',
     show_on_site: day.show_on_site !== false,
@@ -217,6 +218,14 @@ export default function DayCard({ day, onSaved }) {
               style={{ flex: 1 }}
             />
           </div>
+          <textarea
+            value={fields.special_guest_bio}
+            onChange={e => handleChange('special_guest_bio', e.target.value)}
+            placeholder="About this guest…"
+            className="field-textarea"
+            rows={2}
+            style={{ marginTop: '0.4rem' }}
+          />
         </label>
 
         <label className="field-label">

@@ -468,32 +468,29 @@ tr:hover td { background: var(--surface); }
 .hero-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; font-size: 0.9rem; color: var(--brand-tertiary); margin-bottom: 2rem; opacity: 0.9; }
 .hero-snapshot {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
   flex-wrap: nowrap;
   gap: 0;
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.15);
   border-radius: 12px;
-  padding: 0.6rem 1rem;
   margin-bottom: 2rem;
-  overflow-x: auto;
-  scrollbar-width: none;
+  overflow: hidden;
 }
-.hero-snapshot::-webkit-scrollbar { display: none; }
 .hero-snapshot-item {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  font-size: 0.75rem;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
   font-weight: 500;
   color: #fff;
-  padding: 0.2rem 0.55rem;
+  padding: 0.85rem 0;
+  flex: 1;
   white-space: nowrap;
-  flex-shrink: 0;
 }
-.hero-snapshot-icon { font-size: 0.8rem; line-height: 1; }
-.hero-snapshot-divider { width: 1px; height: 1rem; background: rgba(255,255,255,0.25); flex-shrink: 0; }
+.hero-snapshot-icon { font-size: 0.9rem; line-height: 1; }
+.hero-snapshot-divider { width: 1px; background: rgba(255,255,255,0.2); flex-shrink: 0; align-self: stretch; }
 .btn-hero {
   background: var(--brand-secondary);
   color: var(--brand-primary);

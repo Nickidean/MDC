@@ -137,6 +137,21 @@ export default function CostTable({ campId, costs, onChanged }) {
 
       {error && <div className="alert alert-error">{error}</div>}
 
+      <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
+        <div style={{ flex: 1, minWidth: '220px', background: 'var(--bg-secondary)', borderRadius: '8px', padding: '0.75rem 1rem', fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+          <strong style={{ color: 'var(--text)' }}>Capital item</strong><br />
+          A one-off purchase you now own — like buying the stretch tent. Tick this so the app knows not to count it in future camps' costs. You're buying an asset, not just spending money.
+        </div>
+        <div style={{ flex: 1, minWidth: '220px', background: 'var(--bg-secondary)', borderRadius: '8px', padding: '0.75rem 1rem', fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+          <strong style={{ color: 'var(--text)' }}>Recurring upkeep</strong><br />
+          The small ongoing cost of owning that asset — storage, cleaning, repairs. Future camps log this instead of the full purchase price, keeping the numbers honest without inflating break-even.
+        </div>
+        <div style={{ flex: 1, minWidth: '220px', background: 'var(--bg-secondary)', borderRadius: '8px', padding: '0.75rem 1rem', fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+          <strong style={{ color: 'var(--text)' }}>Paid vs unpaid</strong><br />
+          Paid costs are sunk — spent regardless of what happens next. Unpaid costs still matter for go-forward decisions. The dashboard break-even only counts unpaid costs, so you know what's actually left to cover.
+        </div>
+      </div>
+
       <div className="table-wrapper">
         <table>
           <thead>

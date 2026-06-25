@@ -34,10 +34,15 @@ export function computeMetrics(camp, bookings = [], costs = [], funding = []) {
   const profitConfirmedOnly = projectedRevenue + confirmedFunding - totalCost
 
   // --- Break-even ---
-  // How many more child-days are needed to cover go-forward costs?
-  const revenueAlreadyCovering = projectedRevenue
-  const breakEvenChildDays = blendedRate > 0
-    ? Math.max(0, Math.ceil((goForwardCost - revenueAlreadyCovering) / blendedRate))
+  // How many more paying child-days are needed to cover go-forward costs,
+  // after accounting for revenue and confirmed funding already in hand?
+  const paidChildDays = bookings
+    .filter(b => (Number(b.fee) || 0) > 0)
+    .reduce((sum, b) => sum + (Number(b.days) || 0), 0)
+  const payingRate = paidChildDays > 0 ? projectedRevenue / paidChildDays : 0
+  const alreadyCovered = projectedRevenue + confirmedFunding
+  const breakEvenChildDays = payingRate > 0
+    ? Math.max(0, Math.ceil((goForwardCost - alreadyCovered) / payingRate))
     : null
 
   // --- Cash ---
@@ -52,6 +57,7 @@ export function computeMetrics(camp, bookings = [], costs = [], funding = []) {
     capacityPct,
     projectedRevenue,
     blendedRate,
+    payingRate,
     totalCost,
     sunkCost,
     goForwardCost,

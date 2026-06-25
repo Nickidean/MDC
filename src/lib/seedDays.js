@@ -26,7 +26,7 @@ export async function seedCampDays(supabase) {
 
   const { error: insertError } = await supabase
     .from('camp_days')
-    .insert(DEFAULT_DAYS)
+    .upsert(DEFAULT_DAYS, { onConflict: 'sort_index', ignoreDuplicates: true })
 
   if (insertError) {
     console.error('seedCampDays insert failed:', insertError)

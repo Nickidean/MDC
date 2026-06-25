@@ -18,11 +18,12 @@ export default function DayCard({ day, onSaved }) {
     book_url: day.book_url || '',
     show_on_site: day.show_on_site !== false,
   })
-  const [saveStatus, setSaveStatus] = useState('') // '' | 'saving' | 'saved'
+  const [saveStatus, setSaveStatus] = useState('')
   const [imgError, setImgError] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const textareaRef = useRef(null)
+  const fileRef = useRef(null)
 
-  // Autoresize textarea
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto'
@@ -30,10 +31,7 @@ export default function DayCard({ day, onSaved }) {
     }
   }, [fields.description])
 
-  // Reset imgError when URL changes
-  useEffect(() => {
-    setImgError(false)
-  }, [fields.image_url])
+  useEffect(() => { setImgError(false) }, [fields.image_url])
 
   async function save(updated) {
     setSaveStatus('saving')
@@ -66,6 +64,29 @@ export default function DayCard({ day, onSaved }) {
     debouncedSave(updated)
   }
 
+  async function handleImageUpload(e) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploading(true)
+    const ext = file.name.split('.').pop()
+    const path = `day-${day.sort_index}-${Date.now()}.${ext}`
+    const { error: uploadError } = await supabase.storage
+      .from('camp-images')
+      .upload(path, file, { upsert: true })
+    if (uploadError) {
+      console.error('Upload error:', uploadError)
+      setUploading(false)
+      return
+    }
+    const { data } = supabase.storage.from('camp-images').getPublicUrl(path)
+    const url = data.publicUrl
+    const updated = { ...fields, image_url: url }
+    setFields(updated)
+    setImgError(false)
+    await save(updated)
+    setUploading(false)
+  }
+
   return (
     <div className="day-card">
       <div className="day-card-header">
@@ -79,17 +100,7 @@ export default function DayCard({ day, onSaved }) {
       </div>
 
       <div className="day-card-body">
-        <label className="field-label">
-          Image URL
-          <input
-            type="url"
-            value={fields.image_url}
-            onChange={e => handleChange('image_url', e.target.value)}
-            placeholder="https://…"
-            className="field-input"
-          />
-        </label>
-
+        {/* Image preview */}
         <div className="image-preview">
           {fields.image_url && !imgError ? (
             <img
@@ -99,8 +110,37 @@ export default function DayCard({ day, onSaved }) {
               className="day-card-img"
             />
           ) : (
-            <div className="img-placeholder">No image — paste a URL above</div>
+            <div className="img-placeholder">No image</div>
           )}
+        </div>
+
+        {/* Upload button */}
+        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+          <button
+            type="button"
+            className="btn btn-ghost btn-sm"
+            onClick={() => fileRef.current?.click()}
+            disabled={uploading}
+            style={{ flex: 1 }}
+          >
+            {uploading ? 'Uploading…' : '↑ Upload image'}
+          </button>
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            style={{ display: 'none' }}
+            onChange={handleImageUpload}
+          />
+          <span style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>or</span>
+          <input
+            type="url"
+            value={fields.image_url}
+            onChange={e => handleChange('image_url', e.target.value)}
+            placeholder="Paste URL"
+            className="field-input"
+            style={{ flex: 2 }}
+          />
         </div>
 
         <label className="field-label">

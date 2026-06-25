@@ -470,25 +470,30 @@ tr:hover td { background: var(--surface); }
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 0;
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.15);
   border-radius: 12px;
-  padding: 0.75rem 1.25rem;
+  padding: 0.6rem 1rem;
   margin-bottom: 2rem;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
+.hero-snapshot::-webkit-scrollbar { display: none; }
 .hero-snapshot-item {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.875rem;
+  gap: 0.3rem;
+  font-size: 0.8rem;
   font-weight: 500;
   color: #fff;
-  padding: 0.25rem 1rem;
+  padding: 0.2rem 0.75rem;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
-.hero-snapshot-icon { font-size: 1rem; line-height: 1; }
-.hero-snapshot-divider { width: 1px; height: 1.25rem; background: rgba(255,255,255,0.25); flex-shrink: 0; }
+.hero-snapshot-icon { font-size: 0.9rem; line-height: 1; }
+.hero-snapshot-divider { width: 1px; height: 1.1rem; background: rgba(255,255,255,0.25); flex-shrink: 0; }
 .btn-hero {
   background: var(--brand-secondary);
   color: var(--brand-primary);
@@ -515,6 +520,8 @@ tr:hover td { background: var(--surface); }
   letter-spacing: -0.02em;
 }
 .public-cards-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem; }
+@media (max-width: 1200px) { .public-cards-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 800px)  { .public-cards-grid { grid-template-columns: repeat(2, 1fr); } }
 
 .public-day-card {
   background: #fff;
@@ -676,4 +683,5 @@ tr:hover td { background: var(--surface); }
   .planner-topbar-right { flex-wrap: wrap; }
   .day-cards-grid { grid-template-columns: 1fr; }
   .public-cards-grid { grid-template-columns: 1fr; }
+  .hero-snapshot-item { padding: 0.2rem 0.5rem; font-size: 0.75rem; }
 }

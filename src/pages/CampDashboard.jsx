@@ -80,10 +80,12 @@ export default function CampDashboard() {
             </span>
           )}
         </div>
-        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
           <button className="btn btn-ghost btn-sm" onClick={() => setEditing(true)}>Edit Camp</button>
-          <Link to="/planner" className="btn btn-ghost btn-sm">Day Planner</Link>
-          <a href="/site" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm">Public site ↗</a>
+          <span style={{ width: '1px', height: '1.25rem', background: 'var(--border)', display: 'inline-block', alignSelf: 'center' }} />
+          <Link to="/planner" style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textDecoration: 'none' }}>Day Planner</Link>
+          <a href="/site" target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textDecoration: 'none' }}>Public site ↗</a>
+          <span style={{ width: '1px', height: '1.25rem', background: 'var(--border)', display: 'inline-block', alignSelf: 'center' }} />
           <Link to={`/camps/${id}/advisor`} className="btn btn-primary btn-sm">Ask Advisor</Link>
         </div>
       </div>

@@ -137,6 +137,11 @@ export default function PublicSite() {
               <span className="hero-snapshot-icon">📅</span>
               <span>17–28 August 2026</span>
             </div>
+            <div className="hero-snapshot-divider" />
+            <div className="hero-snapshot-item">
+              <span className="hero-snapshot-icon">🌟</span>
+              <span>HAF places available</span>
+            </div>
           </div>
           <a href="https://litton-lakes-summer-camp.classforkids.io/camps" target="_blank" rel="noopener noreferrer" className="btn btn-hero">Book a place</a>
         </div>

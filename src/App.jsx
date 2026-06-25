@@ -30,6 +30,7 @@ function AppShell({ configured, session }) {
         {session && (
           <nav className="app-nav">
             <Link to="/planner" className="app-nav-link">Day Planner</Link>
+            <a href="/site" target="_blank" rel="noopener noreferrer" className="app-nav-link" style={{ fontSize: '0.85rem', opacity: 0.8 }}>View public site ↗</a>
           </nav>
         )}
       </header>

@@ -509,6 +509,22 @@ tr:hover td { background: var(--surface); }
 .btn-hero:hover { filter: brightness(0.92); transform: translateY(-1px); }
 
 .public-content { max-width: 100%; padding: 2.5rem 2rem; }
+.pricing-banner {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background: var(--brand-tertiary);
+  border: 1.5px solid rgba(19,44,10,0.15);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.pricing-banner-price { font-size: 1.8rem; font-weight: 800; color: var(--brand-primary); line-height: 1; white-space: nowrap; }
+.pricing-banner-unit { font-size: 1rem; font-weight: 500; }
+.pricing-banner-divider { width: 1.5px; height: 2rem; background: rgba(19,44,10,0.2); flex-shrink: 0; }
+.pricing-banner-note { font-size: 0.875rem; color: rgba(19,44,10,0.75); line-height: 1.5; flex: 1; min-width: 200px; }
+.pricing-banner-link { color: var(--brand-primary); font-weight: 600; }
 .public-week { margin-bottom: 2.5rem; }
 .public-week-heading {
   font-size: 1.6rem;

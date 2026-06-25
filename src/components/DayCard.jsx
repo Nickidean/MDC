@@ -21,6 +21,7 @@ export default function DayCard({ day, onSaved }) {
   const [saveStatus, setSaveStatus] = useState('')
   const [imgError, setImgError] = useState(false)
   const [uploading, setUploading] = useState(false)
+  const [uploadError, setUploadError] = useState('')
   const textareaRef = useRef(null)
   const fileRef = useRef(null)
 
@@ -68,13 +69,15 @@ export default function DayCard({ day, onSaved }) {
     const file = e.target.files?.[0]
     if (!file) return
     setUploading(true)
+    setUploadError('')
     const ext = file.name.split('.').pop()
     const path = `day-${day.sort_index}-${Date.now()}.${ext}`
-    const { error: uploadError } = await supabase.storage
+    const { error: storageError } = await supabase.storage
       .from('camp-images')
       .upload(path, file, { upsert: true })
-    if (uploadError) {
-      console.error('Upload error:', uploadError)
+    if (storageError) {
+      console.error('Upload error:', storageError)
+      setUploadError('Upload failed — make sure the camp-images bucket exists in Supabase Storage.')
       setUploading(false)
       return
     }
@@ -115,6 +118,9 @@ export default function DayCard({ day, onSaved }) {
         </div>
 
         {/* Upload button */}
+        {uploadError && (
+          <p style={{ color: 'var(--danger)', fontSize: '0.78rem', margin: '0 0 0.25rem' }}>{uploadError}</p>
+        )}
         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
           <button
             type="button"

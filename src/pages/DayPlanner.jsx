@@ -27,12 +27,18 @@ export default function DayPlanner() {
   async function load() {
     await seedCampDays(supabase)
 
-    const [{ data: daysData }, { data: pubData }] = await Promise.all([
+    const [{ data: rawDaysData }, { data: pubData }] = await Promise.all([
       supabase.from('camp_days').select('*').order('sort_index'),
       supabase.from('published_plan').select('*').eq('id', 1).maybeSingle(),
     ])
 
-    const d = daysData || []
+    // Deduplicate by sort_index in case migration hasn't run yet
+    const seen = new Set()
+    const d = (rawDaysData || []).filter(day => {
+      if (seen.has(day.sort_index)) return false
+      seen.add(day.sort_index)
+      return true
+    })
     setDays(d)
     setPublished(pubData)
     computeUnpublished(d, pubData)
@@ -62,15 +68,22 @@ export default function DayPlanner() {
   }
 
   async function handlePublish() {
-    const { data: daysData } = await supabase
+    const { data: rawDays } = await supabase
       .from('camp_days')
       .select('*')
       .eq('show_on_site', true)
       .order('sort_index')
 
+    const seen = new Set()
+    const daysData = (rawDays || []).filter(d => {
+      if (seen.has(d.sort_index)) return false
+      seen.add(d.sort_index)
+      return true
+    })
+
     const { error } = await supabase
       .from('published_plan')
-      .upsert({ id: 1, days: daysData || [], published_at: new Date().toISOString() })
+      .upsert({ id: 1, days: daysData, published_at: new Date().toISOString() })
 
     if (!error) {
       setPublishMsg('Published ✓')

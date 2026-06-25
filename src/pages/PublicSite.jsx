@@ -15,16 +15,16 @@ function BookingButton({ availability, book_url }) {
   if (availability === 'full') {
     if (book_url) {
       return (
-        <a href={book_url} className="btn btn-outline" target="_blank" rel="noopener noreferrer">
+        <a href={book_url} className="btn-waitlist" target="_blank" rel="noopener noreferrer">
           Join the waitlist
         </a>
       )
     }
-    return <button className="btn btn-disabled" disabled>Full</button>
+    return <span className="btn-disabled">Full</span>
   }
   if (book_url) {
     return (
-      <a href={book_url} className="btn btn-primary" target="_blank" rel="noopener noreferrer">
+      <a href={book_url} className="btn-book" target="_blank" rel="noopener noreferrer">
         Book this day
       </a>
     )

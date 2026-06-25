@@ -506,12 +506,13 @@ tr:hover td { background: var(--surface); }
 .public-content { max-width: 100%; padding: 2.5rem 2rem; }
 .public-week { margin-bottom: 2.5rem; }
 .public-week-heading {
-  font-size: 1.2rem;
-  font-weight: 700;
+  font-size: 1.6rem;
+  font-weight: 800;
   margin-bottom: 1.25rem;
   color: var(--brand-primary);
-  border-left: 4px solid var(--brand-secondary);
-  padding-left: 0.75rem;
+  border-left: 5px solid var(--brand-secondary);
+  padding-left: 1rem;
+  letter-spacing: -0.02em;
 }
 .public-cards-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem; }
 

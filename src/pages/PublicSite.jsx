@@ -102,7 +102,6 @@ export default function PublicSite() {
         <div className="hero-inner">
           {logoUrl && <img src={logoUrl} alt="Camp logo" className="hero-logo" />}
           <h1 className="hero-title">Summer Camp at Litton Lakes</h1>
-          <p className="hero-dates">17–28 August 2026</p>
           <p className="hero-prose">
             A fun, active and engaging summer camp where children build confidence, make friends and develop real-world skills.
           </p>

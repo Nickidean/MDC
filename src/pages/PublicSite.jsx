@@ -128,7 +128,7 @@ export default function PublicSite() {
 
       <section className="hero-section">
         <div className="hero-inner">
-          <h1 className="hero-title">Summer Camp at Litton Lakes</h1>
+          <h1 className="hero-title">Summer Camp<br />at Litton Lakes</h1>
           <p className="hero-prose">
             A fun, active and engaging summer camp where children build confidence, make friends and develop real-world skills.
           </p>

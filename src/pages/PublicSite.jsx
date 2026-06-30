@@ -174,15 +174,18 @@ export default function PublicSite() {
           <section style={{ marginBottom: '3rem' }}>
             <h2 className="public-week-heading">Meet the organiser</h2>
             <div className="organiser-section">
-              {organiser.organiser_image_url ? (
-                <img src={organiser.organiser_image_url} alt={organiser.organiser_name} className="organiser-photo" />
-              ) : (
-                <div className="organiser-photo-placeholder-pub" />
-              )}
-              <div>
-                <div className="organiser-label">Your camp organiser</div>
-                <div className="organiser-name">{organiser.organiser_name}</div>
-                {organiser.organiser_intro && <p className="organiser-intro">{organiser.organiser_intro}</p>}
+              <div className="organiser-section-accent" />
+              <div className="organiser-section-body">
+                {organiser.organiser_image_url ? (
+                  <img src={organiser.organiser_image_url} alt={organiser.organiser_name} className="organiser-photo" />
+                ) : (
+                  <div className="organiser-photo-placeholder-pub" />
+                )}
+                <div>
+                  <div className="organiser-label">Your camp organiser</div>
+                  <div className="organiser-name">{organiser.organiser_name}</div>
+                  {organiser.organiser_intro && <p className="organiser-intro">{organiser.organiser_intro}</p>}
+                </div>
               </div>
             </div>
           </section>

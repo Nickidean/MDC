@@ -561,7 +561,7 @@ tr:hover td { background: var(--surface); }
 .day-structure-item:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(19,44,10,0.13); }
 .day-structure-accent { width: 6px; flex-shrink: 0; background: var(--brand-secondary); }
 .day-structure-content { padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 2.5rem; flex: 1; }
-.day-structure-left { min-width: 180px; flex-shrink: 0; }
+.day-structure-left { width: 220px; flex-shrink: 0; }
 .day-structure-time { font-size: 1.5rem; font-weight: 800; color: var(--brand-primary); line-height: 1.1; margin-bottom: 0.3rem; }
 .day-structure-time-emoji { font-size: 1.5rem; margin-right: 0.4rem; }
 .day-structure-activity { font-size: 1rem; font-weight: 700; color: var(--brand-primary); }

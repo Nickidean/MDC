@@ -692,6 +692,21 @@ tr:hover td { background: var(--surface); }
 .modal-guest-bio { font-size: 0.95rem; color: #374151; line-height: 1.7; margin: 0; }
 
 /* Admin day card guest avatar upload */
+/* Guest admin */
+.guest-admin-row {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+.guest-admin-fields { display: flex; flex-direction: column; gap: 0.6rem; flex: 1; }
+.btn-icon { background: none; border: none; cursor: pointer; padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9rem; line-height: 1; }
+.btn-icon-danger { color: var(--text-muted); }
+.btn-icon-danger:hover { background: var(--red-light); color: var(--red); }
+
 .guest-avatar-upload { width: 48px; height: 48px; border-radius: 50%; border: 2px dashed var(--border); overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--bg-subtle); }
 .guest-avatar-upload:hover { border-color: var(--primary); }
 .guest-avatar-upload-lg { width: 100px; height: 100px; }

@@ -69,24 +69,28 @@ function GuestCard({ guest }) {
 }
 
 export default function PublicSite() {
-  const [days, setDays] = useState(null)
+  const [guests, setGuests] = useState(null)
   const [logoUrl, setLogoUrl] = useState('')
 
   useEffect(() => {
     supabase
       .from('published_plan')
-      .select('days, logo_url')
+      .select('logo_url')
       .eq('id', 1)
       .maybeSingle()
-      .then(({ data }) => {
-        setDays(data ? data.days : [])
-        setLogoUrl(data?.logo_url || '')
-      })
-  }, [])
+      .then(({ data }) => setLogoUrl(data?.logo_url || ''))
 
-  const guests = (days || [])
-    .filter(d => d.special_guest)
-    .map(d => ({ name: d.special_guest, image: d.special_guest_image_url, bio: d.special_guest_bio }))
+    supabase
+      .from('special_guests')
+      .select('*')
+      .order('sort_index')
+      .order('created_at')
+      .then(({ data }) => setGuests(
+        (data || [])
+          .filter(g => g.name)
+          .map(g => ({ name: g.name, image: g.image_url, bio: g.bio }))
+      ))
+  }, [])
 
   return (
     <div className="public-site">
@@ -156,7 +160,7 @@ export default function PublicSite() {
           </div>
         </section>
 
-        {days === null ? (
+        {guests === null ? (
           <p className="public-loading">Loading…</p>
         ) : guests.length > 0 ? (
           <section>

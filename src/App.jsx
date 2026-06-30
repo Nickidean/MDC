@@ -9,6 +9,7 @@ import CampForm from './components/CampForm.jsx'
 import Login from './pages/Login.jsx'
 import AuthGuard from './components/AuthGuard.jsx'
 import DayPlanner from './pages/DayPlanner.jsx'
+import GuestsAdmin from './pages/GuestsAdmin.jsx'
 import PublicSite from './pages/PublicSite.jsx'
 
 function SetupBanner() {
@@ -30,6 +31,7 @@ function AppShell({ configured, session }) {
         {session && (
           <nav className="app-nav">
             <Link to="/planner" className="app-nav-link">Day Planner</Link>
+            <Link to="/guests" className="app-nav-link">Special Guests</Link>
             <a href="/site" target="_blank" rel="noopener noreferrer" className="app-nav-link" style={{ fontSize: '0.85rem', opacity: 0.8 }}>View public site ↗</a>
           </nav>
         )}
@@ -46,6 +48,11 @@ function AppShell({ configured, session }) {
           <Route path="/planner" element={
             <AuthGuard>
               <DayPlanner />
+            </AuthGuard>
+          } />
+          <Route path="/guests" element={
+            <AuthGuard>
+              <GuestsAdmin />
             </AuthGuard>
           } />
         </Routes>

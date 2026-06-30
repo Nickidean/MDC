@@ -73,6 +73,7 @@ export default function PublicSite() {
   const [logoUrl, setLogoUrl] = useState('')
   const [structure, setStructure] = useState([])
   const [organiser, setOrganiser] = useState(null)
+  const [team, setTeam] = useState([])
 
   useEffect(() => {
     supabase
@@ -105,6 +106,13 @@ export default function PublicSite() {
       .eq('id', 1)
       .maybeSingle()
       .then(({ data }) => setOrganiser(data))
+
+    supabase
+      .from('team_members')
+      .select('*')
+      .order('sort_index')
+      .order('created_at')
+      .then(({ data }) => setTeam((data || []).filter(m => m.name)))
   }, [])
 
   return (
@@ -187,6 +195,88 @@ export default function PublicSite() {
                   {organiser.organiser_intro && <p className="organiser-intro">{organiser.organiser_intro}</p>}
                 </div>
               </div>
+            </div>
+          </section>
+        )}
+
+        {/* Pricing */}
+        {organiser && (
+          <section style={{ marginBottom: '3rem' }}>
+            <h2 className="public-week-heading">Pricing</h2>
+            <div className="pricing-cards">
+              <div className="pricing-card">
+                <div className="pricing-card-label">Per day</div>
+                <div className="pricing-card-price">{organiser.pricing_day || '£40'}</div>
+              </div>
+              <div className="pricing-card">
+                <div className="pricing-card-label">Per week</div>
+                <div className="pricing-card-price">{organiser.pricing_week || '£180'}</div>
+              </div>
+              <div className="pricing-card">
+                <div className="pricing-card-label">Two weeks</div>
+                <div className="pricing-card-price">{organiser.pricing_two_weeks || '£340'}</div>
+              </div>
+            </div>
+            {organiser.pricing_sibling_discount && (
+              <div className="pricing-note">
+                <span className="pricing-note-icon">👨‍👩‍👧</span> {organiser.pricing_sibling_discount}
+              </div>
+            )}
+            {organiser.pricing_haf_info && (
+              <div className="pricing-haf">
+                <div className="pricing-haf-badge">HAF funded</div>
+                <p className="pricing-haf-text">{organiser.pricing_haf_info}</p>
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* Location */}
+        {organiser?.location_name && (
+          <section style={{ marginBottom: '3rem' }}>
+            <h2 className="public-week-heading">Location</h2>
+            <div className="organiser-section">
+              <div className="organiser-section-accent" />
+              <div className="organiser-section-body" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '0.75rem' }}>
+                <div>
+                  <div className="organiser-name" style={{ marginBottom: '0.25rem' }}>{organiser.location_name}</div>
+                  {organiser.location_address && <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>📍 {organiser.location_address}</div>}
+                </div>
+                {organiser.location_description && <p style={{ fontSize: '0.95rem', color: '#4b5563', lineHeight: 1.7, margin: 0 }}>{organiser.location_description}</p>}
+                {organiser.location_map_url && (
+                  <iframe
+                    src={organiser.location_map_url}
+                    width="100%" height="300"
+                    style={{ border: 0, borderRadius: 8, marginTop: '0.5rem' }}
+                    allowFullScreen loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Camp location map"
+                  />
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Team */}
+        {team.length > 0 && (
+          <section style={{ marginBottom: '3rem' }}>
+            <h2 className="public-week-heading">Meet the team</h2>
+            <div className="guests-grid">
+              {team.map(m => (
+                <div key={m.id} className="guest-card" style={{ cursor: 'default' }}>
+                  <div className="guest-card-img-wrap">
+                    {m.image_url
+                      ? <img src={m.image_url} alt={m.name} className="guest-card-img" />
+                      : <div className="guest-card-img-placeholder" />}
+                  </div>
+                  <div className="guest-card-body">
+                    {m.role && <span className="guest-card-label">{m.role}</span>}
+                    <span className="guest-card-name">{m.name}</span>
+                    {m.bio && <p className="guest-card-bio">{m.bio}</p>}
+                  </div>
+                </div>
+              ))}
             </div>
           </section>
         )}

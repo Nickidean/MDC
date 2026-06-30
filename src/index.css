@@ -546,6 +546,16 @@ tr:hover td { background: var(--surface); }
 .guest-card-bio { font-size: 0.8rem; color: #4b5563; line-height: 1.5; margin: 0.15rem 0 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; flex: 1; }
 .guest-card-more { font-size: 0.8rem; font-weight: 600; color: var(--brand-primary); margin-top: 0.75rem; }
 
+/* Daily structure */
+.day-structure-section { margin-bottom: 3rem; }
+.day-structure-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+.day-structure-item { background: var(--brand-tertiary); border-radius: 10px; padding: 1.25rem 1.25rem 1.5rem; }
+.day-structure-time { font-size: 0.85rem; font-weight: 700; color: var(--brand-primary); margin-bottom: 0.6rem; }
+.day-structure-activity { font-size: 1rem; font-weight: 700; color: var(--brand-primary); margin-bottom: 0.4rem; }
+.day-structure-desc { font-size: 0.875rem; color: rgba(19,44,10,0.7); line-height: 1.5; margin: 0; }
+@media (max-width: 800px) { .day-structure-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 500px) { .day-structure-grid { grid-template-columns: 1fr; } }
+
 /* Book CTA section */
 .book-cta-section {
   background: var(--brand-primary);
@@ -669,6 +679,8 @@ tr:hover td { background: var(--surface); }
 /* Admin day card guest avatar upload */
 .guest-avatar-upload { width: 48px; height: 48px; border-radius: 50%; border: 2px dashed var(--border); overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--bg-subtle); }
 .guest-avatar-upload:hover { border-color: var(--primary); }
+.guest-avatar-upload-lg { width: 100px; height: 100px; }
+.guest-avatar-upload-lg .guest-avatar-placeholder { font-size: 1.75rem; }
 .guest-avatar-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .guest-avatar-placeholder { font-size: 1rem; color: var(--text-muted); line-height: 1; }
 .public-day-footer { display: flex; flex-direction: column; gap: 0.5rem; margin-top: auto; padding-top: 0.75rem; }

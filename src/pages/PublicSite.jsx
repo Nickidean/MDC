@@ -133,6 +133,32 @@ export default function PublicSite() {
       </section>
 
       <div className="public-content">
+        <section className="day-structure-section">
+          <h2 className="public-week-heading">The daily structure</h2>
+          <div className="day-structure-grid">
+            <div className="day-structure-item">
+              <div className="day-structure-time">🌅 Morning</div>
+              <div className="day-structure-activity">Move, play &amp; explore</div>
+              <p className="day-structure-desc">A fun, active start to the day with sport or outdoor activities to get everyone moving</p>
+            </div>
+            <div className="day-structure-item">
+              <div className="day-structure-time">🍉 Midday</div>
+              <div className="day-structure-activity">Lunch &amp; downtime</div>
+              <p className="day-structure-desc">Time to relax, recharge and enjoy the surroundings with friends</p>
+            </div>
+            <div className="day-structure-item">
+              <div className="day-structure-time">🎨 Afternoon</div>
+              <div className="day-structure-activity">Confidence-building sessions</div>
+              <p className="day-structure-desc">Engaging activities focused on friendships, confidence and real-world skills, balanced with calm, creative time to reset and recharge</p>
+            </div>
+            <div className="day-structure-item">
+              <div className="day-structure-time">🏁 End of day</div>
+              <div className="day-structure-activity">Team challenges &amp; games</div>
+              <p className="day-structure-desc">Finishing the day with energy, teamwork and plenty of smiles</p>
+            </div>
+          </div>
+        </section>
+
         {days === null ? (
           <p className="public-loading">Loading…</p>
         ) : guests.length > 0 ? (

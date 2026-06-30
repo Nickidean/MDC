@@ -505,7 +505,7 @@ tr:hover td { background: var(--surface); }
 }
 .btn-hero:hover { filter: brightness(0.92); transform: translateY(-1px); }
 
-.public-content { max-width: 100%; padding: 2.5rem 2rem; }
+.public-content { max-width: 900px; margin: 0 auto; padding: 2.5rem 2rem; }
 .pricing-banner {
   display: flex;
   align-items: center;
@@ -525,7 +525,7 @@ tr:hover td { background: var(--surface); }
 .public-week { margin-bottom: 2.5rem; }
 
 /* Guest cards grid */
-.guests-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.25rem; }
+.guests-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
 .guest-card {
   background: #fff;
   border: 1px solid rgba(19,44,10,0.12);

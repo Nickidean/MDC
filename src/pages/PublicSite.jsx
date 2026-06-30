@@ -2,6 +2,8 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { supabase } from '../lib/supabase.js'
 
+const CFK_URL = 'https://litton-lakes-summer-camp.classforkids.io/camps'
+
 function GuestModal({ guest, onClose }) {
   const handleBackdrop = useCallback((e) => {
     if (e.target === e.currentTarget) onClose()
@@ -35,110 +37,39 @@ function GuestModal({ guest, onClose }) {
   )
 }
 
-const CFK_URL = 'https://litton-lakes-summer-camp.classforkids.io/camps'
-
-function AvailabilityPill({ availability }) {
-  if (availability === 'available') {
-    return <span className="pill pill-green">Spaces available</span>
-  }
-  if (availability === 'nearly_full') {
-    return <span className="pill pill-amber">Nearly full — book soon</span>
-  }
-  return <span className="pill pill-red">Full</span>
-}
-
-function BookingButton({ availability, book_url }) {
-  const url = book_url || CFK_URL
-  if (availability === 'full') {
-    return null
-  }
-  return (
-    <a href={url} className="btn-book" target="_blank" rel="noopener noreferrer">
-      Book this day
-    </a>
-  )
-}
-
-function PublicDayCard({ day }) {
-  const [imgError, setImgError] = useState(false)
-  const [guestModal, setGuestModal] = useState(false)
+function GuestCard({ guest }) {
+  const [modal, setModal] = useState(false)
 
   return (
-    <div className="public-day-card">
-      {guestModal && day.special_guest && (
-        <GuestModal
-          guest={{ name: day.special_guest, image: day.special_guest_image_url, bio: day.special_guest_bio }}
-          onClose={() => setGuestModal(false)}
-        />
-      )}
-      <div className="public-day-img-wrap">
-        {day.image_url && !imgError ? (
-          <img
-            src={day.image_url}
-            alt={day.weekday}
-            className="public-day-img"
-            onError={() => setImgError(true)}
-          />
-        ) : (
-          <div className="img-placeholder public-img-placeholder">No image</div>
-        )}
-        {day.availability !== 'available' && (
-          <span className={`img-availability-pill ${day.availability === 'full' ? 'pill-red' : 'pill-amber'}`}>
-            {day.availability === 'full' ? 'Full' : 'Nearly full'}
-          </span>
-        )}
-      </div>
-      <div className="public-day-body">
-        <div className="public-day-date">
-          <span className="public-day-weekday">{day.weekday}</span>
-          <span className="public-day-label">{day.date_label}</span>
+    <>
+      {modal && <GuestModal guest={guest} onClose={() => setModal(false)} />}
+      <div
+        className="guest-card"
+        onClick={() => setModal(true)}
+        role="button"
+        tabIndex={0}
+        onKeyDown={e => e.key === 'Enter' && setModal(true)}
+      >
+        <div className="guest-card-img-wrap">
+          {guest.image ? (
+            <img src={guest.image} alt={guest.name} className="guest-card-img" />
+          ) : (
+            <div className="guest-card-img-placeholder" />
+          )}
         </div>
-        {day.description && (
-          <div className="public-day-description">
-            {day.description.split('\n').map((line, i) => {
-              const trimmed = line.trim()
-              if (!trimmed) return null
-              const isBullet = trimmed.startsWith('- ') || trimmed.startsWith('• ')
-              const text = isBullet ? trimmed.slice(2) : trimmed
-              return isBullet
-                ? <div key={i} className="public-day-bullet">· {text}</div>
-                : <div key={i}>{text}</div>
-            })}
-          </div>
-        )}
-        {day.special_guest && (
-          <div
-            className="public-guest-panel public-guest-panel-clickable"
-            onClick={() => setGuestModal(true)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={e => e.key === 'Enter' && setGuestModal(true)}
-          >
-            {day.special_guest_image_url ? (
-              <img src={day.special_guest_image_url} alt={day.special_guest} className="public-guest-avatar" />
-            ) : (
-              <div className="public-guest-avatar public-guest-avatar-placeholder" />
-            )}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.1rem', flex: 1, minWidth: 0 }}>
-              <span className="public-guest-label">Special guest</span>
-              <span className="public-guest-name">{day.special_guest}</span>
-              {day.special_guest_bio && (
-                <p className="public-guest-bio public-guest-bio-truncated">{day.special_guest_bio}</p>
-              )}
-            </div>
-            <span className="public-guest-more">›</span>
-          </div>
-        )}
-        <div className="public-day-footer">
-          <BookingButton availability={day.availability} book_url={day.book_url} />
+        <div className="guest-card-body">
+          <span className="guest-card-label">Special guest</span>
+          <span className="guest-card-name">{guest.name}</span>
+          {guest.bio && <p className="guest-card-bio">{guest.bio}</p>}
+          <span className="guest-card-more">Find out more ›</span>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
 export default function PublicSite() {
-  const [days, setDays] = useState(null) // null = loading
+  const [days, setDays] = useState(null)
   const [logoUrl, setLogoUrl] = useState('')
 
   useEffect(() => {
@@ -153,8 +84,9 @@ export default function PublicSite() {
       })
   }, [])
 
-  const week1 = (days || []).filter(d => d.week === 1)
-  const week2 = (days || []).filter(d => d.week === 2)
+  const guests = (days || [])
+    .filter(d => d.special_guest)
+    .map(d => ({ name: d.special_guest, image: d.special_guest_image_url, bio: d.special_guest_bio }))
 
   return (
     <div className="public-site">
@@ -196,35 +128,32 @@ export default function PublicSite() {
               <span>HAF places available</span>
             </div>
           </div>
-          <a href="https://litton-lakes-summer-camp.classforkids.io/camps" target="_blank" rel="noopener noreferrer" className="btn btn-hero">Book a place</a>
+          <a href={CFK_URL} target="_blank" rel="noopener noreferrer" className="btn btn-hero">Book a place</a>
         </div>
       </section>
 
       <div className="public-content">
         {days === null ? (
           <p className="public-loading">Loading…</p>
-        ) : days.length === 0 ? (
-          <p className="public-empty">We're getting the programme ready — check back soon.</p>
+        ) : guests.length > 0 ? (
+          <section>
+            <h2 className="public-week-heading">This year's special guests</h2>
+            <p style={{ color: 'rgba(19,44,10,0.6)', fontSize: '0.95rem', marginBottom: '1.75rem', marginTop: '-0.75rem' }}>Each day we bring in someone local and inspiring. Click on a guest to find out more.</p>
+            <div className="guests-grid">
+              {guests.map((g, i) => (
+                <GuestCard key={i} guest={g} />
+              ))}
+            </div>
+          </section>
         ) : (
-          <>
-            <section className="public-week">
-              <h2 className="public-week-heading">Week 1 — 17–21 August</h2>
-              <div className="public-cards-grid">
-                {week1.map((day, i) => (
-                  <PublicDayCard key={day.id || i} day={day} />
-                ))}
-              </div>
-            </section>
-            <section className="public-week">
-              <h2 className="public-week-heading">Week 2 — 24–28 August</h2>
-              <div className="public-cards-grid">
-                {week2.map((day, i) => (
-                  <PublicDayCard key={day.id || i} day={day} />
-                ))}
-              </div>
-            </section>
-          </>
+          <p className="public-empty">We're getting the programme ready — check back soon.</p>
         )}
+      </div>
+
+      <div className="book-cta-section">
+        <h2 className="book-cta-heading">Ready to book?</h2>
+        <p className="book-cta-sub">Spaces are limited — secure your child's place today.</p>
+        <a href={CFK_URL} target="_blank" rel="noopener noreferrer" className="btn btn-hero">Book a place on ClassForKids</a>
       </div>
 
       <footer className="public-footer">

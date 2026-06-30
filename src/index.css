@@ -523,6 +523,37 @@ tr:hover td { background: var(--surface); }
 .pricing-banner-note { font-size: 0.875rem; color: rgba(19,44,10,0.75); line-height: 1.5; flex: 1; min-width: 200px; }
 .pricing-banner-link { color: var(--brand-primary); font-weight: 600; }
 .public-week { margin-bottom: 2.5rem; }
+
+/* Guest cards grid */
+.guests-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.25rem; }
+.guest-card {
+  background: #fff;
+  border: 1px solid rgba(19,44,10,0.12);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  display: flex;
+  flex-direction: column;
+}
+.guest-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(19,44,10,0.13); }
+.guest-card-img-wrap { width: 100%; aspect-ratio: 1/1; overflow: hidden; background: var(--brand-tertiary); }
+.guest-card-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.guest-card-img-placeholder { width: 100%; height: 100%; background: var(--brand-tertiary); }
+.guest-card-body { padding: 1rem; display: flex; flex-direction: column; gap: 0.25rem; flex: 1; }
+.guest-card-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(19,44,10,0.45); }
+.guest-card-name { font-size: 1rem; font-weight: 700; color: var(--brand-primary); line-height: 1.2; }
+.guest-card-bio { font-size: 0.8rem; color: #4b5563; line-height: 1.5; margin: 0.15rem 0 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; flex: 1; }
+.guest-card-more { font-size: 0.8rem; font-weight: 600; color: var(--brand-primary); margin-top: 0.75rem; }
+
+/* Book CTA section */
+.book-cta-section {
+  background: var(--brand-primary);
+  text-align: center;
+  padding: 4rem 2rem;
+}
+.book-cta-heading { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+.book-cta-sub { font-size: 1rem; color: rgba(255,255,255,0.7); margin-bottom: 2rem; }
 .public-week-heading {
   font-size: 1.6rem;
   font-weight: 800;

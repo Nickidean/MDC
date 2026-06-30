@@ -71,6 +71,7 @@ function GuestCard({ guest }) {
 export default function PublicSite() {
   const [guests, setGuests] = useState(null)
   const [logoUrl, setLogoUrl] = useState('')
+  const [structure, setStructure] = useState([])
 
   useEffect(() => {
     supabase
@@ -90,6 +91,12 @@ export default function PublicSite() {
           .filter(g => g.name)
           .map(g => ({ name: g.name, image: g.image_url, bio: g.bio }))
       ))
+
+    supabase
+      .from('daily_structure')
+      .select('*')
+      .order('sort_index')
+      .then(({ data }) => setStructure(data || []))
   }, [])
 
   return (
@@ -140,20 +147,15 @@ export default function PublicSite() {
         <section className="day-structure-section">
           <h2 className="public-week-heading">The daily structure</h2>
           <div className="day-structure-grid">
-            {[
-              { emoji: '🌅', time: 'Morning', activity: 'Move, play & explore', desc: 'A fun, active start to the day with sport or outdoor activities to get everyone moving' },
-              { emoji: '🍉', time: 'Midday', activity: 'Lunch & downtime', desc: 'Time to relax, recharge and enjoy the surroundings with friends' },
-              { emoji: '🎨', time: 'Afternoon', activity: 'Confidence-building sessions', desc: 'Engaging activities focused on friendships, confidence and real-world skills, balanced with calm, creative time to reset and recharge' },
-              { emoji: '🏁', time: 'End of day', activity: 'Team challenges & games', desc: 'Finishing the day with energy, teamwork and plenty of smiles' },
-            ].map(({ emoji, time, activity, desc }) => (
-              <div key={time} className="day-structure-item">
+            {structure.map(s => (
+              <div key={s.id} className="day-structure-item">
                 <div className="day-structure-accent" />
                 <div className="day-structure-content">
                   <div className="day-structure-left">
-                    <div className="day-structure-time"><span className="day-structure-time-emoji">{emoji}</span>{time}</div>
-                    <div className="day-structure-activity">{activity}</div>
+                    <div className="day-structure-time"><span className="day-structure-time-emoji">{s.emoji}</span>{s.time_label}</div>
+                    <div className="day-structure-activity">{s.activity}</div>
                   </div>
-                  <p className="day-structure-desc">{desc}</p>
+                  <p className="day-structure-desc">{s.description}</p>
                 </div>
               </div>
             ))}

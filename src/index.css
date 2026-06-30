@@ -692,6 +692,20 @@ tr:hover td { background: var(--surface); }
 .modal-guest-bio { font-size: 0.95rem; color: #374151; line-height: 1.7; margin: 0; }
 
 /* Admin day card guest avatar upload */
+/* Daily structure admin */
+.day-slot-admin-row {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+}
+.day-slot-admin-accent { width: 6px; flex-shrink: 0; background: var(--brand-secondary); }
+.day-slot-admin-content { padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; flex: 1; }
+.day-slot-admin-top { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+.day-slot-emoji-input { width: 3.5rem; text-align: center; font-size: 1.1rem; flex-shrink: 0; }
+
 /* Guest admin */
 .guest-admin-row {
   background: #fff;

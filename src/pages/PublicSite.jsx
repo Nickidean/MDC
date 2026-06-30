@@ -178,27 +178,6 @@ export default function PublicSite() {
           </div>
         </section>
 
-        {organiser?.organiser_name && (
-          <section style={{ marginBottom: '3rem' }}>
-            <h2 className="public-week-heading">Meet the organiser</h2>
-            <div className="organiser-section">
-              <div className="organiser-section-accent" />
-              <div className="organiser-section-body">
-                {organiser.organiser_image_url ? (
-                  <img src={organiser.organiser_image_url} alt={organiser.organiser_name} className="organiser-photo" />
-                ) : (
-                  <div className="organiser-photo-placeholder-pub" />
-                )}
-                <div>
-                  <div className="organiser-label">Your camp organiser</div>
-                  <div className="organiser-name">{organiser.organiser_name}</div>
-                  {organiser.organiser_intro && <p className="organiser-intro">{organiser.organiser_intro}</p>}
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-
         {/* Team */}
         {team.length > 0 && (
           <section style={{ marginBottom: '3rem' }}>
@@ -236,6 +215,27 @@ export default function PublicSite() {
           </section>
         ) : (
           <p className="public-empty">We're getting the programme ready — check back soon.</p>
+        )}
+
+        {organiser?.organiser_name && (
+          <section style={{ marginBottom: '3rem', marginTop: '3rem' }}>
+            <h2 className="public-week-heading">Meet the organiser</h2>
+            <div className="organiser-section">
+              <div className="organiser-section-accent" />
+              <div className="organiser-section-body">
+                {organiser.organiser_image_url ? (
+                  <img src={organiser.organiser_image_url} alt={organiser.organiser_name} className="organiser-photo" />
+                ) : (
+                  <div className="organiser-photo-placeholder-pub" />
+                )}
+                <div>
+                  <div className="organiser-label">Your camp organiser</div>
+                  <div className="organiser-name">{organiser.organiser_name}</div>
+                  {organiser.organiser_intro && <p className="organiser-intro">{organiser.organiser_intro}</p>}
+                </div>
+              </div>
+            </div>
+          </section>
         )}
       </div>
 

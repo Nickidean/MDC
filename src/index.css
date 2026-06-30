@@ -548,13 +548,28 @@ tr:hover td { background: var(--surface); }
 
 /* Daily structure */
 .day-structure-section { margin-bottom: 3rem; }
-.day-structure-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
-.day-structure-item { background: var(--brand-tertiary); border-radius: 10px; padding: 1.25rem 1.25rem 1.5rem; }
-.day-structure-time { font-size: 0.85rem; font-weight: 700; color: var(--brand-primary); margin-bottom: 0.6rem; }
-.day-structure-activity { font-size: 1rem; font-weight: 700; color: var(--brand-primary); margin-bottom: 0.4rem; }
-.day-structure-desc { font-size: 0.875rem; color: rgba(19,44,10,0.7); line-height: 1.5; margin: 0; }
-@media (max-width: 800px) { .day-structure-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 500px) { .day-structure-grid { grid-template-columns: 1fr; } }
+.day-structure-grid { display: flex; flex-direction: column; gap: 1rem; }
+.day-structure-item {
+  background: #fff;
+  border: 1px solid rgba(19,44,10,0.12);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.day-structure-item:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(19,44,10,0.13); }
+.day-structure-accent { width: 6px; flex-shrink: 0; background: var(--brand-secondary); }
+.day-structure-content { padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 2.5rem; flex: 1; }
+.day-structure-left { min-width: 180px; flex-shrink: 0; }
+.day-structure-time { font-size: 1.5rem; font-weight: 800; color: var(--brand-primary); line-height: 1.1; margin-bottom: 0.3rem; }
+.day-structure-time-emoji { font-size: 1.5rem; margin-right: 0.4rem; }
+.day-structure-activity { font-size: 1rem; font-weight: 700; color: var(--brand-primary); }
+.day-structure-desc { font-size: 0.9rem; color: #4b5563; line-height: 1.6; margin: 0; flex: 1; }
+@media (max-width: 600px) {
+  .day-structure-content { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .day-structure-left { min-width: unset; }
+}
 
 /* Book CTA section */
 .book-cta-section {

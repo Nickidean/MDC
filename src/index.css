@@ -692,6 +692,44 @@ tr:hover td { background: var(--surface); }
 .modal-guest-bio { font-size: 0.95rem; color: #374151; line-height: 1.7; margin: 0; }
 
 /* Admin day card guest avatar upload */
+/* Organiser photo upload */
+.organiser-photo-upload {
+  width: 130px; height: 130px; border-radius: 50%;
+  border: 2px dashed var(--border); overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; background: var(--surface); flex-shrink: 0;
+}
+.organiser-photo-upload:hover { border-color: var(--primary); }
+.organiser-photo-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.organiser-photo-placeholder { font-size: 2rem; color: var(--text-muted); }
+
+/* Organiser public section */
+.organiser-section {
+  background: var(--brand-tertiary);
+  border-radius: 16px;
+  padding: 2.5rem;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-bottom: 3rem;
+}
+.organiser-photo {
+  width: 140px; height: 140px; border-radius: 50%;
+  object-fit: cover; flex-shrink: 0;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 16px rgba(19,44,10,0.15);
+}
+.organiser-photo-placeholder-pub {
+  width: 140px; height: 140px; border-radius: 50%;
+  background: rgba(19,44,10,0.1); flex-shrink: 0;
+}
+.organiser-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(19,44,10,0.5); margin-bottom: 0.35rem; }
+.organiser-name { font-size: 1.3rem; font-weight: 800; color: var(--brand-primary); margin-bottom: 0.75rem; }
+.organiser-intro { font-size: 0.95rem; color: rgba(19,44,10,0.8); line-height: 1.7; margin: 0; white-space: pre-wrap; }
+@media (max-width: 600px) {
+  .organiser-section { flex-direction: column; align-items: center; text-align: center; padding: 1.75rem 1.25rem; }
+}
+
 /* Daily structure admin */
 .day-slot-admin-row {
   background: #fff;

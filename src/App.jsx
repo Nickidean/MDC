@@ -11,6 +11,7 @@ import AuthGuard from './components/AuthGuard.jsx'
 import DayPlanner from './pages/DayPlanner.jsx'
 import GuestsAdmin from './pages/GuestsAdmin.jsx'
 import DailyStructureAdmin from './pages/DailyStructureAdmin.jsx'
+import SiteContentAdmin from './pages/SiteContentAdmin.jsx'
 import PublicSite from './pages/PublicSite.jsx'
 
 function SetupBanner() {
@@ -34,6 +35,7 @@ function AppShell({ configured, session }) {
             <Link to="/planner" className="app-nav-link">Day Planner</Link>
             <Link to="/guests" className="app-nav-link">Special Guests</Link>
             <Link to="/daily-structure" className="app-nav-link">Daily Structure</Link>
+            <Link to="/about" className="app-nav-link">About</Link>
             <a href="/site" target="_blank" rel="noopener noreferrer" className="app-nav-link" style={{ fontSize: '0.85rem', opacity: 0.8 }}>View public site ↗</a>
           </nav>
         )}
@@ -60,6 +62,11 @@ function AppShell({ configured, session }) {
           <Route path="/daily-structure" element={
             <AuthGuard>
               <DailyStructureAdmin />
+            </AuthGuard>
+          } />
+          <Route path="/about" element={
+            <AuthGuard>
+              <SiteContentAdmin />
             </AuthGuard>
           } />
         </Routes>

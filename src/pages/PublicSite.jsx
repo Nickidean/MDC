@@ -72,6 +72,7 @@ export default function PublicSite() {
   const [guests, setGuests] = useState(null)
   const [logoUrl, setLogoUrl] = useState('')
   const [structure, setStructure] = useState([])
+  const [organiser, setOrganiser] = useState(null)
 
   useEffect(() => {
     supabase
@@ -97,6 +98,13 @@ export default function PublicSite() {
       .select('*')
       .order('sort_index')
       .then(({ data }) => setStructure(data || []))
+
+    supabase
+      .from('site_content')
+      .select('*')
+      .eq('id', 1)
+      .maybeSingle()
+      .then(({ data }) => setOrganiser(data))
   }, [])
 
   return (
@@ -161,6 +169,24 @@ export default function PublicSite() {
             ))}
           </div>
         </section>
+
+        {organiser?.organiser_name && (
+          <section style={{ marginBottom: '3rem' }}>
+            <h2 className="public-week-heading">Meet the organiser</h2>
+            <div className="organiser-section">
+              {organiser.organiser_image_url ? (
+                <img src={organiser.organiser_image_url} alt={organiser.organiser_name} className="organiser-photo" />
+              ) : (
+                <div className="organiser-photo-placeholder-pub" />
+              )}
+              <div>
+                <div className="organiser-label">Your camp organiser</div>
+                <div className="organiser-name">{organiser.organiser_name}</div>
+                {organiser.organiser_intro && <p className="organiser-intro">{organiser.organiser_intro}</p>}
+              </div>
+            </div>
+          </section>
+        )}
 
         {guests === null ? (
           <p className="public-loading">Loading…</p>

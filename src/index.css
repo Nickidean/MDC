@@ -598,12 +598,14 @@ tr:hover td { background: var(--surface); }
 .book-cta-heading { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
 .book-cta-sub { font-size: 1rem; color: rgba(255,255,255,0.7); margin-bottom: 2rem; }
 .public-week-heading {
-  font-size: 1.6rem;
-  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
   margin-bottom: 1.25rem;
   color: var(--brand-primary);
   border-left: 5px solid var(--brand-secondary);
   padding-left: 1rem;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
   letter-spacing: -0.02em;
 }
 .public-cards-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem; }
@@ -919,7 +921,7 @@ tr:hover td { background: var(--surface); }
   .hero-logo { max-height: 60px; }
 
   /* Public week heading */
-  .public-week-heading { font-size: 1.25rem; }
+  .public-week-heading { font-size: 1.75rem; }
   .venue-inner { grid-template-columns: 1fr; gap: 2rem; }
   .venue-section { padding: 3rem 1.25rem; }
   .founder-section { padding: 3rem 1.25rem; }

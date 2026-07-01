@@ -7,6 +7,7 @@ const DEFAULTS = {
   pricing_day: '£40', pricing_week: '£180', pricing_two_weeks: '£340',
   pricing_sibling_discount: '20% sibling discount on additional children',
   pricing_haf_info: 'HAF-funded places are available for eligible families at no cost. Ask us for details.',
+  pricing_installments: 'Pay in instalments — spread the cost across the summer.',
   location_name: 'Litton Lakes', location_address: '', location_description: '', location_map_url: '', location_image_url: '',
 }
 
@@ -169,31 +170,28 @@ export default function SiteContentAdmin() {
         </div>
       </Section>
 
-      {/* Pricing */}
-      <Section title="Pricing">
+      {/* Pricing / Fine print */}
+      <Section title={'Pricing (shown as "The fine print")'}>
         <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.75rem' }}>
-            <label className="field-label" style={{ margin: 0 }}>
-              Per day
-              <input type="text" value={fields.pricing_day} onChange={e => handleChange('pricing_day', e.target.value)} placeholder="£40" className="field-input" />
-            </label>
-            <label className="field-label" style={{ margin: 0 }}>
-              Per week
-              <input type="text" value={fields.pricing_week} onChange={e => handleChange('pricing_week', e.target.value)} placeholder="£180" className="field-input" />
-            </label>
-            <label className="field-label" style={{ margin: 0 }}>
-              Two weeks
-              <input type="text" value={fields.pricing_two_weeks} onChange={e => handleChange('pricing_two_weeks', e.target.value)} placeholder="£340" className="field-input" />
-            </label>
-          </div>
           <label className="field-label" style={{ margin: 0 }}>
-            Sibling discount note
+            Price per day
+            <input type="text" value={fields.pricing_day} onChange={e => handleChange('pricing_day', e.target.value)} placeholder="£40 per day" className="field-input" />
+          </label>
+          <label className="field-label" style={{ margin: 0 }}>
+            Sibling discount
             <input type="text" value={fields.pricing_sibling_discount} onChange={e => handleChange('pricing_sibling_discount', e.target.value)} placeholder="e.g. 20% sibling discount on additional children" className="field-input" />
           </label>
           <label className="field-label" style={{ margin: 0 }}>
-            HAF information
-            <textarea value={fields.pricing_haf_info} onChange={e => handleChange('pricing_haf_info', e.target.value)} placeholder="Explain HAF funding eligibility…" className="field-textarea" rows={3} />
+            HAF places
+            <input type="text" value={fields.pricing_haf_info} onChange={e => handleChange('pricing_haf_info', e.target.value)} placeholder="e.g. Limited HAF places available" className="field-input" />
           </label>
+          <label className="field-label" style={{ margin: 0 }}>
+            Instalments
+            <input type="text" value={fields.pricing_installments} onChange={e => handleChange('pricing_installments', e.target.value)} placeholder="e.g. Pay in instalments" className="field-input" />
+          </label>
+          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+            Each line becomes a bullet point in "The fine print" section on the public site. Leave any blank to hide it.
+          </div>
         </div>
       </Section>
 

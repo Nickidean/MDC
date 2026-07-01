@@ -162,33 +162,13 @@ export default function PublicSite() {
           </p>
           <div className="hero-snapshot">
             <div className="hero-snapshot-item">
-              <span className="hero-snapshot-icon">💷</span>
-              <span>£40 per day</span>
-            </div>
-            <div className="hero-snapshot-divider" />
-            <div className="hero-snapshot-item">
-              <span className="hero-snapshot-icon">🕘</span>
-              <span>9am – 4pm</span>
-            </div>
-            <div className="hero-snapshot-divider" />
-            <div className="hero-snapshot-item">
-              <span className="hero-snapshot-icon">📍</span>
-              <span>Litton Lakes</span>
-            </div>
-            <div className="hero-snapshot-divider" />
-            <div className="hero-snapshot-item">
-              <span className="hero-snapshot-icon">🧒</span>
-              <span>Ages 7–12</span>
-            </div>
-            <div className="hero-snapshot-divider" />
-            <div className="hero-snapshot-item">
               <span className="hero-snapshot-icon">📅</span>
               <span>17–28 August 2026</span>
             </div>
             <div className="hero-snapshot-divider" />
             <div className="hero-snapshot-item">
-              <span className="hero-snapshot-icon">🌟</span>
-              <span>HAF places available</span>
+              <span className="hero-snapshot-icon">🧒</span>
+              <span>Ages 7–12</span>
             </div>
           </div>
           <a href={CFK_URL} target="_blank" rel="noopener noreferrer" className="btn btn-hero">Book a place</a>
@@ -251,6 +231,24 @@ export default function PublicSite() {
           </section>
         ) : (
           <p className="public-empty">We're getting the programme ready — check back soon.</p>
+        )}
+
+        {/* Fine print / pricing */}
+        {organiser && (organiser.pricing_day || organiser.pricing_sibling_discount || organiser.pricing_haf_info || organiser.pricing_installments) && (
+          <section style={{ marginBottom: '3rem' }}>
+            <h2 className="public-week-heading">The fine print</h2>
+            <div className="organiser-section">
+              <div className="organiser-section-accent" />
+              <div className="fine-print-body">
+                <ul className="fine-print-list">
+                  {organiser.pricing_day && <li>{organiser.pricing_day}</li>}
+                  {organiser.pricing_sibling_discount && <li>{organiser.pricing_sibling_discount}</li>}
+                  {organiser.pricing_haf_info && <li>{organiser.pricing_haf_info}</li>}
+                  {organiser.pricing_installments && <li>{organiser.pricing_installments}</li>}
+                </ul>
+              </div>
+            </div>
+          </section>
         )}
 
         {/* Location */}

@@ -296,41 +296,41 @@ export default function PublicSite() {
 
                 <div className="organiser-signature">{organiser.organiser_name}</div>
 
-                <div className="organiser-signoff-row">
+                <div className="organiser-signoff-stack">
                   {organiser.organiser_image_url ? (
                     <img src={organiser.organiser_image_url} alt={organiser.organiser_name} className="organiser-signoff-photo" />
                   ) : (
                     <div className="organiser-signoff-photo organiser-photo-placeholder-pub" />
                   )}
-                  <div>
-                    <div className="organiser-signoff-name">
-                      {organiser.organiser_name}
-                      {organiser.organiser_email && (
-                        <>
-                          {', '}
-                          <a href={`mailto:${organiser.organiser_email}`} className="organiser-signoff-email">{organiser.organiser_email}</a>
-                          {' '}<CopyButton value={organiser.organiser_email} label="email" />
-                        </>
-                      )}
-                    </div>
-                    {organiser.organiser_role && <div className="organiser-signoff-role">{organiser.organiser_role}</div>}
-                  </div>
-                </div>
 
-                {(organiser.organiser_whatsapp || organiser.organiser_instagram || organiser.organiser_facebook) && (
-                  <div className="organiser-contact-block">
-                    {organiser.organiser_whatsapp && (
-                      <div className="organiser-contact-item">
-                        <a
-                          href={`https://wa.me/${organiser.organiser_whatsapp.replace(/[^0-9]/g, '')}`}
-                          target="_blank" rel="noopener noreferrer"
-                          className="organiser-contact-link"
-                        >
-                          <span className="organiser-contact-icon">💬</span> {organiser.organiser_whatsapp}
-                        </a>
-                        <CopyButton value={organiser.organiser_whatsapp} label="number" />
-                      </div>
-                    )}
+                  <div className="organiser-signoff-name">
+                    {organiser.organiser_name}
+                    {organiser.organiser_role && <> / {organiser.organiser_role}</>}
+                  </div>
+
+                  {organiser.organiser_email && (
+                    <div className="organiser-contact-item">
+                      <a href={`mailto:${organiser.organiser_email}`} className="organiser-contact-link">
+                        <span className="organiser-contact-icon">✉️</span> {organiser.organiser_email}
+                      </a>
+                      <CopyButton value={organiser.organiser_email} label="email" />
+                    </div>
+                  )}
+
+                  {organiser.organiser_whatsapp && (
+                    <div className="organiser-contact-item">
+                      <a
+                        href={`https://wa.me/${organiser.organiser_whatsapp.replace(/[^0-9]/g, '')}`}
+                        target="_blank" rel="noopener noreferrer"
+                        className="organiser-contact-link"
+                      >
+                        <span className="organiser-contact-icon">💬</span> {organiser.organiser_whatsapp}
+                      </a>
+                      <CopyButton value={organiser.organiser_whatsapp} label="number" />
+                    </div>
+                  )}
+
+                  {(organiser.organiser_instagram || organiser.organiser_facebook) && (
                     <div className="organiser-contact-row">
                       {organiser.organiser_instagram && (
                         <a
@@ -351,8 +351,8 @@ export default function PublicSite() {
                         </a>
                       )}
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             </div>
           </section>

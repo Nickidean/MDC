@@ -94,6 +94,7 @@ export default function PublicSite() {
   const [structure, setStructure] = useState([])
   const [organiser, setOrganiser] = useState(null)
   const [team, setTeam] = useState([])
+  const [partners, setPartners] = useState([])
 
   useEffect(() => {
     supabase
@@ -133,6 +134,13 @@ export default function PublicSite() {
       .order('sort_index')
       .order('created_at')
       .then(({ data }) => setTeam((data || []).filter(m => m.name)))
+
+    supabase
+      .from('partner_logos')
+      .select('*')
+      .order('sort_index')
+      .order('created_at')
+      .then(({ data }) => setPartners((data || []).filter(p => p.image_url)))
   }, [])
 
   return (
@@ -365,6 +373,24 @@ export default function PublicSite() {
                   </div>
                 </div>
               </div>
+            </div>
+          </section>
+        )}
+
+        {/* Partner logos */}
+        {partners.length > 0 && (
+          <section>
+            <div className="partner-logos-row">
+              {partners.map(p => {
+                const img = <img src={p.image_url} alt={p.name || 'Partner logo'} className="partner-logo-img" />
+                return p.link_url ? (
+                  <a key={p.id} href={p.link_url} target="_blank" rel="noopener noreferrer" className="partner-logo-item">
+                    {img}
+                  </a>
+                ) : (
+                  <div key={p.id} className="partner-logo-item">{img}</div>
+                )
+              })}
             </div>
           </section>
         )}

@@ -606,6 +606,20 @@ tr:hover td { background: var(--surface); }
 .btn-outline-green:hover { background: var(--brand-primary); color: #fff; }
 @media (max-width: 700px) { .location-card { grid-template-columns: 1fr; } .location-card-img-wrap { max-height: 220px; } }
 
+/* Partner logos */
+.partner-logos-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  padding: 1.5rem 0;
+}
+.partner-logo-item { display: flex; align-items: center; justify-content: center; }
+.partner-logo-img { height: 56px; width: auto; max-width: 160px; object-fit: contain; filter: grayscale(0.15); opacity: 0.9; transition: opacity 0.15s; }
+.partner-logo-item:hover .partner-logo-img { opacity: 1; }
+@media (max-width: 600px) { .partner-logo-img { height: 44px; max-width: 120px; } .partner-logos-row { gap: 1.5rem; } }
+
 /* Pricing section */
 .pricing-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem; }
 .pricing-card {

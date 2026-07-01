@@ -524,7 +524,7 @@ tr:hover td { background: var(--surface); }
   background: var(--brand-secondary);
   color: var(--brand-primary);
   padding: 0.85rem 2rem;
-  border-radius: var(--radius);
+  border-radius: 999px;
   font-size: 1rem;
   font-weight: 800;
   text-decoration: none;
@@ -596,7 +596,7 @@ tr:hover td { background: var(--surface); }
 .location-card-address { display: inline-block; font-size: 0.95rem; color: var(--brand-primary); text-decoration: none; margin-bottom: 0.75rem; font-weight: 500; }
 .location-card-address:hover { text-decoration: underline; }
 .location-card-desc { font-size: 0.9rem; color: #4b5563; line-height: 1.7; margin: 0; }
-.btn-outline-green { border: 2px solid var(--brand-primary); color: var(--brand-primary); background: transparent; padding: 0.6rem 1.25rem; border-radius: 6px; font-weight: 700; font-size: 0.875rem; text-decoration: none; transition: background 0.15s, color 0.15s; }
+.btn-outline-green { border: 2px solid var(--brand-primary); color: var(--brand-primary); background: transparent; padding: 0.6rem 1.25rem; border-radius: 999px; font-weight: 700; font-size: 0.875rem; text-decoration: none; transition: background 0.15s, color 0.15s; }
 .btn-outline-green:hover { background: var(--brand-primary); color: #fff; }
 @media (max-width: 700px) { .location-card { grid-template-columns: 1fr; } .location-card-img-wrap { max-height: 220px; } }
 

@@ -472,8 +472,8 @@ tr:hover td { background: var(--surface); }
   justify-content: space-between;
   gap: 1rem;
 }
-.public-nav-logo-wrap { background: #fff; border-radius: 8px; padding: 0.35rem 0.6rem; display: flex; align-items: center; flex-shrink: 1; min-width: 0; }
-.public-nav-logo { height: 32px; width: auto; max-width: 100%; object-fit: contain; display: block; }
+.public-nav-logo-wrap { display: flex; align-items: center; flex-shrink: 0; }
+.public-nav-logo { height: 32px; width: auto; max-width: 160px; object-fit: contain; display: block; }
 .public-nav-name { font-size: 0.95rem; font-weight: 800; color: #fff; letter-spacing: -0.01em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .public-nav-btn {
   background: var(--brand-secondary);

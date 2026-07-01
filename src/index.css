@@ -826,8 +826,12 @@ tr:hover td { background: var(--surface); }
 }
 .organiser-contact-pill:hover { background: var(--brand-secondary); }
 .organiser-contact-icon { font-size: 0.95rem; line-height: 1; }
-@media (max-width: 600px) {
-  .organiser-section-body { flex-direction: column; align-items: flex-start; gap: 1rem; }
+@media (max-width: 700px) {
+  .organiser-section-body { flex-direction: column; align-items: center; text-align: center; gap: 1rem; }
+  .organiser-section-body .organiser-photo,
+  .organiser-section-body .organiser-photo-placeholder-pub { order: -1; }
+  .organiser-contact-item,
+  .organiser-contact-row { justify-content: center; }
 }
 
 /* Daily structure admin */

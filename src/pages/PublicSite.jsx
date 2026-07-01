@@ -306,14 +306,18 @@ export default function PublicSite() {
                     <div className="organiser-signoff-name">
                       {organiser.organiser_name}
                       {organiser.organiser_email && (
-                        <>, <a href={`mailto:${organiser.organiser_email}`} className="organiser-signoff-email">{organiser.organiser_email}</a></>
+                        <>
+                          {', '}
+                          <a href={`mailto:${organiser.organiser_email}`} className="organiser-signoff-email">{organiser.organiser_email}</a>
+                          {' '}<CopyButton value={organiser.organiser_email} label="email" />
+                        </>
                       )}
                     </div>
                     {organiser.organiser_role && <div className="organiser-signoff-role">{organiser.organiser_role}</div>}
                   </div>
                 </div>
 
-                {(organiser.organiser_email || organiser.organiser_whatsapp || organiser.organiser_instagram || organiser.organiser_facebook) && (
+                {(organiser.organiser_whatsapp || organiser.organiser_instagram || organiser.organiser_facebook) && (
                   <div className="organiser-contact-block">
                     {organiser.organiser_whatsapp && (
                       <div className="organiser-contact-item">
@@ -325,11 +329,6 @@ export default function PublicSite() {
                           <span className="organiser-contact-icon">💬</span> {organiser.organiser_whatsapp}
                         </a>
                         <CopyButton value={organiser.organiser_whatsapp} label="number" />
-                      </div>
-                    )}
-                    {organiser.organiser_email && (
-                      <div className="organiser-contact-item" style={{ marginTop: '-0.4rem' }}>
-                        <CopyButton value={organiser.organiser_email} label="email" />
                       </div>
                     )}
                     <div className="organiser-contact-row">

@@ -791,17 +791,18 @@ tr:hover td { background: var(--surface); }
 .organiser-section-body-letter { padding: 2rem 2.25rem; display: flex; flex-direction: column; flex: 1; }
 .organiser-signature {
   font-family: 'Brush Script MT', 'Segoe Script', cursive;
-  font-size: 2.75rem;
+  font-size: 2.5rem;
   color: var(--brand-primary);
-  margin: 1.75rem 0 1.25rem;
+  margin: 1.5rem 0 0.5rem;
   line-height: 1;
   transform: rotate(-2deg);
 }
-.organiser-signoff-row { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1.5rem; }
-.organiser-signoff-photo { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid var(--brand-tertiary); }
-.organiser-signoff-name { font-size: 0.95rem; font-weight: 700; color: var(--brand-primary); }
+.organiser-signoff-row { display: flex; align-items: center; gap: 0.9rem; padding-top: 1rem; border-top: 1px solid rgba(19,44,10,0.08); }
+.organiser-signoff-photo { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid var(--brand-tertiary); }
+.organiser-signoff-name { font-size: 0.9rem; font-weight: 700; color: var(--brand-primary); display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
 .organiser-signoff-email { color: var(--brand-primary); text-decoration: underline; font-weight: 600; }
-.organiser-signoff-role { font-size: 0.85rem; font-style: italic; color: var(--text-muted); margin-top: 0.1rem; }
+.organiser-signoff-role { font-size: 0.82rem; font-style: italic; color: var(--text-muted); margin-top: 0.1rem; }
+.organiser-contact-block { margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid rgba(19,44,10,0.08); display: flex; flex-direction: column; gap: 0.75rem; }
 .organiser-photo {
   width: 110px; height: 110px; border-radius: 50%;
   object-fit: cover; flex-shrink: 0;
@@ -814,7 +815,6 @@ tr:hover td { background: var(--surface); }
 .organiser-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(19,44,10,0.45); margin-bottom: 0.3rem; }
 .organiser-name { font-size: 1.2rem; font-weight: 800; color: var(--brand-primary); margin-bottom: 0.6rem; line-height: 1.2; }
 .organiser-intro { font-size: 0.9rem; color: #4b5563; line-height: 1.7; margin: 0; white-space: pre-wrap; }
-.organiser-contact-block { margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
 .organiser-contact-item { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
 .organiser-contact-link {
   display: inline-flex; align-items: center; gap: 0.4rem;

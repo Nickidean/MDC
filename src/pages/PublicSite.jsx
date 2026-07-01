@@ -296,62 +296,64 @@ export default function PublicSite() {
 
                 <div className="organiser-signature">{organiser.organiser_name}</div>
 
-                <div className="organiser-signoff-stack">
+                <div className="organiser-signoff-row">
                   {organiser.organiser_image_url ? (
                     <img src={organiser.organiser_image_url} alt={organiser.organiser_name} className="organiser-signoff-photo" />
                   ) : (
                     <div className="organiser-signoff-photo organiser-photo-placeholder-pub" />
                   )}
 
-                  <div className="organiser-signoff-name">
-                    {organiser.organiser_name}
-                    {organiser.organiser_role && <> / {organiser.organiser_role}</>}
+                  <div className="organiser-signoff-stack">
+                    <div className="organiser-signoff-name">
+                      {organiser.organiser_name}
+                      {organiser.organiser_role && <> / {organiser.organiser_role}</>}
+                    </div>
+
+                    {organiser.organiser_email && (
+                      <div className="organiser-contact-item">
+                        <a href={`mailto:${organiser.organiser_email}`} className="organiser-contact-link">
+                          <span className="organiser-contact-icon">✉️</span> {organiser.organiser_email}
+                        </a>
+                        <CopyButton value={organiser.organiser_email} label="email" />
+                      </div>
+                    )}
+
+                    {organiser.organiser_whatsapp && (
+                      <div className="organiser-contact-item">
+                        <a
+                          href={`https://wa.me/${organiser.organiser_whatsapp.replace(/[^0-9]/g, '')}`}
+                          target="_blank" rel="noopener noreferrer"
+                          className="organiser-contact-link"
+                        >
+                          <span className="organiser-contact-icon">💬</span> {organiser.organiser_whatsapp}
+                        </a>
+                        <CopyButton value={organiser.organiser_whatsapp} label="number" />
+                      </div>
+                    )}
+
+                    {(organiser.organiser_instagram || organiser.organiser_facebook) && (
+                      <div className="organiser-contact-row">
+                        {organiser.organiser_instagram && (
+                          <a
+                            href={`https://www.instagram.com/${organiser.organiser_instagram.replace(/^@/, '')}`}
+                            target="_blank" rel="noopener noreferrer"
+                            className="organiser-contact-pill"
+                          >
+                            <span className="organiser-contact-icon">📷</span> Instagram
+                          </a>
+                        )}
+                        {organiser.organiser_facebook && (
+                          <a
+                            href={organiser.organiser_facebook.startsWith('http') ? organiser.organiser_facebook : `https://www.facebook.com/${organiser.organiser_facebook}`}
+                            target="_blank" rel="noopener noreferrer"
+                            className="organiser-contact-pill"
+                          >
+                            <span className="organiser-contact-icon">👍</span> Facebook
+                          </a>
+                        )}
+                      </div>
+                    )}
                   </div>
-
-                  {organiser.organiser_email && (
-                    <div className="organiser-contact-item">
-                      <a href={`mailto:${organiser.organiser_email}`} className="organiser-contact-link">
-                        <span className="organiser-contact-icon">✉️</span> {organiser.organiser_email}
-                      </a>
-                      <CopyButton value={organiser.organiser_email} label="email" />
-                    </div>
-                  )}
-
-                  {organiser.organiser_whatsapp && (
-                    <div className="organiser-contact-item">
-                      <a
-                        href={`https://wa.me/${organiser.organiser_whatsapp.replace(/[^0-9]/g, '')}`}
-                        target="_blank" rel="noopener noreferrer"
-                        className="organiser-contact-link"
-                      >
-                        <span className="organiser-contact-icon">💬</span> {organiser.organiser_whatsapp}
-                      </a>
-                      <CopyButton value={organiser.organiser_whatsapp} label="number" />
-                    </div>
-                  )}
-
-                  {(organiser.organiser_instagram || organiser.organiser_facebook) && (
-                    <div className="organiser-contact-row">
-                      {organiser.organiser_instagram && (
-                        <a
-                          href={`https://www.instagram.com/${organiser.organiser_instagram.replace(/^@/, '')}`}
-                          target="_blank" rel="noopener noreferrer"
-                          className="organiser-contact-pill"
-                        >
-                          <span className="organiser-contact-icon">📷</span> Instagram
-                        </a>
-                      )}
-                      {organiser.organiser_facebook && (
-                        <a
-                          href={organiser.organiser_facebook.startsWith('http') ? organiser.organiser_facebook : `https://www.facebook.com/${organiser.organiser_facebook}`}
-                          target="_blank" rel="noopener noreferrer"
-                          className="organiser-contact-pill"
-                        >
-                          <span className="organiser-contact-icon">👍</span> Facebook
-                        </a>
-                      )}
-                    </div>
-                  )}
                 </div>
               </div>
             </div>

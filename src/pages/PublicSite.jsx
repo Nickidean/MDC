@@ -28,6 +28,7 @@ function GuestModal({ guest, onClose }) {
           <div>
             <div className="modal-guest-label">Special Guest</div>
             <div className="modal-guest-name">{guest.name}</div>
+            {guest.tag && <span className="modal-guest-tag">{guest.tag}</span>}
           </div>
         </div>
         {guest.bio && <p className="modal-guest-bio">{guest.bio}</p>}
@@ -71,6 +72,7 @@ function GuestCard({ guest }) {
         onKeyDown={e => e.key === 'Enter' && setModal(true)}
       >
         <div className="guest-card-img-wrap">
+          {guest.tag && <span className="guest-card-tag">{guest.tag}</span>}
           {guest.image ? (
             <img src={guest.image} alt={guest.name} className="guest-card-img" />
           ) : (
@@ -112,7 +114,7 @@ export default function PublicSite() {
       .then(({ data }) => setGuests(
         (data || [])
           .filter(g => g.name)
-          .map(g => ({ name: g.name, image: g.image_url, bio: g.bio }))
+          .map(g => ({ name: g.name, image: g.image_url, bio: g.bio, tag: g.tag }))
       ))
 
     supabase

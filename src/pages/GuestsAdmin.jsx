@@ -6,6 +6,7 @@ function GuestRow({ guest, onUpdated, onDeleted }) {
     name: guest.name || '',
     bio: guest.bio || '',
     image_url: guest.image_url || '',
+    tag: guest.tag || '',
   })
   const [saveStatus, setSaveStatus] = useState('')
   const [uploading, setUploading] = useState(false)
@@ -21,7 +22,7 @@ function GuestRow({ guest, onUpdated, onDeleted }) {
     setSaveStatus('saving')
     const { error } = await supabase
       .from('special_guests')
-      .update({ name: updated.name, bio: updated.bio, image_url: updated.image_url })
+      .update({ name: updated.name, bio: updated.bio, image_url: updated.image_url, tag: updated.tag })
       .eq('id', guest.id)
     if (!error) {
       setSaveStatus('saved')
@@ -92,6 +93,14 @@ function GuestRow({ guest, onUpdated, onDeleted }) {
             className="field-input"
             style={{ flex: 1 }}
           />
+          <input
+            type="text"
+            value={fields.tag}
+            onChange={e => handleChange('tag', e.target.value)}
+            placeholder="Tag, e.g. Public speaking"
+            className="field-input"
+            style={{ flex: 1 }}
+          />
           {saveStatus && (
             <span className={`autosave-indicator ${saveStatus}`} style={{ flexShrink: 0 }}>
               {saveStatus === 'saving' ? 'Saving…' : 'Saved'}
@@ -129,7 +138,7 @@ export default function GuestsAdmin() {
     const maxSort = guests.length ? Math.max(...guests.map(g => g.sort_index)) : -1
     const { data, error } = await supabase
       .from('special_guests')
-      .insert({ name: '', bio: '', image_url: '', sort_index: maxSort + 1 })
+      .insert({ name: '', bio: '', image_url: '', tag: '', sort_index: maxSort + 1 })
       .select()
       .single()
     if (!error) setGuests(prev => [...prev, data])
@@ -143,7 +152,7 @@ export default function GuestsAdmin() {
         <div>
           <h1 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text)' }}>Special Guests</h1>
           <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>
-            Add a photo, name and short bio for each guest — they'll appear on the public site.
+            Add a photo, name, tag and short bio for each guest — they'll appear on the public site.
           </p>
         </div>
         <button className="btn btn-primary" onClick={addGuest}>+ Add guest</button>

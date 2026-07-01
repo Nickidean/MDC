@@ -578,6 +578,26 @@ tr:hover td { background: var(--surface); }
 .guest-card-bio { font-size: 0.8rem; color: #4b5563; line-height: 1.5; margin: 0.15rem 0 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; flex: 1; }
 .guest-card-more { font-size: 0.8rem; font-weight: 600; color: var(--brand-primary); margin-top: 0.75rem; }
 
+/* Location card */
+.location-card {
+  background: #fff;
+  border: 1px solid rgba(19,44,10,0.12);
+  border-radius: 12px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.location-card-img-wrap { overflow: hidden; max-height: 360px; }
+.location-card-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.location-card-body { padding: 2.5rem 2rem; display: flex; flex-direction: column; justify-content: center; }
+.location-card-name { font-size: 1.5rem; font-weight: 800; color: var(--brand-primary); margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+.location-card-address { display: inline-block; font-size: 0.95rem; color: var(--brand-primary); text-decoration: none; margin-bottom: 0.75rem; font-weight: 500; }
+.location-card-address:hover { text-decoration: underline; }
+.location-card-desc { font-size: 0.9rem; color: #4b5563; line-height: 1.7; margin: 0; }
+.btn-outline-green { border: 2px solid var(--brand-primary); color: var(--brand-primary); background: transparent; padding: 0.6rem 1.25rem; border-radius: 6px; font-weight: 700; font-size: 0.875rem; text-decoration: none; transition: background 0.15s, color 0.15s; }
+.btn-outline-green:hover { background: var(--brand-primary); color: #fff; }
+@media (max-width: 700px) { .location-card { grid-template-columns: 1fr; } .location-card-img-wrap { max-height: 220px; } }
+
 /* Pricing section */
 .pricing-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem; }
 .pricing-card {

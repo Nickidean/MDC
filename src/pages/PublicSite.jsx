@@ -225,6 +225,45 @@ export default function PublicSite() {
           <p className="public-empty">We're getting the programme ready — check back soon.</p>
         )}
 
+        {/* Location */}
+        {(organiser?.location_name || organiser?.location_image_url) && (
+          <section style={{ marginBottom: '3rem' }}>
+            <h2 className="public-week-heading">Where we are</h2>
+            <div className="location-card">
+              {organiser.location_image_url && (
+                <div className="location-card-img-wrap">
+                  <img src={organiser.location_image_url} alt={organiser.location_name} className="location-card-img" />
+                </div>
+              )}
+              <div className="location-card-body">
+                {organiser.location_name && <div className="location-card-name">{organiser.location_name}</div>}
+                {organiser.location_address && (
+                  <a
+                    href={organiser.location_map_url || `https://maps.google.com/?q=${encodeURIComponent(organiser.location_address)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="location-card-address"
+                  >
+                    📍 {organiser.location_address}
+                  </a>
+                )}
+                {organiser.location_description && <p className="location-card-desc">{organiser.location_description}</p>}
+                {organiser.location_address && (
+                  <a
+                    href={organiser.location_map_url || `https://maps.google.com/?q=${encodeURIComponent(organiser.location_address)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-outline-green"
+                    style={{ marginTop: '1.25rem', display: 'inline-block' }}
+                  >
+                    Open in Google Maps →
+                  </a>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+
         {organiser?.organiser_name && (
           <section style={{ marginBottom: '3rem', marginTop: '3rem' }}>
             <h2 className="public-week-heading">Meet the organiser</h2>

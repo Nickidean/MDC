@@ -175,6 +175,10 @@ export default function SiteContentAdmin() {
                 </label>
               </div>
               <label className="field-label" style={{ margin: 0 }}>
+                Description <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>(optional)</span>
+                <textarea value={fields.location_description} onChange={e => handleChange('location_description', e.target.value)} placeholder="Tell families about the venue…" className="field-textarea" rows={2} />
+              </label>
+              <label className="field-label" style={{ margin: 0 }}>
                 Google Maps link <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>(paste a maps.google.com or maps.apple.com URL)</span>
                 <input type="text" value={fields.location_map_url} onChange={e => handleChange('location_map_url', e.target.value)} placeholder="https://maps.google.com/?q=Litton+Lakes" className="field-input" />
               </label>

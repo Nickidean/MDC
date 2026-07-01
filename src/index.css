@@ -465,23 +465,26 @@ tr:hover td { background: var(--surface); }
 .public-nav-inner {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 2.5rem;
-  height: 68px;
+  padding: 0 1.25rem;
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
 }
-.public-nav-logo { height: 40px; width: auto; object-fit: contain; }
-.public-nav-name { font-size: 1rem; font-weight: 800; color: #fff; letter-spacing: -0.01em; }
+.public-nav-logo-wrap { background: #fff; border-radius: 8px; padding: 0.35rem 0.6rem; display: flex; align-items: center; flex-shrink: 1; min-width: 0; }
+.public-nav-logo { height: 32px; width: auto; max-width: 100%; object-fit: contain; display: block; }
+.public-nav-name { font-size: 0.95rem; font-weight: 800; color: #fff; letter-spacing: -0.01em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .public-nav-btn {
   background: var(--brand-secondary);
   color: var(--brand-primary) !important;
-  font-size: 0.9rem;
-  padding: 0.6rem 1.5rem;
+  font-size: 0.85rem;
+  padding: 0.55rem 1.1rem;
   border-radius: 999px;
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
+  flex-shrink: 0;
   transition: opacity 0.15s;
 }
 .public-nav-btn:hover { opacity: 0.85; }
@@ -559,6 +562,8 @@ tr:hover td { background: var(--surface); }
 
 /* Guest cards grid */
 .guests-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+@media (max-width: 700px) { .guests-grid { grid-template-columns: repeat(2, 1fr); gap: 0.85rem; } }
+@media (max-width: 420px) { .guests-grid { grid-template-columns: 1fr; } }
 .guest-card {
   background: #fff;
   border: 1px solid rgba(19,44,10,0.12);
@@ -592,6 +597,8 @@ tr:hover td { background: var(--surface); }
 .location-card-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .location-card-body { padding: 2.5rem 2rem; display: flex; flex-direction: column; justify-content: center; }
 .location-card-name { font-size: 1.5rem; font-weight: 800; color: var(--brand-primary); margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+.location-card-name-link { display: inline-block; text-decoration: none; }
+.location-card-name-link:hover { text-decoration: underline; }
 .location-card-address { display: inline-block; font-size: 0.95rem; color: var(--brand-primary); text-decoration: none; margin-bottom: 0.75rem; font-weight: 500; }
 .location-card-address:hover { text-decoration: underline; }
 .location-card-desc { font-size: 0.9rem; color: #4b5563; line-height: 1.7; margin: 0; }
@@ -786,9 +793,14 @@ tr:hover td { background: var(--surface); }
   display: flex;
   align-items: stretch;
   transition: transform 0.15s, box-shadow 0.15s;
+  max-width: 100%;
 }
 .organiser-section-accent { width: 6px; flex-shrink: 0; background: var(--brand-secondary); }
-.organiser-section-body-letter { padding: 2rem 2.25rem; display: flex; flex-direction: column; flex: 1; }
+.organiser-section-body-letter { padding: 2rem 2.25rem; display: flex; flex-direction: column; flex: 1; min-width: 0; }
+@media (max-width: 600px) {
+  .organiser-section-body-letter { padding: 1.5rem 1.25rem; }
+  .organiser-signature-img { height: 50px; max-width: 160px; }
+}
 .organiser-signature {
   font-family: 'Brush Script MT', 'Segoe Script', cursive;
   font-size: 2.5rem;
@@ -803,8 +815,8 @@ tr:hover td { background: var(--surface); }
   padding-top: 1.25rem; border-top: 1px solid rgba(19,44,10,0.08);
 }
 .organiser-signoff-photo { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid var(--brand-tertiary); }
-.organiser-signoff-stack { display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem; }
-.organiser-signoff-name { font-size: 0.95rem; font-weight: 700; color: var(--brand-primary); }
+.organiser-signoff-stack { display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem; flex: 1; min-width: 0; max-width: 100%; }
+.organiser-signoff-name { font-size: 0.95rem; font-weight: 700; color: var(--brand-primary); word-break: break-word; }
 .organiser-photo {
   width: 110px; height: 110px; border-radius: 50%;
   object-fit: cover; flex-shrink: 0;
@@ -822,6 +834,8 @@ tr:hover td { background: var(--surface); }
   display: inline-flex; align-items: center; gap: 0.4rem;
   font-size: 0.9rem; font-weight: 600; color: var(--brand-primary);
   text-decoration: none;
+  word-break: break-word;
+  max-width: 100%;
 }
 .organiser-contact-link:hover { text-decoration: underline; }
 .organiser-copy-btn {

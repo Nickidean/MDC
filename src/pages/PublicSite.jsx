@@ -140,7 +140,7 @@ export default function PublicSite() {
       <nav className="public-nav">
         <div className="public-nav-inner">
           {logoUrl
-            ? <img src={logoUrl} alt="Camp logo" className="public-nav-logo" />
+            ? <div className="public-nav-logo-wrap"><img src={logoUrl} alt="Camp logo" className="public-nav-logo" /></div>
             : <span className="public-nav-name">Summer Camp at Litton Lakes</span>}
           <a href={CFK_URL} target="_blank" rel="noopener noreferrer" className="btn public-nav-btn">Book now</a>
         </div>
@@ -256,29 +256,34 @@ export default function PublicSite() {
                 </div>
               )}
               <div className="location-card-body">
-                {organiser.location_name && <div className="location-card-name">{organiser.location_name}</div>}
-                {organiser.location_address && (
-                  <a
-                    href={organiser.location_map_url || `https://maps.google.com/?q=${encodeURIComponent(organiser.location_address)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="location-card-address"
-                  >
-                    📍 {organiser.location_address}
-                  </a>
-                )}
-                {organiser.location_description && <p className="location-card-desc">{organiser.location_description}</p>}
-                {organiser.location_address && (
-                  <a
-                    href={organiser.location_map_url || `https://maps.google.com/?q=${encodeURIComponent(organiser.location_address)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-outline-green"
-                    style={{ marginTop: '1.25rem', display: 'inline-block' }}
-                  >
-                    Open in Google Maps →
-                  </a>
-                )}
+                {(() => {
+                  const mapsHref = organiser.location_map_url
+                    || `https://maps.google.com/?q=${encodeURIComponent(organiser.location_address || organiser.location_name || '')}`
+                  return (
+                    <>
+                      {organiser.location_name && (
+                        <a href={mapsHref} target="_blank" rel="noopener noreferrer" className="location-card-name location-card-name-link">
+                          {organiser.location_name}
+                        </a>
+                      )}
+                      {organiser.location_address && (
+                        <a href={mapsHref} target="_blank" rel="noopener noreferrer" className="location-card-address">
+                          📍 {organiser.location_address}
+                        </a>
+                      )}
+                      {organiser.location_description && <p className="location-card-desc">{organiser.location_description}</p>}
+                      <a
+                        href={mapsHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-outline-green"
+                        style={{ marginTop: '1.25rem', display: 'inline-block' }}
+                      >
+                        Open in Google Maps →
+                      </a>
+                    </>
+                  )
+                })()}
               </div>
             </div>
           </section>

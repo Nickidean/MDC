@@ -9,6 +9,7 @@ const DEFAULTS = {
   pricing_haf_info: 'HAF-funded places are available for eligible families at no cost. Ask us for details.',
   pricing_installments: 'Pay in instalments — spread the cost across the summer.',
   location_name: 'Litton Lakes', location_address: '', location_description: '', location_map_url: '', location_image_url: '',
+  pricing_image_url: '',
 }
 
 function Section({ title, children }) {
@@ -26,9 +27,11 @@ export default function SiteContentAdmin() {
   const [uploading, setUploading] = useState(false)
   const [locationUploading, setLocationUploading] = useState(false)
   const [signatureUploading, setSignatureUploading] = useState(false)
+  const [pricingUploading, setPricingUploading] = useState(false)
   const fileRef = useRef(null)
   const locationFileRef = useRef(null)
   const signatureFileRef = useRef(null)
+  const pricingFileRef = useRef(null)
   const saveTimer = useRef(null)
 
   useEffect(() => {
@@ -172,25 +175,54 @@ export default function SiteContentAdmin() {
 
       {/* Pricing / Fine print */}
       <Section title={'Pricing (shown as "The fine print")'}>
-        <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-          <label className="field-label" style={{ margin: 0 }}>
-            Price per day
-            <input type="text" value={fields.pricing_day} onChange={e => handleChange('pricing_day', e.target.value)} placeholder="£40 per day" className="field-input" />
-          </label>
-          <label className="field-label" style={{ margin: 0 }}>
-            Sibling discount
-            <input type="text" value={fields.pricing_sibling_discount} onChange={e => handleChange('pricing_sibling_discount', e.target.value)} placeholder="e.g. 20% sibling discount on additional children" className="field-input" />
-          </label>
-          <label className="field-label" style={{ margin: 0 }}>
-            HAF places
-            <input type="text" value={fields.pricing_haf_info} onChange={e => handleChange('pricing_haf_info', e.target.value)} placeholder="e.g. Limited HAF places available" className="field-input" />
-          </label>
-          <label className="field-label" style={{ margin: 0 }}>
-            Instalments
-            <input type="text" value={fields.pricing_installments} onChange={e => handleChange('pricing_installments', e.target.value)} placeholder="e.g. Pay in instalments" className="field-input" />
-          </label>
-          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-            Each line becomes a bullet point in "The fine print" section on the public site. Leave any blank to hide it.
+        <div className="card" style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
+          <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+            <div
+              onClick={() => pricingFileRef.current?.click()}
+              title={pricingUploading ? 'Uploading…' : 'Upload photo'}
+              style={{ width: 140, height: 140, borderRadius: 10, border: '2px dashed var(--border)', overflow: 'hidden', cursor: 'pointer', background: 'var(--surface)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            >
+              {fields.pricing_image_url
+                ? <img src={fields.pricing_image_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                : <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textAlign: 'center', padding: '0 0.5rem' }}>{pricingUploading ? 'Uploading…' : '+ Photo (optional)'}</span>}
+            </div>
+            <input ref={pricingFileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={async e => {
+              const file = e.target.files?.[0]
+              if (!file) return
+              setPricingUploading(true)
+              const ext = file.name.split('.').pop()
+              const path = `pricing-${Date.now()}.${ext}`
+              const { error } = await supabase.storage.from('camp-images').upload(path, file, { upsert: true })
+              if (!error) {
+                const { data } = supabase.storage.from('camp-images').getPublicUrl(path)
+                const updated = { ...fields, pricing_image_url: data.publicUrl }
+                setFields(updated)
+                await persist(updated)
+              }
+              setPricingUploading(false)
+            }} />
+          </div>
+
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <label className="field-label" style={{ margin: 0 }}>
+              Price per day <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>(just the amount — "per day" is added automatically)</span>
+              <input type="text" value={fields.pricing_day} onChange={e => handleChange('pricing_day', e.target.value)} placeholder="£40" className="field-input" />
+            </label>
+            <label className="field-label" style={{ margin: 0 }}>
+              Sibling discount
+              <input type="text" value={fields.pricing_sibling_discount} onChange={e => handleChange('pricing_sibling_discount', e.target.value)} placeholder="e.g. 20% sibling discount on additional children" className="field-input" />
+            </label>
+            <label className="field-label" style={{ margin: 0 }}>
+              HAF places
+              <input type="text" value={fields.pricing_haf_info} onChange={e => handleChange('pricing_haf_info', e.target.value)} placeholder="e.g. Limited HAF places available" className="field-input" />
+            </label>
+            <label className="field-label" style={{ margin: 0 }}>
+              Instalments
+              <input type="text" value={fields.pricing_installments} onChange={e => handleChange('pricing_installments', e.target.value)} placeholder="e.g. Pay in instalments" className="field-input" />
+            </label>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+              Each line becomes a row in "The fine print" section on the public site. Leave any blank to hide it.
+            </div>
           </div>
         </div>
       </Section>

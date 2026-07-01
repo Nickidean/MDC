@@ -239,13 +239,40 @@ export default function PublicSite() {
             <h2 className="public-week-heading">The fine print</h2>
             <div className="organiser-section">
               <div className="organiser-section-accent" />
-              <div className="fine-print-body">
-                <ul className="fine-print-list">
-                  {organiser.pricing_day && <li>{organiser.pricing_day}</li>}
-                  {organiser.pricing_sibling_discount && <li>{organiser.pricing_sibling_discount}</li>}
-                  {organiser.pricing_haf_info && <li>{organiser.pricing_haf_info}</li>}
-                  {organiser.pricing_installments && <li>{organiser.pricing_installments}</li>}
-                </ul>
+              <div className="fine-print-row">
+                {organiser.pricing_image_url && (
+                  <div className="fine-print-img-wrap">
+                    <img src={organiser.pricing_image_url} alt="" className="fine-print-img" />
+                  </div>
+                )}
+                <div className="fine-print-body">
+                  {organiser.pricing_day && (
+                    <div className="fine-print-item fine-print-item-price">
+                      <span className="fine-print-icon">💷</span>
+                      <div>
+                        <div className="fine-print-price">{organiser.pricing_day}<span className="fine-print-price-unit"> / day</span></div>
+                      </div>
+                    </div>
+                  )}
+                  {organiser.pricing_sibling_discount && (
+                    <div className="fine-print-item">
+                      <span className="fine-print-icon">👨‍👩‍👧</span>
+                      <span>{organiser.pricing_sibling_discount}</span>
+                    </div>
+                  )}
+                  {organiser.pricing_haf_info && (
+                    <div className="fine-print-item">
+                      <span className="fine-print-icon">🌟</span>
+                      <span>{organiser.pricing_haf_info}</span>
+                    </div>
+                  )}
+                  {organiser.pricing_installments && (
+                    <div className="fine-print-item">
+                      <span className="fine-print-icon">💳</span>
+                      <span>{organiser.pricing_installments}</span>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </section>

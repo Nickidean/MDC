@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { supabase } from '../lib/supabase.js'
 
 const DEFAULTS = {
-  organiser_name: '', organiser_intro: '', organiser_image_url: '',
+  organiser_name: '', organiser_intro: '', organiser_image_url: '', organiser_role: '',
   organiser_email: '', organiser_whatsapp: '', organiser_instagram: '', organiser_facebook: '',
   pricing_day: '£40', pricing_week: '£180', pricing_two_weeks: '£340',
   pricing_sibling_discount: '20% sibling discount on additional children',
@@ -95,10 +95,16 @@ export default function SiteContentAdmin() {
             <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleImageUpload} />
           </div>
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-            <label className="field-label" style={{ margin: 0 }}>
-              Your name
-              <input type="text" value={fields.organiser_name} onChange={e => handleChange('organiser_name', e.target.value)} placeholder="e.g. Sarah Jones" className="field-input" />
-            </label>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+              <label className="field-label" style={{ margin: 0 }}>
+                Your name
+                <input type="text" value={fields.organiser_name} onChange={e => handleChange('organiser_name', e.target.value)} placeholder="e.g. Sarah Jones" className="field-input" />
+              </label>
+              <label className="field-label" style={{ margin: 0 }}>
+                Your role <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>(optional)</span>
+                <input type="text" value={fields.organiser_role} onChange={e => handleChange('organiser_role', e.target.value)} placeholder="e.g. Founder & Camp Lead" className="field-input" />
+              </label>
+            </div>
             <label className="field-label" style={{ margin: 0 }}>
               Intro paragraph <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>(the "Hi, I'm {'{name}'}" greeting is added automatically — just write what comes after)</span>
               <textarea value={fields.organiser_intro} onChange={e => handleChange('organiser_intro', e.target.value)} placeholder="I wanted to create something more than a typical camp…" className="field-textarea" rows={6} />

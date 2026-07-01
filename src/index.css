@@ -788,7 +788,20 @@ tr:hover td { background: var(--surface); }
   transition: transform 0.15s, box-shadow 0.15s;
 }
 .organiser-section-accent { width: 6px; flex-shrink: 0; background: var(--brand-secondary); }
-.organiser-section-body { padding: 1.75rem 2rem; display: flex; gap: 2rem; align-items: flex-start; flex: 1; }
+.organiser-section-body-letter { padding: 2rem 2.25rem; display: flex; flex-direction: column; flex: 1; }
+.organiser-signature {
+  font-family: 'Brush Script MT', 'Segoe Script', cursive;
+  font-size: 2.75rem;
+  color: var(--brand-primary);
+  margin: 1.75rem 0 1.25rem;
+  line-height: 1;
+  transform: rotate(-2deg);
+}
+.organiser-signoff-row { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1.5rem; }
+.organiser-signoff-photo { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid var(--brand-tertiary); }
+.organiser-signoff-name { font-size: 0.95rem; font-weight: 700; color: var(--brand-primary); }
+.organiser-signoff-email { color: var(--brand-primary); text-decoration: underline; font-weight: 600; }
+.organiser-signoff-role { font-size: 0.85rem; font-style: italic; color: var(--text-muted); margin-top: 0.1rem; }
 .organiser-photo {
   width: 110px; height: 110px; border-radius: 50%;
   object-fit: cover; flex-shrink: 0;
@@ -827,11 +840,8 @@ tr:hover td { background: var(--surface); }
 .organiser-contact-pill:hover { background: var(--brand-secondary); }
 .organiser-contact-icon { font-size: 0.95rem; line-height: 1; }
 @media (max-width: 700px) {
-  .organiser-section-body { flex-direction: column; align-items: center; text-align: center; gap: 1rem; }
-  .organiser-section-body .organiser-photo,
-  .organiser-section-body .organiser-photo-placeholder-pub { order: -1; }
   .organiser-contact-item,
-  .organiser-contact-row { justify-content: center; }
+  .organiser-contact-row { justify-content: flex-start; }
 }
 
 /* Daily structure admin */

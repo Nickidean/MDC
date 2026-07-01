@@ -537,7 +537,8 @@ tr:hover td { background: var(--surface); }
 }
 .btn-hero:hover { filter: brightness(0.92); transform: translateY(-1px); }
 
-.public-content { max-width: 900px; margin: 0 auto; padding: 2.5rem 2rem; }
+.public-content { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; display: flex; flex-direction: column; gap: 4rem; }
+.public-content section { margin-bottom: 0 !important; margin-top: 0 !important; }
 .pricing-banner {
   display: flex;
   align-items: center;
@@ -652,7 +653,8 @@ tr:hover td { background: var(--surface); }
 .public-week-heading {
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 900;
-  margin-bottom: 1.25rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
   color: var(--brand-primary);
   border-left: 5px solid var(--brand-secondary);
   padding-left: 1rem;

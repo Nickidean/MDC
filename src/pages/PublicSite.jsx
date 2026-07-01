@@ -277,8 +277,45 @@ export default function PublicSite() {
                 )}
                 <div>
                   <div className="organiser-label">Your camp organiser</div>
-                  <div className="organiser-name">{organiser.organiser_name}</div>
+                  <div className="organiser-name">Hi, I'm {organiser.organiser_name}</div>
                   {organiser.organiser_intro && <p className="organiser-intro">{organiser.organiser_intro}</p>}
+
+                  {(organiser.organiser_email || organiser.organiser_whatsapp || organiser.organiser_instagram || organiser.organiser_facebook) && (
+                    <div className="organiser-contact-row">
+                      {organiser.organiser_email && (
+                        <a href={`mailto:${organiser.organiser_email}`} className="organiser-contact-link">
+                          <span className="organiser-contact-icon">✉️</span> Email me
+                        </a>
+                      )}
+                      {organiser.organiser_whatsapp && (
+                        <a
+                          href={`https://wa.me/${organiser.organiser_whatsapp.replace(/[^0-9]/g, '')}`}
+                          target="_blank" rel="noopener noreferrer"
+                          className="organiser-contact-link"
+                        >
+                          <span className="organiser-contact-icon">💬</span> WhatsApp
+                        </a>
+                      )}
+                      {organiser.organiser_instagram && (
+                        <a
+                          href={`https://www.instagram.com/${organiser.organiser_instagram.replace(/^@/, '')}`}
+                          target="_blank" rel="noopener noreferrer"
+                          className="organiser-contact-link"
+                        >
+                          <span className="organiser-contact-icon">📷</span> Instagram
+                        </a>
+                      )}
+                      {organiser.organiser_facebook && (
+                        <a
+                          href={organiser.organiser_facebook.startsWith('http') ? organiser.organiser_facebook : `https://www.facebook.com/${organiser.organiser_facebook}`}
+                          target="_blank" rel="noopener noreferrer"
+                          className="organiser-contact-link"
+                        >
+                          <span className="organiser-contact-icon">👍</span> Facebook
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

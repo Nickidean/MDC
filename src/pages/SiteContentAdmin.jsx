@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabase.js'
 
 const DEFAULTS = {
   organiser_name: '', organiser_intro: '', organiser_image_url: '',
+  organiser_email: '', organiser_whatsapp: '', organiser_instagram: '', organiser_facebook: '',
   pricing_day: '£40', pricing_week: '£180', pricing_two_weeks: '£340',
   pricing_sibling_discount: '20% sibling discount on additional children',
   pricing_haf_info: 'HAF-funded places are available for eligible families at no cost. Ask us for details.',
@@ -99,8 +100,33 @@ export default function SiteContentAdmin() {
               <input type="text" value={fields.organiser_name} onChange={e => handleChange('organiser_name', e.target.value)} placeholder="e.g. Sarah Jones" className="field-input" />
             </label>
             <label className="field-label" style={{ margin: 0 }}>
-              Intro paragraph
-              <textarea value={fields.organiser_intro} onChange={e => handleChange('organiser_intro', e.target.value)} placeholder="Tell families about yourself and why you run this camp…" className="field-textarea" rows={5} />
+              Intro paragraph <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>(the "Hi, I'm {'{name}'}" greeting is added automatically — just write what comes after)</span>
+              <textarea value={fields.organiser_intro} onChange={e => handleChange('organiser_intro', e.target.value)} placeholder="I wanted to create something more than a typical camp…" className="field-textarea" rows={6} />
+            </label>
+          </div>
+        </div>
+
+        <div className="card" style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-muted)' }}>Contact details</div>
+          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '-0.5rem' }}>
+            Shown at the bottom of the "Meet the organiser" section so families can get in touch. Leave any blank to hide them.
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+            <label className="field-label" style={{ margin: 0 }}>
+              Email
+              <input type="email" value={fields.organiser_email} onChange={e => handleChange('organiser_email', e.target.value)} placeholder="you@example.com" className="field-input" />
+            </label>
+            <label className="field-label" style={{ margin: 0 }}>
+              WhatsApp number <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>(with country code)</span>
+              <input type="text" value={fields.organiser_whatsapp} onChange={e => handleChange('organiser_whatsapp', e.target.value)} placeholder="e.g. +447700900000" className="field-input" />
+            </label>
+            <label className="field-label" style={{ margin: 0 }}>
+              Instagram username
+              <input type="text" value={fields.organiser_instagram} onChange={e => handleChange('organiser_instagram', e.target.value)} placeholder="e.g. littonlakescamp" className="field-input" />
+            </label>
+            <label className="field-label" style={{ margin: 0 }}>
+              Facebook page name or URL
+              <input type="text" value={fields.organiser_facebook} onChange={e => handleChange('organiser_facebook', e.target.value)} placeholder="e.g. littonlakescamp" className="field-input" />
             </label>
           </div>
         </div>

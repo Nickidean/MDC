@@ -106,7 +106,7 @@ export default function Advisor() {
   return (
     <div className="advisor-layout">
       <div className="advisor-header">
-        <Link to={`/camps/${id}`} className="advisor-back">← Back to {camp?.name}</Link>
+        <Link to={`/admin/camps/${id}`} className="advisor-back">← Back to {camp?.name}</Link>
         <h1 style={{ fontSize: '1.25rem', fontWeight: 700 }}>Camp Business Advisor</h1>
         <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '0.2rem' }}>
           Ask anything about your camp's numbers, scenarios, or strategy.

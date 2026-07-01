@@ -72,7 +72,7 @@ export default function CampDashboard() {
     <div>
       <div className="page-header">
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-          <Link to="/camps" style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textDecoration: 'none' }}>← All Camps</Link>
+          <Link to="/admin/camps" style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textDecoration: 'none' }}>← All Camps</Link>
           <h1>{camp.name}</h1>
           {camp.start_date && (
             <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
@@ -83,10 +83,10 @@ export default function CampDashboard() {
         <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
           <button className="btn btn-ghost btn-sm" onClick={() => setEditing(true)}>Edit Camp</button>
           <span style={{ width: '1px', height: '1.25rem', background: 'var(--border)', display: 'inline-block', alignSelf: 'center' }} />
-          <Link to="/planner" style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textDecoration: 'none' }}>Day Planner</Link>
-          <a href="/site" target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textDecoration: 'none' }}>Public site ↗</a>
+          <Link to="/admin/planner" style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textDecoration: 'none' }}>Day Planner</Link>
+          <a href="/" target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textDecoration: 'none' }}>Public site ↗</a>
           <span style={{ width: '1px', height: '1.25rem', background: 'var(--border)', display: 'inline-block', alignSelf: 'center' }} />
-          <Link to={`/camps/${id}/advisor`} className="btn btn-primary btn-sm">Ask Advisor</Link>
+          <Link to={`/admin/camps/${id}/advisor`} className="btn btn-primary btn-sm">Ask Advisor</Link>
         </div>
       </div>
 

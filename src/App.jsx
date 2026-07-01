@@ -31,54 +31,54 @@ function AppShell({ configured, session }) {
   return (
     <div className="app">
       <header className="app-header">
-        <a href="/camps" className="app-logo">Camp Business Advisor</a>
+        <a href="/admin/camps" className="app-logo">Camp Business Advisor</a>
         {session && (
           <nav className="app-nav">
-            <Link to="/planner" className="app-nav-link">Day Planner</Link>
-            <Link to="/guests" className="app-nav-link">Special Guests</Link>
-            <Link to="/daily-structure" className="app-nav-link">Daily Structure</Link>
-            <Link to="/team" className="app-nav-link">Team</Link>
-            <Link to="/partners" className="app-nav-link">Partners</Link>
-            <Link to="/about" className="app-nav-link">Site Content</Link>
-            <a href="/site" target="_blank" rel="noopener noreferrer" className="app-nav-link" style={{ fontSize: '0.85rem', opacity: 0.8 }}>View public site ↗</a>
+            <Link to="/admin/planner" className="app-nav-link">Day Planner</Link>
+            <Link to="/admin/guests" className="app-nav-link">Special Guests</Link>
+            <Link to="/admin/daily-structure" className="app-nav-link">Daily Structure</Link>
+            <Link to="/admin/team" className="app-nav-link">Team</Link>
+            <Link to="/admin/partners" className="app-nav-link">Partners</Link>
+            <Link to="/admin/about" className="app-nav-link">Site Content</Link>
+            <a href="/" target="_blank" rel="noopener noreferrer" className="app-nav-link" style={{ fontSize: '0.85rem', opacity: 0.8 }}>View public site ↗</a>
           </nav>
         )}
       </header>
       {!configured && <SetupBanner />}
       <main className="app-main">
         <Routes>
-          <Route path="/" element={<Navigate to="/camps" replace />} />
-          <Route path="/camps" element={<CampList />} />
-          <Route path="/camps/new" element={<CampForm />} />
-          <Route path="/camps/:id" element={<CampDashboard />} />
-          <Route path="/camps/:id/advisor" element={<Advisor />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/planner" element={
+          <Route path="/" element={<Navigate to="camps" replace />} />
+          <Route path="camps" element={<CampList />} />
+          <Route path="camps/new" element={<CampForm />} />
+          <Route path="camps/:id" element={<CampDashboard />} />
+          <Route path="camps/:id/advisor" element={<Advisor />} />
+          <Route path="login" element={<Login />} />
+          <Route path="planner" element={
             <AuthGuard>
               <DayPlanner />
             </AuthGuard>
           } />
-          <Route path="/guests" element={
+          <Route path="guests" element={
             <AuthGuard>
               <GuestsAdmin />
             </AuthGuard>
           } />
-          <Route path="/daily-structure" element={
+          <Route path="daily-structure" element={
             <AuthGuard>
               <DailyStructureAdmin />
             </AuthGuard>
           } />
-          <Route path="/about" element={
+          <Route path="about" element={
             <AuthGuard>
               <SiteContentAdmin />
             </AuthGuard>
           } />
-          <Route path="/team" element={
+          <Route path="team" element={
             <AuthGuard>
               <TeamAdmin />
             </AuthGuard>
           } />
-          <Route path="/partners" element={
+          <Route path="partners" element={
             <AuthGuard>
               <PartnersAdmin />
             </AuthGuard>
@@ -102,8 +102,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/site" element={<PublicSite />} />
-        <Route path="/*" element={<AppShell configured={configured} session={session} />} />
+        <Route path="/" element={<PublicSite />} />
+        <Route path="/admin/*" element={<AppShell configured={configured} session={session} />} />
       </Routes>
     </BrowserRouter>
   )

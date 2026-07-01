@@ -72,7 +72,7 @@ export default function CampForm({ camp, onSaved }) {
       } else {
         const { data, error } = await supabase.from('camps').insert(payload).select().single()
         if (error) throw error
-        navigate(`/camps/${data.id}`)
+        navigate(`/admin/camps/${data.id}`)
       }
     } catch (err) {
       setError(err.message)
@@ -138,7 +138,7 @@ export default function CampForm({ camp, onSaved }) {
           </div>
 
           <div className="form-actions">
-            <button type="button" className="btn btn-ghost" onClick={() => camp ? onSaved && onSaved(camp) : navigate('/camps')}>
+            <button type="button" className="btn btn-ghost" onClick={() => camp ? onSaved && onSaved(camp) : navigate('/admin/camps')}>
               Cancel
             </button>
             <button type="submit" className="btn btn-primary" disabled={saving}>

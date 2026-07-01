@@ -18,7 +18,7 @@ export default function Login() {
     if (err) {
       setError('Invalid email or password.')
     } else {
-      navigate('/planner')
+      navigate('/admin/planner')
     }
   }
 

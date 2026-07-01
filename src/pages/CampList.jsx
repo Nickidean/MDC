@@ -36,7 +36,7 @@ export default function CampList() {
     <div>
       <div className="page-header">
         <h1>Your Camps</h1>
-        <Link to="/camps/new" className="btn btn-primary">+ New Camp</Link>
+        <Link to="/admin/camps/new" className="btn btn-primary">+ New Camp</Link>
       </div>
 
       {error && <div className="alert alert-error">{error}</div>}
@@ -48,13 +48,13 @@ export default function CampList() {
       {camps.length === 0 && !loading && isSupabaseConfigured() && (
         <div className="card" style={{ textAlign: 'center', padding: '2.5rem', color: 'var(--text-muted)' }}>
           <p style={{ marginBottom: '1rem' }}>No camps yet. Create your first camp to get started.</p>
-          <Link to="/camps/new" className="btn btn-primary">Create Camp</Link>
+          <Link to="/admin/camps/new" className="btn btn-primary">Create Camp</Link>
         </div>
       )}
 
       <div className="camp-list">
         {camps.map(camp => (
-          <Link key={camp.id} to={`/camps/${camp.id}`} className="camp-card">
+          <Link key={camp.id} to={`/admin/camps/${camp.id}`} className="camp-card">
             <div>
               <div className="camp-card-name">{camp.name}</div>
               <div className="camp-card-meta">

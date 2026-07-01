@@ -797,6 +797,7 @@ tr:hover td { background: var(--surface); }
   line-height: 1;
   transform: rotate(-2deg);
 }
+.organiser-signature-img { height: 70px; width: auto; max-width: 220px; object-fit: contain; margin: 1.5rem 0 0.5rem; display: block; }
 .organiser-signoff-row {
   display: flex; align-items: flex-start; gap: 1.1rem;
   padding-top: 1.25rem; border-top: 1px solid rgba(19,44,10,0.08);

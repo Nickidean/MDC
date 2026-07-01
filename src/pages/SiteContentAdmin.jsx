@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { supabase } from '../lib/supabase.js'
 
 const DEFAULTS = {
-  organiser_name: '', organiser_intro: '', organiser_image_url: '', organiser_role: '',
+  organiser_name: '', organiser_intro: '', organiser_image_url: '', organiser_role: '', organiser_signature_url: '',
   organiser_email: '', organiser_whatsapp: '', organiser_instagram: '', organiser_facebook: '',
   pricing_day: '£40', pricing_week: '£180', pricing_two_weeks: '£340',
   pricing_sibling_discount: '20% sibling discount on additional children',
@@ -24,8 +24,10 @@ export default function SiteContentAdmin() {
   const [saveStatus, setSaveStatus] = useState('')
   const [uploading, setUploading] = useState(false)
   const [locationUploading, setLocationUploading] = useState(false)
+  const [signatureUploading, setSignatureUploading] = useState(false)
   const fileRef = useRef(null)
   const locationFileRef = useRef(null)
+  const signatureFileRef = useRef(null)
   const saveTimer = useRef(null)
 
   useEffect(() => {
@@ -109,6 +111,35 @@ export default function SiteContentAdmin() {
               Intro paragraph <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>(the "Hi, I'm {'{name}'}" greeting is added automatically — just write what comes after)</span>
               <textarea value={fields.organiser_intro} onChange={e => handleChange('organiser_intro', e.target.value)} placeholder="I wanted to create something more than a typical camp…" className="field-textarea" rows={6} />
             </label>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <div
+                onClick={() => signatureFileRef.current?.click()}
+                title={signatureUploading ? 'Uploading…' : 'Upload signature'}
+                style={{ width: 160, height: 60, borderRadius: 8, border: '2px dashed var(--border)', overflow: 'hidden', cursor: 'pointer', flexShrink: 0, background: 'var(--surface)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              >
+                {fields.organiser_signature_url
+                  ? <img src={fields.organiser_signature_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                  : <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{signatureUploading ? 'Uploading…' : '+ Signature'}</span>}
+              </div>
+              <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                Upload a photo of your signature (transparent PNG works best). Shown instead of a typed name after your intro.
+              </span>
+              <input ref={signatureFileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={async e => {
+                const file = e.target.files?.[0]
+                if (!file) return
+                setSignatureUploading(true)
+                const ext = file.name.split('.').pop()
+                const path = `signature-${Date.now()}.${ext}`
+                const { error } = await supabase.storage.from('camp-images').upload(path, file, { upsert: true })
+                if (!error) {
+                  const { data } = supabase.storage.from('camp-images').getPublicUrl(path)
+                  const updated = { ...fields, organiser_signature_url: data.publicUrl }
+                  setFields(updated)
+                  await persist(updated)
+                }
+                setSignatureUploading(false)
+              }} />
+            </div>
           </div>
         </div>
 

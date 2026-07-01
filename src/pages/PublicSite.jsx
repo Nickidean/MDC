@@ -294,7 +294,11 @@ export default function PublicSite() {
                 <div className="organiser-name">Hi, I'm {organiser.organiser_name}</div>
                 {organiser.organiser_intro && <p className="organiser-intro">{organiser.organiser_intro}</p>}
 
-                <div className="organiser-signature">{organiser.organiser_name}</div>
+                {organiser.organiser_signature_url ? (
+                  <img src={organiser.organiser_signature_url} alt={`${organiser.organiser_name}'s signature`} className="organiser-signature-img" />
+                ) : (
+                  <div className="organiser-signature">{organiser.organiser_name}</div>
+                )}
 
                 <div className="organiser-signoff-row">
                   {organiser.organiser_image_url ? (

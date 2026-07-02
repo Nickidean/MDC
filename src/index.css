@@ -1068,6 +1068,9 @@ tr:hover td { background: var(--surface); }
   transition: background 0.15s, border-color 0.15s;
 }
 .footer-social-btn:hover { background: var(--brand-secondary); border-color: var(--brand-secondary); color: var(--brand-primary); }
+.footer-brought-by { font-size: 0.8rem; color: rgba(255,255,255,0.45); margin: 0 0 0.6rem; }
+.footer-brought-by-link { color: rgba(255,255,255,0.85); font-weight: 700; text-decoration: none; }
+.footer-brought-by-link:hover { text-decoration: underline; }
 .footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.3); margin: 0; }
 
 .public-loading, .public-empty { text-align: center; color: rgba(19,44,10,0.5); padding: 3rem; font-size: 1rem; }

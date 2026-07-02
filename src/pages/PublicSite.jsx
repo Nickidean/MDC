@@ -509,6 +509,12 @@ export default function PublicSite() {
             Facebook
           </a>
         </div>
+        <p className="footer-brought-by">
+          The Summer Camp is brought to you by{' '}
+          <a href="https://www.themindfuldigitalcollective.co.uk/" target="_blank" rel="noopener noreferrer" className="footer-brought-by-link">
+            The Mindful Digital Collective
+          </a>
+        </p>
         <p className="footer-copy">© 2026 The Mindful Digital Collective</p>
       </footer>
     </div>

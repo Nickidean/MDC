@@ -131,6 +131,18 @@ export default function PublicSite() {
   const [partners, setPartners] = useState([])
 
   useEffect(() => {
+    if (!logoUrl) return
+    let link = document.querySelector("link[rel~='icon']")
+    if (!link) {
+      link = document.createElement('link')
+      link.rel = 'icon'
+      document.head.appendChild(link)
+    }
+    link.type = ''
+    link.href = logoUrl
+  }, [logoUrl])
+
+  useEffect(() => {
     if (!supabase) return
     supabase
       .from('published_plan')

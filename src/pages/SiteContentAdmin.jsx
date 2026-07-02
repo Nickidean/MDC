@@ -8,7 +8,7 @@ const DEFAULTS = {
   pricing_sibling_discount: '20% sibling discount on additional children',
   pricing_haf_info: 'HAF-funded places are available for eligible families at no cost. Ask us for details.',
   pricing_installments: 'Pay in instalments — spread the cost across the summer.',
-  location_name: 'Litton Lakes', location_address: '', location_description: '', location_map_url: '', location_image_url: '',
+  location_name: 'Litton Lakes', location_address: '', location_description: '', location_map_url: '', location_image_url: '', location_logo_url: '',
   pricing_image_url: '',
 }
 
@@ -26,10 +26,12 @@ export default function SiteContentAdmin() {
   const [saveStatus, setSaveStatus] = useState('')
   const [uploading, setUploading] = useState(false)
   const [locationUploading, setLocationUploading] = useState(false)
+  const [locationLogoUploading, setLocationLogoUploading] = useState(false)
   const [signatureUploading, setSignatureUploading] = useState(false)
   const [pricingUploading, setPricingUploading] = useState(false)
   const fileRef = useRef(null)
   const locationFileRef = useRef(null)
+  const locationLogoFileRef = useRef(null)
   const signatureFileRef = useRef(null)
   const pricingFileRef = useRef(null)
   const saveTimer = useRef(null)
@@ -276,6 +278,36 @@ export default function SiteContentAdmin() {
                 <input type="text" value={fields.location_map_url} onChange={e => handleChange('location_map_url', e.target.value)} placeholder="https://maps.google.com/?q=Litton+Lakes" className="field-input" />
               </label>
             </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', borderTop: '1px solid var(--border)', paddingTop: '0.75rem' }}>
+            <div
+              onClick={() => locationLogoFileRef.current?.click()}
+              title={locationLogoUploading ? 'Uploading…' : 'Upload venue badge/logo'}
+              style={{ width: 80, height: 80, borderRadius: '50%', border: '2px dashed var(--border)', overflow: 'hidden', cursor: 'pointer', flexShrink: 0, background: 'var(--surface)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            >
+              {fields.location_logo_url
+                ? <img src={fields.location_logo_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                : <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textAlign: 'center', padding: '0 0.4rem' }}>{locationLogoUploading ? '…' : '+ Badge'}</span>}
+            </div>
+            <input ref={locationLogoFileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={async e => {
+              const file = e.target.files?.[0]
+              if (!file) return
+              setLocationLogoUploading(true)
+              const ext = file.name.split('.').pop()
+              const path = `location-logo-${Date.now()}.${ext}`
+              const { error } = await supabase.storage.from('camp-images').upload(path, file, { upsert: true })
+              if (!error) {
+                const { data } = supabase.storage.from('camp-images').getPublicUrl(path)
+                const updated = { ...fields, location_logo_url: data.publicUrl }
+                setFields(updated)
+                await persist(updated)
+              }
+              setLocationLogoUploading(false)
+            }} />
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+              Optional venue badge or logo (e.g. a circular stamp logo) — shown next to the venue name on the public site.
+            </span>
           </div>
         </div>
       </Section>

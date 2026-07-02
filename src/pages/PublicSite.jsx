@@ -339,6 +339,9 @@ export default function PublicSite() {
                     || `https://maps.google.com/?q=${encodeURIComponent(organiser.location_address || organiser.location_name || '')}`
                   return (
                     <>
+                      {organiser.location_logo_url && (
+                        <img src={organiser.location_logo_url} alt="" className="location-card-badge" />
+                      )}
                       {organiser.location_name && (
                         <a href={mapsHref} target="_blank" rel="noopener noreferrer" className="location-card-name location-card-name-link">
                           {organiser.location_name}

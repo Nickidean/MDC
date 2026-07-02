@@ -212,9 +212,6 @@ export default function PublicSite() {
 
       <section className="hero-section">
         <div className="hero-inner">
-          {organiser?.hero_icon_url && (
-            <img src={organiser.hero_icon_url} alt="" className="hero-icon" />
-          )}
           <h1 className="hero-title">Summer Camp<br />at Litton Lakes 2026</h1>
           <p className="hero-prose">
             A fun, active and engaging summer camp where children build confidence, make friends and develop real-world skills.

@@ -39,25 +39,31 @@ function GuestModal({ guest, onClose }) {
   return createPortal(
     <div className="modal-backdrop" onClick={handleBackdrop}>
       <div className="modal-box">
-        <button className="modal-close" onClick={onClose} aria-label="Close">✕</button>
-        <div className="modal-guest-header">
-          {guest.image ? (
-            <img src={guest.image} alt={guest.name} className="modal-guest-avatar" />
-          ) : (
-            <div className="modal-guest-avatar modal-guest-avatar-placeholder" />
-          )}
-          <div>
-            <div className="modal-guest-label">Special Guest</div>
-            <div className="modal-guest-name">{guest.name}</div>
-            {guest.tag && <span className="modal-guest-tag">{guest.tag}</span>}
+        <div className="modal-scroll">
+          <div className="modal-close-bar">
+            <button className="modal-close" onClick={onClose} aria-label="Close">✕</button>
+          </div>
+          <div className="modal-scroll-inner">
+            <div className="modal-guest-header">
+              {guest.image ? (
+                <img src={guest.image} alt={guest.name} className="modal-guest-avatar" />
+              ) : (
+                <div className="modal-guest-avatar modal-guest-avatar-placeholder" />
+              )}
+              <div>
+                <div className="modal-guest-label">Special Guest</div>
+                <div className="modal-guest-name">{guest.name}</div>
+                {guest.tag && <span className="modal-guest-tag">{guest.tag}</span>}
+              </div>
+            </div>
+            {guest.bio && <div className="modal-guest-bio"><BioText bio={guest.bio} /></div>}
+            {guest.website && (
+              <a href={guest.website} target="_blank" rel="noopener noreferrer" className="btn btn-outline-green modal-guest-website">
+                Visit website →
+              </a>
+            )}
           </div>
         </div>
-        {guest.bio && <div className="modal-guest-bio"><BioText bio={guest.bio} /></div>}
-        {guest.website && (
-          <a href={guest.website} target="_blank" rel="noopener noreferrer" className="btn btn-outline-green modal-guest-website">
-            Visit website →
-          </a>
-        )}
       </div>
     </div>,
     document.body

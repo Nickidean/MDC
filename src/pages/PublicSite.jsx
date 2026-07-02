@@ -144,6 +144,13 @@ export default function PublicSite() {
 
   useEffect(() => {
     if (!supabase) return
+    if (sessionStorage.getItem('visit_tracked')) return
+    sessionStorage.setItem('visit_tracked', '1')
+    supabase.rpc('track_site_visit')
+  }, [])
+
+  useEffect(() => {
+    if (!supabase) return
     supabase
       .from('published_plan')
       .select('logo_url')

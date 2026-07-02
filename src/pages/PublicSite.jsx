@@ -214,7 +214,7 @@ export default function PublicSite() {
         <div className="hero-inner">
           <h1 className="hero-title">Summer Camp<br />at Litton Lakes 2026</h1>
           <p className="hero-prose">
-            A fun, active and engaging summer camp, running <span className="hero-prose-highlight">9am – 4pm</span>, where children build confidence, make friends and develop real-world skills.
+            A fun, active and engaging summer camp where children build confidence, make friends and develop real-world skills.
           </p>
           <div className="hero-snapshot">
             <div className="hero-snapshot-item">
@@ -223,6 +223,10 @@ export default function PublicSite() {
             <div className="hero-snapshot-divider" />
             <div className="hero-snapshot-item">
               <div className="hero-snapshot-value">Ages 7–12</div>
+            </div>
+            <div className="hero-snapshot-divider" />
+            <div className="hero-snapshot-item">
+              <div className="hero-snapshot-value">9am – 4pm</div>
             </div>
           </div>
           <a href={CFK_URL} target="_blank" rel="noopener noreferrer" className="btn btn-hero">Book a place</a>

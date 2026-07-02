@@ -10,6 +10,7 @@ const DEFAULTS = {
   pricing_installments: 'Pay in instalments — spread the cost across the summer.',
   location_name: 'Litton Lakes', location_address: '', location_description: '', location_map_url: '', location_image_url: '', location_logo_url: '',
   pricing_image_url: '',
+  hero_icon_url: '',
 }
 
 function Section({ title, children }) {
@@ -29,11 +30,13 @@ export default function SiteContentAdmin() {
   const [locationLogoUploading, setLocationLogoUploading] = useState(false)
   const [signatureUploading, setSignatureUploading] = useState(false)
   const [pricingUploading, setPricingUploading] = useState(false)
+  const [heroIconUploading, setHeroIconUploading] = useState(false)
   const fileRef = useRef(null)
   const locationFileRef = useRef(null)
   const locationLogoFileRef = useRef(null)
   const signatureFileRef = useRef(null)
   const pricingFileRef = useRef(null)
+  const heroIconFileRef = useRef(null)
   const saveTimer = useRef(null)
 
   useEffect(() => {
@@ -89,6 +92,39 @@ export default function SiteContentAdmin() {
           </span>
         )}
       </div>
+
+      {/* Hero icon */}
+      <Section title="Header Icon">
+        <div className="card" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <div
+            onClick={() => heroIconFileRef.current?.click()}
+            title={heroIconUploading ? 'Uploading…' : 'Upload icon'}
+            style={{ width: 100, height: 100, borderRadius: 10, border: '2px dashed var(--border)', overflow: 'hidden', cursor: 'pointer', flexShrink: 0, background: 'var(--surface)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          >
+            {fields.hero_icon_url
+              ? <img src={fields.hero_icon_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              : <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textAlign: 'center', padding: '0 0.4rem' }}>{heroIconUploading ? 'Uploading…' : '+ Icon'}</span>}
+          </div>
+          <input ref={heroIconFileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={async e => {
+            const file = e.target.files?.[0]
+            if (!file) return
+            setHeroIconUploading(true)
+            const ext = file.name.split('.').pop()
+            const path = `hero-icon-${Date.now()}.${ext}`
+            const { error } = await supabase.storage.from('camp-images').upload(path, file, { upsert: true })
+            if (!error) {
+              const { data } = supabase.storage.from('camp-images').getPublicUrl(path)
+              const updated = { ...fields, hero_icon_url: data.publicUrl }
+              setFields(updated)
+              await persist(updated)
+            }
+            setHeroIconUploading(false)
+          }} />
+          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+            An image shown above the main heading on the public site (e.g. a tent or camp icon). A transparent PNG works best.
+          </span>
+        </div>
+      </Section>
 
       {/* Organiser */}
       <Section title="About the Organiser">

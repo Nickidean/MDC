@@ -214,6 +214,7 @@ export default function PublicSite() {
       <div className="public-content">
         <section className="day-structure-section">
           <h2 className="public-week-heading">The daily structure</h2>
+          <p className="public-section-intro">Every day has the same familiar rhythm, with a few twists and surprises depending on who's joining us.</p>
           <div className="day-structure-grid">
             {structure.map(s => (
               <div key={s.id} className="day-structure-item">
@@ -265,7 +266,7 @@ export default function PublicSite() {
         ) : guests.length > 0 ? (
           <section>
             <h2 className="public-week-heading">This year's special guests</h2>
-            <p style={{ color: 'rgba(19,44,10,0.6)', fontSize: '0.95rem', marginBottom: '1.75rem', marginTop: '-0.75rem' }}>Each day we bring in someone local and inspiring. Click on a guest to find out more.</p>
+            <p className="public-section-intro">Each day we bring in someone local and inspiring. Click on a guest to find out more.</p>
             <div className="guests-grid">
               {guests.map((g, i) => (
                 <GuestCard key={i} guest={g} />

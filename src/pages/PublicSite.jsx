@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { createPortal } from 'react-dom'
-import { supabase } from '../lib/supabase.js'
+import { supabase, isSupabaseConfigured } from '../lib/supabase.js'
 
 const CFK_URL = 'https://litton-lakes-summer-camp.classforkids.io/camps'
 
@@ -99,6 +99,7 @@ export default function PublicSite() {
   const [partners, setPartners] = useState([])
 
   useEffect(() => {
+    if (!supabase) return
     supabase
       .from('published_plan')
       .select('logo_url')
@@ -144,6 +145,15 @@ export default function PublicSite() {
       .order('created_at')
       .then(({ data }) => setPartners((data || []).filter(p => p.image_url)))
   }, [])
+
+  if (!isSupabaseConfigured()) {
+    return (
+      <div style={{ padding: '3rem 1.5rem', textAlign: 'center', fontFamily: 'sans-serif' }}>
+        <h1>Site not configured</h1>
+        <p>VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are missing from the build environment.</p>
+      </div>
+    )
+  }
 
   return (
     <div className="public-site">

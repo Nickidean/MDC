@@ -1053,7 +1053,8 @@ tr:hover td { background: var(--surface); }
   .day-cards-grid { grid-template-columns: 1fr; }
   .public-cards-grid { grid-template-columns: 1fr; }
 
-  .hero-snapshot { gap: 2rem; }
+  .hero-snapshot { gap: 1.5rem 2rem; row-gap: 1.5rem; }
+  .hero-snapshot-item { padding: 0; min-width: 0; }
   .hero-snapshot-divider { display: none; }
 
   /* Pricing banner stacks on mobile */

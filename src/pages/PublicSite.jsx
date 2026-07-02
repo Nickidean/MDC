@@ -183,11 +183,18 @@ export default function PublicSite() {
               <div key={s.id} className="day-structure-item">
                 <div className="day-structure-accent" />
                 <div className="day-structure-content">
-                  <div className="day-structure-left">
-                    <div className="day-structure-time">{s.time_label}</div>
-                    <div className="day-structure-activity">{s.activity}</div>
+                  {s.image_url && (
+                    <div className="day-structure-img-wrap">
+                      <img src={s.image_url} alt="" className="day-structure-img" />
+                    </div>
+                  )}
+                  <div className="day-structure-text">
+                    <div className="day-structure-left">
+                      <div className="day-structure-time">{s.time_label}</div>
+                      <div className="day-structure-activity">{s.activity}</div>
+                    </div>
+                    <p className="day-structure-desc">{s.description}</p>
                   </div>
-                  <p className="day-structure-desc">{s.description}</p>
                 </div>
               </div>
             ))}

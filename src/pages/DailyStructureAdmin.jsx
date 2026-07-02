@@ -7,8 +7,11 @@ function SlotRow({ slot, onUpdated, onDeleted }) {
     time_label: slot.time_label || '',
     activity: slot.activity || '',
     description: slot.description || '',
+    image_url: slot.image_url || '',
   })
   const [saveStatus, setSaveStatus] = useState('')
+  const [uploading, setUploading] = useState(false)
+  const fileRef = useRef(null)
   const saveTimer = useRef(null)
 
   function scheduleSave(updated) {
@@ -44,9 +47,34 @@ function SlotRow({ slot, onUpdated, onDeleted }) {
     onDeleted && onDeleted()
   }
 
+  async function handleImageUpload(e) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploading(true)
+    const ext = file.name.split('.').pop()
+    const path = `daily-structure-${slot.id}-${Date.now()}.${ext}`
+    const { error: storageError } = await supabase.storage.from('camp-images').upload(path, file, { upsert: true })
+    if (storageError) { console.error('Upload error:', storageError); setUploading(false); return }
+    const { data } = supabase.storage.from('camp-images').getPublicUrl(path)
+    const updated = { ...fields, image_url: data.publicUrl }
+    setFields(updated)
+    await persist(updated)
+    setUploading(false)
+  }
+
   return (
     <div className="day-slot-admin-row">
       <div className="day-slot-admin-accent" />
+      <div
+        onClick={() => fileRef.current?.click()}
+        title={uploading ? 'Uploading…' : 'Upload thumbnail'}
+        style={{ width: 90, height: 90, borderRadius: 8, border: '2px dashed var(--border)', overflow: 'hidden', cursor: 'pointer', flexShrink: 0, margin: '0.75rem 0 0.75rem 0.75rem', background: 'var(--surface)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      >
+        {fields.image_url
+          ? <img src={fields.image_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          : <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textAlign: 'center', padding: '0 0.4rem' }}>{uploading ? '…' : '+ Photo'}</span>}
+      </div>
+      <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleImageUpload} />
       <div className="day-slot-admin-content">
         <div className="day-slot-admin-top">
           <input
@@ -109,7 +137,7 @@ export default function DailyStructureAdmin() {
     const maxSort = slots.length ? Math.max(...slots.map(s => s.sort_index)) : -1
     const { data, error } = await supabase
       .from('daily_structure')
-      .insert({ emoji: '', time_label: '', activity: '', description: '', sort_index: maxSort + 1 })
+      .insert({ emoji: '', time_label: '', activity: '', description: '', image_url: '', sort_index: maxSort + 1 })
       .select()
       .single()
     if (!error) setSlots(prev => [...prev, data])

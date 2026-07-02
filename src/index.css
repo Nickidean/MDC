@@ -679,15 +679,20 @@ tr:hover td { background: var(--surface); }
 }
 .day-structure-item:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(19,44,10,0.13); }
 .day-structure-accent { width: 6px; flex-shrink: 0; background: var(--brand-secondary); }
-.day-structure-content { padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 2.5rem; flex: 1; }
+.day-structure-content { position: relative; padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1.5rem; flex: 1; }
+.day-structure-img-wrap { width: 76px; height: 76px; border-radius: 10px; overflow: hidden; flex-shrink: 0; background: var(--brand-tertiary); }
+.day-structure-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.day-structure-text { display: flex; align-items: center; gap: 2.5rem; flex: 1; min-width: 0; }
 .day-structure-left { width: 220px; flex-shrink: 0; }
 .day-structure-time { font-size: 1.5rem; font-weight: 800; color: var(--brand-primary); line-height: 1.1; margin-bottom: 0.3rem; }
 .day-structure-time-emoji { font-size: 1.5rem; margin-right: 0.4rem; }
 .day-structure-activity { font-size: 1rem; font-weight: 700; color: var(--brand-primary); }
 .day-structure-desc { font-size: 0.9rem; color: #4b5563; line-height: 1.6; margin: 0; flex: 1; }
 @media (max-width: 600px) {
-  .day-structure-content { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-  .day-structure-left { min-width: unset; }
+  .day-structure-content { flex-direction: column; align-items: flex-start; gap: 0.5rem; padding-right: 6.5rem; }
+  .day-structure-img-wrap { position: absolute; top: 1.25rem; right: 1.5rem; width: 60px; height: 60px; }
+  .day-structure-text { flex-direction: column; align-items: flex-start; gap: 0.5rem; width: 100%; }
+  .day-structure-left { width: auto; min-width: unset; }
 }
 
 /* Book CTA section */

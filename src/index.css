@@ -826,7 +826,10 @@ tr:hover td { background: var(--surface); }
   border-radius: 999px;
 }
 .modal-guest-name { font-size: 1.3rem; font-weight: 800; color: var(--brand-primary); }
-.modal-guest-bio { font-size: 0.95rem; color: #374151; line-height: 1.7; margin: 0; }
+.modal-guest-bio { font-size: 0.95rem; color: #374151; line-height: 1.7; }
+.modal-guest-bio p { margin: 0 0 1rem; }
+.modal-guest-bio p:last-child { margin-bottom: 0; }
+.modal-guest-website { margin-top: 1.25rem; display: inline-block; }
 
 /* Admin day card guest avatar upload */
 /* Organiser photo upload */

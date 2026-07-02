@@ -7,6 +7,7 @@ function GuestRow({ guest, onUpdated, onDeleted }) {
     bio: guest.bio || '',
     image_url: guest.image_url || '',
     tag: guest.tag || '',
+    website_url: guest.website_url || '',
   })
   const [saveStatus, setSaveStatus] = useState('')
   const [uploading, setUploading] = useState(false)
@@ -22,7 +23,7 @@ function GuestRow({ guest, onUpdated, onDeleted }) {
     setSaveStatus('saving')
     const { error } = await supabase
       .from('special_guests')
-      .update({ name: updated.name, bio: updated.bio, image_url: updated.image_url, tag: updated.tag })
+      .update({ name: updated.name, bio: updated.bio, image_url: updated.image_url, tag: updated.tag, website_url: updated.website_url })
       .eq('id', guest.id)
     if (!error) {
       setSaveStatus('saved')
@@ -111,9 +112,16 @@ function GuestRow({ guest, onUpdated, onDeleted }) {
         <textarea
           value={fields.bio}
           onChange={e => handleChange('bio', e.target.value)}
-          placeholder="Who are they and what will they be doing at camp…"
+          placeholder="Who are they and what will they be doing at camp… (leave a blank line between paragraphs)"
           className="field-textarea"
-          rows={3}
+          rows={5}
+        />
+        <input
+          type="text"
+          value={fields.website_url}
+          onChange={e => handleChange('website_url', e.target.value)}
+          placeholder="Business website, e.g. https://breakthe4thwall.com (optional)"
+          className="field-input"
         />
       </div>
     </div>
@@ -138,7 +146,7 @@ export default function GuestsAdmin() {
     const maxSort = guests.length ? Math.max(...guests.map(g => g.sort_index)) : -1
     const { data, error } = await supabase
       .from('special_guests')
-      .insert({ name: '', bio: '', image_url: '', tag: '', sort_index: maxSort + 1 })
+      .insert({ name: '', bio: '', image_url: '', tag: '', website_url: '', sort_index: maxSort + 1 })
       .select()
       .single()
     if (!error) setGuests(prev => [...prev, data])

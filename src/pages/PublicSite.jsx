@@ -4,6 +4,27 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase.js'
 
 const CFK_URL = 'https://litton-lakes-summer-camp.classforkids.io/camps'
 
+function formatBio(bio) {
+  return bio
+    .split(/\n\s*\n/)
+    .map(p => p.trim())
+    .filter(Boolean)
+}
+
+function BioText({ bio, className }) {
+  const paragraphs = formatBio(bio)
+  return paragraphs.map((para, i) => (
+    <p key={i} className={className}>
+      {para.split('\n').map((line, j, arr) => (
+        <React.Fragment key={j}>
+          {line}
+          {j < arr.length - 1 && <br />}
+        </React.Fragment>
+      ))}
+    </p>
+  ))
+}
+
 function GuestModal({ guest, onClose }) {
   const handleBackdrop = useCallback((e) => {
     if (e.target === e.currentTarget) onClose()
@@ -31,7 +52,12 @@ function GuestModal({ guest, onClose }) {
             {guest.tag && <span className="modal-guest-tag">{guest.tag}</span>}
           </div>
         </div>
-        {guest.bio && <p className="modal-guest-bio">{guest.bio}</p>}
+        {guest.bio && <div className="modal-guest-bio"><BioText bio={guest.bio} /></div>}
+        {guest.website && (
+          <a href={guest.website} target="_blank" rel="noopener noreferrer" className="btn btn-outline-green modal-guest-website">
+            Visit website →
+          </a>
+        )}
       </div>
     </div>,
     document.body
@@ -115,7 +141,7 @@ export default function PublicSite() {
       .then(({ data }) => setGuests(
         (data || [])
           .filter(g => g.name)
-          .map(g => ({ name: g.name, image: g.image_url, bio: g.bio, tag: g.tag }))
+          .map(g => ({ name: g.name, image: g.image_url, bio: g.bio, tag: g.tag, website: g.website_url }))
       ))
 
     supabase

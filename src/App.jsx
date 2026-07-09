@@ -15,6 +15,7 @@ import SiteContentAdmin from './pages/SiteContentAdmin.jsx'
 import TeamAdmin from './pages/TeamAdmin.jsx'
 import PartnersAdmin from './pages/PartnersAdmin.jsx'
 import VisitorsAdmin from './pages/VisitorsAdmin.jsx'
+import FaqsAdmin from './pages/FaqsAdmin.jsx'
 import PublicSite from './pages/PublicSite.jsx'
 
 function SetupBanner() {
@@ -41,6 +42,7 @@ function AppShell({ configured, session }) {
             <Link to="/admin/team" className="app-nav-link">Team</Link>
             <Link to="/admin/partners" className="app-nav-link">Partners</Link>
             <Link to="/admin/about" className="app-nav-link">Site Content</Link>
+            <Link to="/admin/faqs" className="app-nav-link">FAQs</Link>
             <Link to="/admin/visitors" className="app-nav-link">Visitors</Link>
             <a href="/" target="_blank" rel="noopener noreferrer" className="app-nav-link" style={{ fontSize: '0.85rem', opacity: 0.8 }}>View public site ↗</a>
           </nav>
@@ -88,6 +90,11 @@ function AppShell({ configured, session }) {
           <Route path="visitors" element={
             <AuthGuard>
               <VisitorsAdmin />
+            </AuthGuard>
+          } />
+          <Route path="faqs" element={
+            <AuthGuard>
+              <FaqsAdmin />
             </AuthGuard>
           } />
         </Routes>

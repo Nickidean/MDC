@@ -4,6 +4,23 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase.js'
 
 const CFK_URL = 'https://litton-lakes-summer-camp.classforkids.io/camps'
 
+function FaqItem({ faq }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <div className="faq-item">
+      <button className="faq-question" onClick={() => setOpen(o => !o)} aria-expanded={open}>
+        <span>{faq.question}</span>
+        <span className={`faq-chevron ${open ? 'faq-chevron-open' : ''}`}>›</span>
+      </button>
+      {open && (
+        <div className="faq-answer">
+          <BioText bio={faq.answer} className="faq-answer-p" />
+        </div>
+      )}
+    </div>
+  )
+}
+
 function formatBio(bio) {
   return bio
     .split(/\n\s*\n/)
@@ -129,6 +146,7 @@ export default function PublicSite() {
   const [organiser, setOrganiser] = useState(null)
   const [team, setTeam] = useState([])
   const [partners, setPartners] = useState([])
+  const [faqs, setFaqs] = useState([])
 
   useEffect(() => {
     if (!logoUrl) return
@@ -195,6 +213,13 @@ export default function PublicSite() {
       .order('sort_index')
       .order('created_at')
       .then(({ data }) => setPartners((data || []).filter(p => p.image_url)))
+
+    supabase
+      .from('faqs')
+      .select('*')
+      .order('sort_index')
+      .order('created_at')
+      .then(({ data }) => setFaqs((data || []).filter(f => f.question)))
   }, [])
 
   if (!isSupabaseConfigured()) {
@@ -475,6 +500,16 @@ export default function PublicSite() {
                   </div>
                 </div>
               </div>
+            </div>
+          </section>
+        )}
+
+        {/* FAQs */}
+        {faqs.length > 0 && (
+          <section>
+            <h2 className="public-week-heading">Questions & answers</h2>
+            <div className="faq-list">
+              {faqs.map(f => <FaqItem key={f.id} faq={f} />)}
             </div>
           </section>
         )}

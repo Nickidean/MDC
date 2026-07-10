@@ -1101,6 +1101,9 @@ tr:hover td { background: var(--surface); }
 .footer-brought-by-link { color: rgba(255,255,255,0.85); font-weight: 700; text-decoration: none; }
 .footer-brought-by-link:hover { text-decoration: underline; }
 .footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.3); margin: 0; }
+.footer-links { font-size: 0.8rem; margin: 0 0 0.6rem; }
+.footer-links-link { color: rgba(255,255,255,0.65); text-decoration: none; }
+.footer-links-link:hover { text-decoration: underline; color: rgba(255,255,255,0.85); }
 
 .public-loading, .public-empty { text-align: center; color: rgba(19,44,10,0.5); padding: 3rem; font-size: 1rem; }
 

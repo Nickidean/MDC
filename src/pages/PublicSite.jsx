@@ -28,13 +28,23 @@ function formatBio(bio) {
     .filter(Boolean)
 }
 
+function linkifyMdc(text) {
+  return text.split(/(The Mindful Digital Collective)/g).map((part, i) =>
+    part === 'The Mindful Digital Collective' ? (
+      <a key={i} href="https://www.themindfuldigitalcollective.co.uk/" target="_blank" rel="noopener noreferrer" className="mdc-link">
+        {part}
+      </a>
+    ) : part
+  )
+}
+
 function BioText({ bio, className }) {
   const paragraphs = formatBio(bio)
   return paragraphs.map((para, i) => (
     <p key={i} className={className}>
       {para.split('\n').map((line, j, arr) => (
         <React.Fragment key={j}>
-          {line}
+          {linkifyMdc(line)}
           {j < arr.length - 1 && <br />}
         </React.Fragment>
       ))}
@@ -249,7 +259,7 @@ export default function PublicSite() {
             A fun, active and engaging summer camp where children build confidence, make friends and develop real-world skills.
           </p>
           <p className="hero-prose hero-prose-secondary">
-            Run by The Mindful Digital Collective, the community interest company helping children grow into confident, thoughtful young people.
+            {linkifyMdc('Run by The Mindful Digital Collective, the community interest company helping children grow into confident, thoughtful young people.')}
           </p>
           <div className="hero-snapshot">
             <div className="hero-snapshot-item">
@@ -648,7 +658,7 @@ export default function PublicSite() {
             Safeguarding Policy
           </a>
         </p>
-        <p className="footer-copy">© 2026 The Mindful Digital Collective</p>
+        <p className="footer-copy">© 2026 {linkifyMdc('The Mindful Digital Collective')}</p>
       </footer>
     </div>
   )

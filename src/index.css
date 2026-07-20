@@ -469,10 +469,9 @@ tr:hover td { background: var(--surface); }
   height: 64px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 1rem;
 }
-.public-nav-name { font-size: 0.95rem; font-weight: 800; color: #fff; letter-spacing: -0.01em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .public-nav-btn {
   background: var(--brand-secondary);
   color: var(--brand-primary) !important;

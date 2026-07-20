@@ -245,7 +245,6 @@ export default function PublicSite() {
     <div className="public-site">
       <nav className="public-nav">
         <div className="public-nav-inner">
-          <span className="public-nav-name">Summer Camp at Litton Lakes</span>
           <a href={CFK_URL} target="_blank" rel="noopener noreferrer" className="btn public-nav-btn">Book now</a>
         </div>
       </nav>

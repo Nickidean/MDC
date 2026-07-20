@@ -499,8 +499,8 @@ tr:hover td { background: var(--surface); }
 .hero-logo { max-height: 80px; max-width: 220px; object-fit: contain; margin-bottom: 1.25rem; display: block; margin-left: auto; margin-right: auto; }
 .hero-title { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; margin-bottom: 0.5rem; letter-spacing: -0.03em; color: #fff; line-height: 1.05; }
 .hero-dates { font-size: 1.1rem; color: var(--brand-tertiary); margin-bottom: 1.25rem; font-weight: 500; }
-.hero-prose { font-size: 1rem; line-height: 1.7; color: rgba(255,255,255,0.8); margin-bottom: 1.25rem; max-width: 540px; margin-left: auto; margin-right: auto; }
-.hero-prose-secondary { font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-top: -0.75rem; }
+.hero-prose { font-size: 1.15rem; line-height: 1.7; color: rgba(255,255,255,0.85); margin-bottom: 1.25rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+.hero-prose-secondary { font-size: 1rem; color: rgba(255,255,255,0.65); margin-top: -0.75rem; }
 .hero-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; font-size: 0.9rem; color: var(--brand-tertiary); margin-bottom: 2rem; opacity: 0.9; }
 .hero-snapshot {
   display: flex;

@@ -12,7 +12,6 @@ const DEFAULTS = {
   pricing_image_url: '',
   about_mdc_body: '', about_mdc_haf_places: '', about_mdc_quote_text: '', about_mdc_quote_author: '',
   session_looks_like_body: '', session_group_size: '',
-  safeguarding_body: '', safeguarding_policy_url: '',
   partners_intro: '', partners_closing: '',
 }
 
@@ -353,23 +352,6 @@ export default function SiteContentAdmin() {
           </label>
           <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
             Shown at the bottom of the Special Guests grid, with a "Want to run a session?" button linking to your email above.
-          </div>
-        </div>
-      </Section>
-
-      {/* Safeguarding */}
-      <Section title="Safeguarding">
-        <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-          <label className="field-label" style={{ margin: 0 }}>
-            Body
-            <textarea value={fields.safeguarding_body} onChange={e => handleChange('safeguarding_body', e.target.value)} className="field-textarea" rows={3} />
-          </label>
-          <label className="field-label" style={{ margin: 0 }}>
-            Safeguarding policy link <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>(optional — link to a PDF or page)</span>
-            <input type="text" value={fields.safeguarding_policy_url} onChange={e => handleChange('safeguarding_policy_url', e.target.value)} placeholder="https://…" className="field-input" />
-          </label>
-          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-            Only publish claims that are true — make sure the DBS and insurance wording matches reality.
           </div>
         </div>
       </Section>

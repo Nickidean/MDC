@@ -527,24 +527,6 @@ export default function PublicSite() {
           </section>
         )}
 
-        {/* Safeguarding */}
-        {organiser?.safeguarding_body && (
-          <section style={{ marginBottom: '3rem' }}>
-            <h2 className="public-week-heading">How we keep children safe</h2>
-            <div className="organiser-section">
-              <div className="organiser-section-accent" />
-              <div className="fine-print-body" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <BioText bio={organiser.safeguarding_body} className="location-card-desc" />
-                {organiser.safeguarding_policy_url && (
-                  <a href={organiser.safeguarding_policy_url} target="_blank" rel="noopener noreferrer" className="btn btn-outline-green" style={{ alignSelf: 'flex-start' }}>
-                    Read our safeguarding policy →
-                  </a>
-                )}
-              </div>
-            </div>
-          </section>
-        )}
-
         {/* Who's behind the camp */}
         {organiser?.about_mdc_body && (
           <section style={{ marginBottom: '3rem' }}>

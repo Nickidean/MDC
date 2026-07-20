@@ -252,7 +252,10 @@ export default function PublicSite() {
         </div>
       </nav>
 
-      <section className="hero-section">
+      <section
+        className="hero-section"
+        style={organiser?.hero_background_url ? { backgroundImage: `url(${organiser.hero_background_url})` } : undefined}
+      >
         <div className="hero-inner">
           <h1 className="hero-title">Summer Camp<br />at Litton Lakes 2026</h1>
           <p className="hero-prose hero-prose-big">

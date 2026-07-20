@@ -13,6 +13,7 @@ const DEFAULTS = {
   about_mdc_body: '', about_mdc_haf_places: '', about_mdc_quote_text: '', about_mdc_quote_author: '',
   session_looks_like_body: '', session_group_size: '',
   partners_intro: '', partners_closing: '',
+  hero_background_url: '',
 }
 
 function Section({ title, children }) {
@@ -32,11 +33,13 @@ export default function SiteContentAdmin() {
   const [locationLogoUploading, setLocationLogoUploading] = useState(false)
   const [signatureUploading, setSignatureUploading] = useState(false)
   const [pricingUploading, setPricingUploading] = useState(false)
+  const [heroBgUploading, setHeroBgUploading] = useState(false)
   const fileRef = useRef(null)
   const locationFileRef = useRef(null)
   const locationLogoFileRef = useRef(null)
   const signatureFileRef = useRef(null)
   const pricingFileRef = useRef(null)
+  const heroBgFileRef = useRef(null)
   const saveTimer = useRef(null)
 
   useEffect(() => {
@@ -94,6 +97,38 @@ export default function SiteContentAdmin() {
       </div>
 
       {/* Organiser */}
+      <Section title="Header Background Image">
+        <div className="card" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <div
+            onClick={() => heroBgFileRef.current?.click()}
+            title={heroBgUploading ? 'Uploading…' : 'Upload background image'}
+            style={{ width: 140, height: 90, borderRadius: 8, border: '2px dashed var(--border)', overflow: 'hidden', cursor: 'pointer', flexShrink: 0, background: 'var(--surface)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          >
+            {fields.hero_background_url
+              ? <img src={fields.hero_background_url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              : <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textAlign: 'center', padding: '0 0.4rem' }}>{heroBgUploading ? 'Uploading…' : '+ Photo'}</span>}
+          </div>
+          <input ref={heroBgFileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={async e => {
+            const file = e.target.files?.[0]
+            if (!file) return
+            setHeroBgUploading(true)
+            const ext = file.name.split('.').pop()
+            const path = `hero-bg-${Date.now()}.${ext}`
+            const { error } = await supabase.storage.from('camp-images').upload(path, file, { upsert: true })
+            if (!error) {
+              const { data } = supabase.storage.from('camp-images').getPublicUrl(path)
+              const updated = { ...fields, hero_background_url: data.publicUrl }
+              setFields(updated)
+              await persist(updated)
+            }
+            setHeroBgUploading(false)
+          }} />
+          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+            An optional photo shown faintly behind the dark green header, so the copy stays easy to read. A bright, high-contrast photo works best.
+          </span>
+        </div>
+      </Section>
+
       <Section title="About the Organiser">
         <div className="card" style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
           <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>

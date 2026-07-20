@@ -243,10 +243,7 @@ export default function PublicSite() {
 
   return (
     <div className="public-site">
-      <nav
-        className="public-nav"
-        style={organiser?.hero_background_url ? { backgroundImage: `url(${organiser.hero_background_url})` } : undefined}
-      >
+      <nav className="public-nav">
         <div className="public-nav-inner">
           {logoUrl
             ? <div className="public-nav-logo-wrap"><img src={logoUrl} alt="Camp logo" className="public-nav-logo" /></div>

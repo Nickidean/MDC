@@ -514,10 +514,10 @@ tr:hover td { background: var(--surface); }
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
-  row-gap: 0.4rem;
-  column-gap: 0.6rem;
-  margin-bottom: 2.25rem;
-  font-size: 1.05rem;
+  row-gap: 0.6rem;
+  column-gap: 0.75rem;
+  margin-bottom: 2.5rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: var(--brand-secondary);
 }
@@ -1167,7 +1167,7 @@ tr:hover td { background: var(--surface); }
   .day-cards-grid { grid-template-columns: 1fr; }
   .public-cards-grid { grid-template-columns: 1fr; }
 
-  .hero-snapshot { font-size: 0.9rem; }
+  .hero-snapshot { font-size: 1.1rem; }
 
   /* Pricing banner stacks on mobile */
   .pricing-banner { flex-direction: column; align-items: flex-start; gap: 0.75rem; }

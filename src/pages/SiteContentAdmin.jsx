@@ -10,6 +10,10 @@ const DEFAULTS = {
   pricing_installments: 'Pay in instalments — spread the cost across the summer.',
   location_name: 'Litton Lakes', location_address: '', location_description: '', location_map_url: '', location_image_url: '', location_logo_url: '',
   pricing_image_url: '',
+  about_mdc_body: '', about_mdc_haf_places: '', about_mdc_quote_text: '', about_mdc_quote_author: '',
+  session_looks_like_body: '', session_group_size: '',
+  safeguarding_body: '', safeguarding_policy_url: '',
+  partners_intro: '', partners_closing: '',
 }
 
 function Section({ title, children }) {
@@ -308,6 +312,81 @@ export default function SiteContentAdmin() {
             <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
               Optional venue badge or logo (e.g. a circular stamp logo) — shown next to the venue name on the public site.
             </span>
+          </div>
+        </div>
+      </Section>
+
+      {/* Who's behind the camp */}
+      <Section title={'"Who\'s behind the camp" section'}>
+        <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <label className="field-label" style={{ margin: 0 }}>
+            Body <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>(leave a blank line between paragraphs)</span>
+            <textarea value={fields.about_mdc_body} onChange={e => handleChange('about_mdc_body', e.target.value)} className="field-textarea" rows={6} />
+          </label>
+          <label className="field-label" style={{ margin: 0 }}>
+            Number of fully-funded HAF places this year
+            <input type="text" value={fields.about_mdc_haf_places} onChange={e => handleChange('about_mdc_haf_places', e.target.value)} placeholder="e.g. 12" className="field-input" />
+          </label>
+          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '0.75rem' }}>
+            <label className="field-label" style={{ margin: 0 }}>
+              Optional teacher/partner quote
+              <textarea value={fields.about_mdc_quote_text} onChange={e => handleChange('about_mdc_quote_text', e.target.value)} className="field-textarea" rows={2} placeholder="Leave blank to hide" />
+            </label>
+            <label className="field-label" style={{ margin: 0 }}>
+              Quote attribution
+              <input type="text" value={fields.about_mdc_quote_author} onChange={e => handleChange('about_mdc_quote_author', e.target.value)} placeholder="e.g. Greg Proudfoot, Teacher" className="field-input" />
+            </label>
+          </div>
+        </div>
+      </Section>
+
+      {/* What a guest session looks like */}
+      <Section title={'"What a guest session looks like" card'}>
+        <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <label className="field-label" style={{ margin: 0 }}>
+            Body
+            <textarea value={fields.session_looks_like_body} onChange={e => handleChange('session_looks_like_body', e.target.value)} className="field-textarea" rows={3} />
+          </label>
+          <label className="field-label" style={{ margin: 0 }}>
+            Group size
+            <input type="text" value={fields.session_group_size} onChange={e => handleChange('session_group_size', e.target.value)} placeholder="e.g. 6–8" className="field-input" />
+          </label>
+          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+            Shown at the bottom of the Special Guests grid, with a "Want to run a session?" button linking to your email above.
+          </div>
+        </div>
+      </Section>
+
+      {/* Safeguarding */}
+      <Section title="Safeguarding">
+        <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <label className="field-label" style={{ margin: 0 }}>
+            Body
+            <textarea value={fields.safeguarding_body} onChange={e => handleChange('safeguarding_body', e.target.value)} className="field-textarea" rows={3} />
+          </label>
+          <label className="field-label" style={{ margin: 0 }}>
+            Safeguarding policy link <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>(optional — link to a PDF or page)</span>
+            <input type="text" value={fields.safeguarding_policy_url} onChange={e => handleChange('safeguarding_policy_url', e.target.value)} placeholder="https://…" className="field-input" />
+          </label>
+          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+            Only publish claims that are true — make sure the DBS and insurance wording matches reality.
+          </div>
+        </div>
+      </Section>
+
+      {/* Partners intro/closing */}
+      <Section title="Partners & Supporters copy">
+        <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <label className="field-label" style={{ margin: 0 }}>
+            Intro line <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>(optional)</span>
+            <input type="text" value={fields.partners_intro} onChange={e => handleChange('partners_intro', e.target.value)} className="field-input" />
+          </label>
+          <label className="field-label" style={{ margin: 0 }}>
+            Closing line <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>(shown with a "Get in touch" link to your email)</span>
+            <textarea value={fields.partners_closing} onChange={e => handleChange('partners_closing', e.target.value)} className="field-textarea" rows={2} />
+          </label>
+          <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+            Manage the logos themselves (and whether each is a Partner or a School) in the Partners admin page.
           </div>
         </div>
       </Section>

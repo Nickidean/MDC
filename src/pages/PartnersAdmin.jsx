@@ -6,6 +6,8 @@ function PartnerRow({ partner, onUpdated, onDeleted }) {
     name: partner.name || '',
     link_url: partner.link_url || '',
     image_url: partner.image_url || '',
+    category: partner.category || 'partner',
+    blurb: partner.blurb || '',
   })
   const [saveStatus, setSaveStatus] = useState('')
   const [uploading, setUploading] = useState(false)
@@ -80,6 +82,15 @@ function PartnerRow({ partner, onUpdated, onDeleted }) {
             className="field-input"
             style={{ flex: 1 }}
           />
+          <select
+            value={fields.category}
+            onChange={e => handleChange('category', e.target.value)}
+            className="field-input"
+            style={{ flex: '0 0 130px' }}
+          >
+            <option value="partner">Partner</option>
+            <option value="school">School</option>
+          </select>
           {saveStatus && (
             <span className={`autosave-indicator ${saveStatus}`} style={{ flexShrink: 0 }}>
               {saveStatus === 'saving' ? 'Saving…' : 'Saved'}
@@ -92,6 +103,13 @@ function PartnerRow({ partner, onUpdated, onDeleted }) {
           value={fields.link_url}
           onChange={e => handleChange('link_url', e.target.value)}
           placeholder="Optional link, e.g. https://www.dorsetcouncil.gov.uk"
+          className="field-input"
+        />
+        <input
+          type="text"
+          value={fields.blurb}
+          onChange={e => handleChange('blurb', e.target.value)}
+          placeholder="Optional one-line description, e.g. Funding free camp places through the HAF programme"
           className="field-input"
         />
       </div>
@@ -113,7 +131,7 @@ export default function PartnersAdmin() {
     const maxSort = partners.length ? Math.max(...partners.map(p => p.sort_index)) : -1
     const { data, error } = await supabase
       .from('partner_logos')
-      .insert({ name: '', link_url: '', image_url: '', sort_index: maxSort + 1 })
+      .insert({ name: '', link_url: '', image_url: '', category: 'partner', blurb: '', sort_index: maxSort + 1 })
       .select().single()
     if (!error) setPartners(prev => [...prev, data])
   }

@@ -248,6 +248,9 @@ export default function PublicSite() {
           <p className="hero-prose">
             A fun, active and engaging summer camp where children build confidence, make friends and develop real-world skills.
           </p>
+          <p className="hero-prose hero-prose-secondary">
+            Run by The Mindful Digital Collective, the community interest company helping children grow into confident, thoughtful young people.
+          </p>
           <div className="hero-snapshot">
             <div className="hero-snapshot-item">
               <div className="hero-snapshot-value">17–28 August 2026</div>
@@ -326,6 +329,26 @@ export default function PublicSite() {
                 <GuestCard key={i} guest={g} />
               ))}
             </div>
+
+            {organiser && (organiser.session_looks_like_body || organiser.session_group_size) && (
+              <div className="session-looks-like-card">
+                <div className="session-looks-like-body">
+                  <div className="session-looks-like-eyebrow">What a guest session looks like</div>
+                  <h3 className="session-looks-like-heading">An hour that sticks with them</h3>
+                  {organiser.session_looks_like_body && <BioText bio={organiser.session_looks_like_body} className="session-looks-like-text" />}
+                  {organiser.session_group_size && (
+                    <p className="session-looks-like-text">
+                      Sessions run for around an hour with groups of {organiser.session_group_size} children, supported by our camp team throughout. Guests don't need to be teachers — they need a skill worth sharing and a bit of enthusiasm. We handle everything else.
+                    </p>
+                  )}
+                  {organiser.organiser_email && (
+                    <a href={`mailto:${organiser.organiser_email}`} className="btn btn-outline-green" style={{ marginTop: '0.5rem', display: 'inline-block' }}>
+                      Want to run a session? →
+                    </a>
+                  )}
+                </div>
+              </div>
+            )}
           </section>
         ) : (
           <p className="public-empty">We're getting the programme ready — check back soon.</p>
@@ -504,6 +527,48 @@ export default function PublicSite() {
           </section>
         )}
 
+        {/* Safeguarding */}
+        {organiser?.safeguarding_body && (
+          <section style={{ marginBottom: '3rem' }}>
+            <h2 className="public-week-heading">How we keep children safe</h2>
+            <div className="organiser-section">
+              <div className="organiser-section-accent" />
+              <div className="fine-print-body" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <BioText bio={organiser.safeguarding_body} className="location-card-desc" />
+                {organiser.safeguarding_policy_url && (
+                  <a href={organiser.safeguarding_policy_url} target="_blank" rel="noopener noreferrer" className="btn btn-outline-green" style={{ alignSelf: 'flex-start' }}>
+                    Read our safeguarding policy →
+                  </a>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Who's behind the camp */}
+        {organiser?.about_mdc_body && (
+          <section style={{ marginBottom: '3rem' }}>
+            <h2 className="public-week-heading">Who's behind the camp</h2>
+            <div className="organiser-section">
+              <div className="organiser-section-accent" />
+              <div className="fine-print-body" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <BioText bio={organiser.about_mdc_body} className="location-card-desc" />
+                {organiser.about_mdc_haf_places && (
+                  <p className="location-card-desc" style={{ fontWeight: 700, color: 'var(--brand-primary)' }}>
+                    {organiser.about_mdc_haf_places} places at this year's camp are fully funded through the Dorset Council HAF programme, so children on benefits-related free school meals can come at no cost to their families.
+                  </p>
+                )}
+                {organiser.about_mdc_quote_text && (
+                  <blockquote className="about-mdc-quote">
+                    “{organiser.about_mdc_quote_text}”
+                    {organiser.about_mdc_quote_author && <cite className="about-mdc-quote-author">— {organiser.about_mdc_quote_author}</cite>}
+                  </blockquote>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* FAQs */}
         {faqs.length > 0 && (
           <section>
@@ -515,22 +580,61 @@ export default function PublicSite() {
         )}
 
         {/* Partner logos */}
-        {partners.length > 0 && (
-          <section>
-            <div className="partner-logos-row">
-              {partners.map(p => {
-                const img = <img src={p.image_url} alt={p.name || 'Partner logo'} className="partner-logo-img" />
-                return p.link_url ? (
-                  <a key={p.id} href={p.link_url} target="_blank" rel="noopener noreferrer" className="partner-logo-item">
-                    {img}
-                  </a>
-                ) : (
-                  <div key={p.id} className="partner-logo-item">{img}</div>
-                )
-              })}
-            </div>
-          </section>
-        )}
+        {partners.length > 0 && (() => {
+          const partnerLogos = partners.filter(p => p.category !== 'school')
+          const schoolLogos = partners.filter(p => p.category === 'school')
+          const renderLogo = p => {
+            const img = <img src={p.image_url} alt={p.name || 'Partner logo'} className="partner-logo-img" />
+            return p.link_url ? (
+              <a key={p.id} href={p.link_url} target="_blank" rel="noopener noreferrer" className="partner-logo-item">
+                {img}
+              </a>
+            ) : (
+              <div key={p.id} className="partner-logo-item">{img}</div>
+            )
+          }
+          return (
+            <section style={{ marginBottom: '3rem' }}>
+              <h2 className="public-week-heading">Partners &amp; supporters</h2>
+              {organiser?.partners_intro && <p className="public-section-intro">{organiser.partners_intro}</p>}
+
+              {partnerLogos.length > 0 && (
+                <>
+                  {partnerLogos.some(p => p.blurb) && (
+                    <div className="partner-blurb-list">
+                      {partnerLogos.filter(p => p.blurb).map(p => (
+                        <div key={p.id} className="partner-blurb-item">
+                          <strong>{p.name}</strong> — {p.blurb}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <div className="partner-logos-row">
+                    {partnerLogos.map(renderLogo)}
+                  </div>
+                </>
+              )}
+
+              {schoolLogos.length > 0 && (
+                <>
+                  <div className="partner-logos-subheading">Schools we work with</div>
+                  <div className="partner-logos-row">
+                    {schoolLogos.map(renderLogo)}
+                  </div>
+                </>
+              )}
+
+              {organiser?.partners_closing && (
+                <p className="public-section-intro" style={{ marginTop: '1.5rem', marginBottom: 0 }}>
+                  {organiser.partners_closing}
+                  {organiser.organiser_email && (
+                    <> <a href={`mailto:${organiser.organiser_email}`} className="location-card-name-link" style={{ fontWeight: 700 }}>Get in touch →</a></>
+                  )}
+                </p>
+              )}
+            </section>
+          )
+        })()}
       </div>
 
       <div className="book-cta-section">

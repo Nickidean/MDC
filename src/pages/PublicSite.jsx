@@ -272,6 +272,10 @@ export default function PublicSite() {
             <div className="hero-snapshot-item">
               <div className="hero-snapshot-value">9am – 4pm</div>
             </div>
+            <div className="hero-snapshot-divider" />
+            <div className="hero-snapshot-item">
+              <div className="hero-snapshot-value">{organiser?.pricing_day || '£40'} per day</div>
+            </div>
           </div>
           <a href={CFK_URL} target="_blank" rel="noopener noreferrer" className="btn btn-hero">Book a place</a>
         </div>

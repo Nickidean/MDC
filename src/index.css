@@ -691,6 +691,12 @@ tr:hover td { background: var(--surface); }
   transition: background 0.15s, color 0.15s;
 }
 .session-looks-like-cta:hover { background: var(--brand-secondary); color: var(--brand-primary); }
+.session-looks-like-contact {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;
+  font-size: 0.9rem; color: rgba(255,255,255,0.75);
+}
+.session-looks-like-email { color: var(--brand-secondary); font-weight: 700; text-decoration: none; }
+.session-looks-like-email:hover { text-decoration: underline; }
 
 /* Who's behind the camp quote */
 .about-mdc-quote {

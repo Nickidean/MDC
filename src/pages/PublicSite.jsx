@@ -352,9 +352,11 @@ export default function PublicSite() {
                     </p>
                   )}
                   {organiser.organiser_email && (
-                    <a href={`mailto:${organiser.organiser_email}`} className="btn session-looks-like-cta" style={{ marginTop: '0.5rem', display: 'inline-block' }}>
-                      Interested in running a session? Email {organiser.organiser_email}
-                    </a>
+                    <div className="session-looks-like-contact">
+                      <span>Interested in running a session?</span>
+                      <a href={`mailto:${organiser.organiser_email}`} className="session-looks-like-email">{organiser.organiser_email}</a>
+                      <CopyButton value={organiser.organiser_email} label="email" />
+                    </div>
                   )}
                 </div>
               </div>

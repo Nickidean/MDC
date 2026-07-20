@@ -245,9 +245,7 @@ export default function PublicSite() {
     <div className="public-site">
       <nav className="public-nav">
         <div className="public-nav-inner">
-          {logoUrl
-            ? <div className="public-nav-logo-wrap"><img src={logoUrl} alt="Camp logo" className="public-nav-logo" /></div>
-            : <span className="public-nav-name">Summer Camp at Litton Lakes</span>}
+          <span className="public-nav-name">Summer Camp at Litton Lakes</span>
           <a href={CFK_URL} target="_blank" rel="noopener noreferrer" className="btn public-nav-btn">Book now</a>
         </div>
       </nav>
@@ -257,6 +255,7 @@ export default function PublicSite() {
         style={organiser?.hero_background_url ? { backgroundImage: `url(${organiser.hero_background_url})` } : undefined}
       >
         <div className="hero-inner">
+          {logoUrl && <img src={logoUrl} alt="Camp logo" className="hero-logo" />}
           <h1 className="hero-title">Summer Camp<br />at Litton Lakes 2026</h1>
           <p className="hero-prose hero-prose-big">
             {linkifyMdc('An active, outdoors summer camp from The Mindful Digital Collective - the community interest company helping children grow into confident, thoughtful young people.')}

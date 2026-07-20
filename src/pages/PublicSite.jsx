@@ -261,21 +261,13 @@ export default function PublicSite() {
             {linkifyMdc('An active, outdoors summer camp from The Mindful Digital Collective - the community interest company helping children grow into confident, thoughtful young people.')}
           </p>
           <div className="hero-snapshot">
-            <div className="hero-snapshot-item">
-              <div className="hero-snapshot-value">17–28 August 2026</div>
-            </div>
-            <div className="hero-snapshot-divider" />
-            <div className="hero-snapshot-item">
-              <div className="hero-snapshot-value">Ages 7–12</div>
-            </div>
-            <div className="hero-snapshot-divider" />
-            <div className="hero-snapshot-item">
-              <div className="hero-snapshot-value">9am – 4pm</div>
-            </div>
-            <div className="hero-snapshot-divider" />
-            <div className="hero-snapshot-item">
-              <div className="hero-snapshot-value">{organiser?.pricing_day || '£40'} per day</div>
-            </div>
+            <span>17–28 August 2026</span>
+            <span className="hero-snapshot-sep">/</span>
+            <span>Ages 7–12</span>
+            <span className="hero-snapshot-sep">/</span>
+            <span>9am – 4pm</span>
+            <span className="hero-snapshot-sep">/</span>
+            <span>{organiser?.pricing_day || '£40'} per day</span>
           </div>
           <a href={CFK_URL} target="_blank" rel="noopener noreferrer" className="btn btn-hero">Book a place</a>
         </div>

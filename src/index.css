@@ -679,6 +679,18 @@ tr:hover td { background: var(--surface); }
 .session-looks-like-heading { font-size: 1.6rem; font-weight: 900; color: #fff; margin-bottom: 1rem; letter-spacing: -0.02em; }
 .session-looks-like-text { font-size: 0.95rem; color: rgba(255,255,255,0.8); line-height: 1.7; margin: 0 0 0.9rem; }
 .session-looks-like-text:last-of-type { margin-bottom: 0; }
+.session-looks-like-cta {
+  border: 2px solid var(--brand-secondary);
+  color: var(--brand-secondary);
+  background: transparent;
+  padding: 0.6rem 1.25rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.session-looks-like-cta:hover { background: var(--brand-secondary); color: var(--brand-primary); }
 
 /* Who's behind the camp quote */
 .about-mdc-quote {

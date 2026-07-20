@@ -342,8 +342,8 @@ export default function PublicSite() {
                     </p>
                   )}
                   {organiser.organiser_email && (
-                    <a href={`mailto:${organiser.organiser_email}`} className="btn btn-outline-green" style={{ marginTop: '0.5rem', display: 'inline-block' }}>
-                      Want to run a session? →
+                    <a href={`mailto:${organiser.organiser_email}`} className="btn session-looks-like-cta" style={{ marginTop: '0.5rem', display: 'inline-block' }}>
+                      Interested in running a session? Email {organiser.organiser_email}
                     </a>
                   )}
                 </div>

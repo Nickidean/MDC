@@ -255,11 +255,8 @@ export default function PublicSite() {
       <section className="hero-section">
         <div className="hero-inner">
           <h1 className="hero-title">Summer Camp<br />at Litton Lakes 2026</h1>
-          <p className="hero-prose">
-            A fun, active and engaging summer camp where children build confidence, make friends and develop real-world skills.
-          </p>
-          <p className="hero-prose hero-prose-secondary">
-            {linkifyMdc('Run by The Mindful Digital Collective, the community interest company helping children grow into confident, thoughtful young people.')}
+          <p className="hero-prose hero-prose-big">
+            {linkifyMdc('An active, outdoors summer camp from The Mindful Digital Collective - the community interest company helping children grow into confident, thoughtful young people.')}
           </p>
           <div className="hero-snapshot">
             <div className="hero-snapshot-item">

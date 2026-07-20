@@ -442,7 +442,7 @@ tr:hover td { background: var(--surface); }
 :root {
   --brand-primary: #132C0A;       /* dark forest green */
   --brand-secondary: #09FF00;     /* lime CTA */
-  --brand-tertiary: #DDEBD8;      /* pale green tint */
+  --brand-tertiary: #edf7f0;      /* pale green tint */
   --brand-primary-light: #1e4210; /* slightly lighter for hover */
 }
 

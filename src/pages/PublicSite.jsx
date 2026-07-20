@@ -661,6 +661,11 @@ export default function PublicSite() {
             The Mindful Digital Collective
           </a>
         </p>
+        <p className="footer-links">
+          <a href="https://drive.google.com/file/d/1-jI9WrNFNkmqXCeI-a3AY-lXWaOXpIjY/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="footer-links-link">
+            Safeguarding Policy
+          </a>
+        </p>
         <p className="footer-copy">© 2026 The Mindful Digital Collective</p>
       </footer>
     </div>

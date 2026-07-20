@@ -179,7 +179,7 @@ export default function SiteContentAdmin() {
       </Section>
 
       {/* Pricing / Fine print */}
-      <Section title={'Pricing (shown as "The fine print")'}>
+      <Section title={'Pricing (shown as "Your investment")'}>
         <div className="card" style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
           <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
             <div
@@ -226,7 +226,7 @@ export default function SiteContentAdmin() {
               <input type="text" value={fields.pricing_installments} onChange={e => handleChange('pricing_installments', e.target.value)} placeholder="e.g. Pay in instalments" className="field-input" />
             </label>
             <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-              Each line becomes a row in "The fine print" section on the public site. Leave any blank to hide it.
+              Each line becomes a row in "Your investment" section on the public site. Leave any blank to hide it.
             </div>
           </div>
         </div>

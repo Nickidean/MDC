@@ -357,7 +357,7 @@ export default function PublicSite() {
         {/* Fine print / pricing */}
         {organiser && (organiser.pricing_day || organiser.pricing_sibling_discount || organiser.pricing_haf_info || organiser.pricing_installments) && (
           <section style={{ marginBottom: '3rem' }}>
-            <h2 className="public-week-heading">The fine print</h2>
+            <h2 className="public-week-heading">Your investment</h2>
             <p className="public-section-intro">Come for a day, a few days, a full week, or join us for the whole two weeks.</p>
             <div className="organiser-section">
               <div className="organiser-section-accent" />

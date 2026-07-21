@@ -1152,6 +1152,7 @@ tr:hover td { background: var(--surface); }
 .footer-brought-by-link:hover { text-decoration: underline; }
 .mdc-link { color: inherit; font-weight: 700; text-decoration: underline; text-decoration-color: currentColor; text-underline-offset: 2px; opacity: 0.9; }
 .mdc-link:hover { opacity: 1; }
+.hero-prose-big .mdc-link { color: hsla(8.28, 67.44%, 91.57%, 1); }
 .footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.3); margin: 0; }
 .footer-links { font-size: 0.8rem; margin: 0 0 0.6rem; }
 .footer-links-link { color: rgba(255,255,255,0.65); text-decoration: none; }

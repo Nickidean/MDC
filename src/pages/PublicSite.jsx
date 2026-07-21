@@ -257,7 +257,7 @@ export default function PublicSite() {
           {logoUrl && <img src={logoUrl} alt="Camp logo" className="hero-logo" />}
           <h1 className="hero-title">Summer Camp<br />at Litton Lakes 2026</h1>
           <p className="hero-prose hero-prose-big">
-            {linkifyMdc('An active, outdoors summer camp from The Mindful Digital Collective - the community interest company helping children grow into confident, thoughtful young people.')}
+            {linkifyMdc('An active, outdoors summer camp from The Mindful Digital Collective - the community interest company helping children grow into confident, thoughtful young people ready for the real world.')}
           </p>
           <div className="hero-snapshot">
             <span>17–28 August 2026</span>

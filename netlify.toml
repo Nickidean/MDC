@@ -24,12 +24,6 @@
   status = 200
 
 [[redirects]]
-  from = "/handbook"
-  to = "/handbook/"
-  status = 301
-  force = true
-
-[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200

@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Camp Handbook — The Mindful Digital Collective</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="theme-color" content="#16382A">
+<meta name="description" content="Staff handbook — The Mindful Digital Collective Summer Camp.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Camp Handbook">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pine:#234F3A;
+    --pine-deep:#16382A;
+    --moss:#6B8F5E;
+    --mist:#E8F0E6;
+    --paper:#FAFBF7;
+    --ink:#1C2420;
+    --alert:#C8402E;
+    --alert-tint:#FCEEEB;
+    --amber:#B97A1E;
+    --amber-tint:#FBF3E4;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+  body{
+    font-family:'Atkinson Hyperlegible',system-ui,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.5;
+    font-size:16.5px;
+    -webkit-tap-highlight-color:transparent;
+  }
+  h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;line-height:1.15}
+
+  /* Header — compact */
+  header{
+    background:var(--pine-deep);
+    color:#fff;
+    padding:18px 16px 16px;
+  }
+  .header-inner{max-width:680px;margin:0 auto}
+  .eyebrow{
+    font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:#A9C9A2;font-weight:700;margin-bottom:2px;
+  }
+  header h1{font-size:clamp(22px,6vw,30px);font-weight:800}
+
+  main{max-width:680px;margin:0 auto;padding:14px 12px 90px}
+
+  /* Emergency section — red-accented accordion */
+  .sos{
+    background:var(--alert-tint) !important;
+    border:2px solid var(--alert) !important;
+  }
+  .sos summary{color:var(--alert)}
+  .sos .s-icon{background:#F7D9D2}
+  .sos .chev{color:var(--alert)}
+  .sos h2{color:var(--alert);font-size:17px;font-weight:800;margin-bottom:8px}
+  .call-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+  .call-btn{
+    display:flex;align-items:center;justify-content:center;
+    min-height:52px;
+    background:var(--alert);color:#fff;text-decoration:none;
+    font-weight:800;font-family:'Bricolage Grotesque',sans-serif;
+    border-radius:12px;font-size:16px;text-align:center;line-height:1.2;padding:0 6px;
+  }
+  .call-btn.outline{background:#fff;color:var(--alert);border:2px solid var(--alert)}
+  .call-btn:active{transform:scale(.98)}
+  .call-btn:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+  .steps{counter-reset:step;list-style:none}
+  .steps li{
+    counter-increment:step;position:relative;padding-left:38px;margin-bottom:10px;
+    font-size:15.5px;
+  }
+  .steps li:last-child{margin-bottom:0}
+  .steps li::before{
+    content:counter(step);
+    position:absolute;left:0;top:-1px;
+    width:26px;height:26px;border-radius:50%;
+    background:var(--alert);color:#fff;font-weight:800;font-size:14px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Bricolage Grotesque',sans-serif;
+  }
+  .steps.green li::before{background:var(--pine)}
+
+  /* Accordion sections */
+  details{
+    background:#fff;
+    border:1px solid #DCE5D9;
+    border-radius:var(--radius);
+    margin-bottom:10px;
+    scroll-margin-top:12px;
+    overflow:hidden;
+  }
+  details[open]{border-color:var(--moss)}
+  summary{
+    list-style:none;
+    display:flex;align-items:center;gap:12px;
+    min-height:58px;
+    padding:12px 16px;
+    cursor:pointer;
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-weight:800;font-size:18px;color:var(--pine-deep);
+    user-select:none;
+  }
+  summary::-webkit-details-marker{display:none}
+  summary:focus-visible{outline:3px solid var(--pine);outline-offset:-3px;border-radius:var(--radius)}
+  .s-icon{
+    flex:none;width:34px;height:34px;border-radius:10px;
+    background:var(--mist);
+    display:flex;align-items:center;justify-content:center;font-size:18px;
+  }
+  .chev{
+    margin-left:auto;flex:none;
+    width:22px;height:22px;color:var(--moss);
+    transition:transform .18s ease;
+  }
+  details[open] .chev{transform:rotate(180deg)}
+  .d-body{padding:2px 16px 16px}
+  .d-body h3{font-size:16px;font-weight:800;color:var(--pine);margin:14px 0 6px}
+  .d-body h3:first-child{margin-top:0}
+  .d-body ul,.d-body ol:not(.steps){padding-left:20px}
+  .d-body li{margin-bottom:6px;font-size:15.5px}
+  .d-body p{font-size:15.5px;margin-bottom:6px}
+  .note{
+    font-size:14px;background:var(--mist);border-radius:10px;
+    padding:9px 12px;margin-top:10px;color:var(--pine-deep);
+  }
+  .todo{
+    display:inline-block;background:var(--amber-tint);color:var(--amber);
+    border:1px dashed var(--amber);border-radius:6px;
+    padding:0 5px;font-weight:700;font-size:14px;
+  }
+  .divider{height:1px;background:#E3EADF;margin:14px 0}
+
+  /* Daily timetable */
+  .tl{position:relative;padding-left:0;margin-top:4px}
+  .slot{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:11px 0;border-bottom:1px solid #EEF3EC;
+  }
+  .slot:last-child{border-bottom:none}
+  .slot .t{
+    flex:none;width:74px;font-family:'Bricolage Grotesque',sans-serif;
+    font-weight:800;font-size:13.5px;color:var(--pine);
+    background:var(--mist);border-radius:8px;padding:4px 0;text-align:center;
+    line-height:1.25;
+  }
+  .slot .c{flex:1;min-width:0}
+  .slot .c strong{display:block;font-size:16px;font-family:'Bricolage Grotesque',sans-serif;color:var(--pine-deep);margin-bottom:2px}
+  .slot .c span{font-size:14.5px;color:#4A5A48;display:block}
+  .slot.key{background:var(--mist);border-radius:10px;padding:12px;border-bottom:none;margin:4px 0}
+  .slot.key .t{background:var(--pine);color:#fff}
+  .slot.key .c strong{color:var(--pine-deep)}
+
+  /* Daily checklist */
+  .check{display:block;position:relative;padding:11px 12px 11px 46px;border-radius:10px;cursor:pointer;font-size:15.5px;user-select:none}
+  .check:active{background:var(--mist)}
+  .check input{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:22px;height:22px;accent-color:var(--pine);cursor:pointer}
+  .check input:checked ~ span{text-decoration:line-through;color:#8A9A88}
+  .check + .check{border-top:1px solid #EEF3EC}
+  .phase{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--moss);margin:14px 0 4px}
+  .phase:first-child{margin-top:0}
+  .reset-hint{font-size:13.5px;color:#7A8A78;margin-top:10px;text-align:center}
+
+  .bigrule{
+    background:var(--mist);border-radius:10px;padding:10px 12px;
+    font-weight:700;color:var(--pine-deep);font-size:15.5px;margin-bottom:8px;
+  }
+
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  th,td{text-align:left;padding:8px 6px;border-bottom:1px solid #E3EADF}
+  th{font-family:'Bricolage Grotesque',sans-serif;color:var(--pine-deep);font-size:12.5px;text-transform:uppercase;letter-spacing:.05em}
+
+  footer{text-align:center;color:#7A8A78;font-size:13.5px;padding:20px 16px 40px}
+
+  /* Floating emergency button */
+  .float-sos{
+    position:fixed;right:14px;bottom:14px;z-index:60;
+    display:flex;align-items:center;gap:6px;
+    background:var(--alert);color:#fff;text-decoration:none;
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:800;
+    padding:13px 18px;border-radius:999px;font-size:16px;
+    box-shadow:0 4px 14px rgba(200,64,46,.4);
+    min-height:48px;
+  }
+  .float-sos:active{transform:scale(.97)}
+  .float-sos:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="eyebrow">The Mindful Digital Collective · Summer Camp</div>
+    <h1>Camp Handbook</h1>
+    <p style="color:#D7E4D3;font-size:14px;margin-top:4px">Litton Lakes, Litton Ln, Dorchester DT2 9DH · Staff: Nick · Annika · Josie · Max</p>
+  </div>
+</header>
+
+<main>
+
+  <!-- EMERGENCY -->
+  <details class="sos" id="emergency">
+    <summary><span class="s-icon">🚨</span>Emergency<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="d-body">
+    <div class="call-row">
+      <a class="call-btn" href="tel:999">999</a>
+      <a class="call-btn outline" href="tel:07830324074">Nick · 07830 324 074</a>
+    </div>
+    <p style="font-size:13.5px;color:#8A4436;margin:-6px 0 12px;text-align:center">If tapping doesn't dial, use the numbers above manually.</p>
+    <ol class="steps">
+      <li><strong>Ring 999</strong> — address: <strong>Litton Lakes, Litton Ln, Dorchester DT2 9DH</strong> <span class="todo">ADD what3words</span></li>
+      <li><strong>One adult to the 12 o'clock point</strong> (also our assembly point) to guide the ambulance in</li>
+      <li><strong>Lead rings parents</strong> — Nick, or deputy <span class="todo">ANNIKA?</span> if Nick is the casualty or off-site</li>
+      <li><strong>One adult stays with the child</strong>, incl. to hospital — take their info from the folder</li>
+      <li><strong>Everyone else regroups the children</strong> away from the incident</li>
+      <li><strong>Write it up</strong> in the first aid book after</li>
+    </ol>
+    <div class="divider" style="background:#EAC5BE"></div>
+    <h2 style="font-size:17px;margin-bottom:8px">🔍 Child missing on site</h2>
+    <ol class="steps">
+      <li><strong>Shout "STOP" — everyone freezes.</strong> Immediate headcount of all children</li>
+      <li><strong>One adult straight to the water's edge</strong> — check the lakes first, always</li>
+      <li><strong>Remaining adults sweep the site</strong> — last seen point, dens, toilets, car park</li>
+      <li><strong>Not found within 5 minutes → ring 999.</strong> Don't wait, don't widen the search first</li>
+      <li>Lead rings parents once police are called</li>
+    </ol>
+    <p class="note" style="background:#F8DDD7;margin-top:12px"><strong>Evacuation (fire or site emergency):</strong> calmly lead children to the 12 o'clock assembly point, take the register + contacts folder, count everyone against the register, nobody re-enters until it's safe.</p>
+    </div>
+  </details>
+
+  <!-- DAILY CHECKLIST -->
+  <details id="daily">
+    <summary><span class="s-icon">✅</span>Daily checklist<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="d-body">
+      <p class="phase">Before children arrive</p>
+      <label class="check"><input type="checkbox"><span>Walk the site — hazards, lake access points, anything new</span></label>
+      <label class="check"><input type="checkbox"><span>Check the forecast — severe weather or extreme heat? Lead decides the plan &amp; parents told</span></label>
+      <label class="check"><input type="checkbox"><span>Register + sign-in sheet out</span></label>
+      <label class="check"><input type="checkbox"><span>First aid kit + ice packs in place, stock checked</span></label>
+      <label class="check"><input type="checkbox"><span>Epi-pens / meds with the right groups</span></label>
+      <label class="check"><input type="checkbox"><span>Allergy list out at the snack station</span></label>
+      <label class="check"><input type="checkbox"><span>Hand-wash station: water + soap topped up</span></label>
+      <label class="check"><input type="checkbox"><span>Drinking water out and accessible</span></label>
+      <label class="check"><input type="checkbox"><span>Hot day? Shade sorted, hats &amp; suncream flagged at drop-off</span></label>
+      <label class="check"><input type="checkbox"><span>Flag up at the waiting area</span></label>
+      <label class="check"><input type="checkbox"><span>Phone charged, parent-numbers folder on site</span></label>
+
+      <p class="phase">Drop-off</p>
+      <label class="check"><input type="checkbox"><span>Every child signed in by their adult</span></label>
+      <label class="check"><input type="checkbox"><span>Register checked — anyone missing? Ring parents now</span></label>
+      <label class="check"><input type="checkbox"><span>Parent messages noted (meds, pick-up changes)</span></label>
+
+      <p class="phase">During the day</p>
+      <label class="check"><input type="checkbox"><span>Before each activity: area + kit checked, boundaries &amp; no-go zones explained, safety briefing given</span></label>
+      <label class="check"><input type="checkbox"><span>Headcount before &amp; after every move around the site</span></label>
+      <label class="check"><input type="checkbox"><span>Hands washed before snack, allergy list checked</span></label>
+      <label class="check"><input type="checkbox"><span>Incidents logged in the first aid book as they happen</span></label>
+
+      <p class="phase">Pick-up &amp; close</p>
+      <label class="check"><input type="checkbox"><span>End-of-day reflection: Camp Values Band(s) presented, value named and reason said out loud</span></label>
+      <label class="check"><input type="checkbox"><span>Every child signed out — named adults only</span></label>
+      <label class="check"><input type="checkbox"><span>Waiting children in the flagged area, one-to-one</span></label>
+      <label class="check"><input type="checkbox"><span>Parents told about any bumps or incidents</span></label>
+      <label class="check"><input type="checkbox"><span>Tick-check reminder given to children &amp; parents</span></label>
+      <label class="check"><input type="checkbox"><span>First aid kit restocked, anything low noted</span></label>
+      <label class="check"><input type="checkbox"><span>Staff debrief — anything to log or report to Nick?</span></label>
+
+      <p class="reset-hint">Ticks clear when you refresh the page — fresh list each morning.</p>
+    </div>
+  </details>
+
+  <!-- TIMETABLE -->
+  <details id="timetable">
+    <summary><span class="s-icon">🕘</span>The day<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="d-body">
+      <div class="tl">
+
+        <div class="slot key">
+          <span class="t">9.00<br>9.30</span>
+          <span class="c"><strong>Arrivals</strong><span>Welcome each child individually and make them feel special. <strong>This is the most important part of the day.</strong> Food and water out so they can grab something as they arrive.</span></span>
+        </div>
+
+        <div class="slot">
+          <span class="t">9.30<br>9.45</span>
+          <span class="c"><strong>Group welcome</strong><span>Run through the day, our values, and what we expect of each other.</span></span>
+        </div>
+
+        <div class="slot">
+          <span class="t">9.45<br>10.00</span>
+          <span class="c"><strong>Camp mile</strong><span>Quick group run or another wake-up game.</span></span>
+        </div>
+
+        <div class="slot">
+          <span class="t">10.00<br>11.00</span>
+          <span class="c"><strong>Sports</strong><span>Groups rotate through activities, set by similar ability so friendships form naturally.</span></span>
+        </div>
+
+        <div class="slot">
+          <span class="t">11.00<br>11.15</span>
+          <span class="c"><strong>Break — food &amp; water</strong><span>Allergy list checked, hands washed, no sharing food.</span></span>
+        </div>
+
+        <div class="slot">
+          <span class="t">11.15<br>12.15</span>
+          <span class="c"><strong>Forest school or more sports</strong><span>Some children may prefer to just chill out — that's fine.</span></span>
+        </div>
+
+        <div class="slot">
+          <span class="t">12.15<br>1.00</span>
+          <span class="c"><strong>Lunch</strong><span>Allergy list checked, hands washed, no sharing food.</span></span>
+        </div>
+
+        <div class="slot">
+          <span class="t">1.00<br>2.15</span>
+          <span class="c"><strong>MDC session</strong><span>Guest speaker, Nick-led session, or forest school.</span></span>
+        </div>
+
+        <div class="slot">
+          <span class="t">2.15<br>2.30</span>
+          <span class="c"><strong>Ice cream &amp; free play</strong><span>Break and downtime.</span></span>
+        </div>
+
+        <div class="slot">
+          <span class="t">2.30<br>3.30</span>
+          <span class="c"><strong>Team game</strong><span>Rounders, capture the flag, or similar.</span></span>
+        </div>
+
+        <div class="slot key">
+          <span class="t">3.30<br>3.45</span>
+          <span class="c"><strong>Reflections</strong><span>Camp Values Bands, well dones, pack up.</span></span>
+        </div>
+
+        <div class="slot">
+          <span class="t">4.00</span>
+          <span class="c"><strong>Pick-up</strong><span>Sign out to named adults only. Tell parents about any bumps.</span></span>
+        </div>
+
+      </div>
+      <p class="note">Staff on site from <strong>8.30</strong> for the site check and setup, and stay past 4.00 for pack-down and debrief.</p>
+    </div>
+  </details>
+
+  <!-- FIRST AID -->
+  <details id="firstaid">
+    <summary><span class="s-icon">🩹</span>First aid<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="d-body">
+      <div class="bigrule">Every head bump = call home. No exceptions.</div>
+      <h3>Every incident</h3>
+      <p>Goes in the first aid book: who, what, when, treatment, who was told. Mention to parents at pick-up too.</p>
+      <h3>Kit</h3>
+      <ul>
+        <li>First aid kit + ice packs at <span class="todo">LOCATION</span></li>
+        <li>Spare clothes for each child (parents send)</li>
+      </ul>
+      <h3>Epi-pens &amp; meds</h3>
+      <ul>
+        <li>Check the allergy list — know who carries what</li>
+        <li>Epi-pens stay with the child's group, never locked away</li>
+        <li>All staff shown how to use one on day 1</li>
+        <li>Medication: labelled with name + dosage, given only with <strong>written parental permission</strong> — except emergency action to protect life</li>
+        <li>Serious incidents → Nick immediately; RIDDOR-reportable ones get reported</li>
+      </ul>
+      <div class="bigrule">Anaphylaxis: use the pen, then ring 999 — always, even if they seem to recover.</div>
+      <h3>Sun &amp; heat</h3>
+      <ul>
+        <li>Hats on, shade breaks, water pushed on hot days</li>
+        <li>Suncream: parents apply before drop-off + consent for staff to top up <span class="todo">ADD TO REG FORM</span></li>
+      </ul>
+      <h3>Ticks</h3>
+      <p>End-of-day reminder for children and parents to check for ticks — we're in the woods all day.</p>
+      <p class="note">First-aid trained this week: <span class="todo">ADD NAMES</span></p>
+    </div>
+  </details>
+
+  <!-- SAFEGUARDING -->
+  <details id="safeguarding">
+    <summary><span class="s-icon">🛡️</span>Safeguarding<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="d-body">
+      <h3>Drop-off &amp; pick-up</h3>
+      <ol class="steps green">
+        <li>Every child <strong>signed in</strong> (time + signature) and <strong>signed out</strong> — sheet records <strong>who is collecting today</strong></li>
+        <li>Unexpected person collecting? <strong>Collection password</strong> <span class="todo">SET UP ON REG FORM</span> or ring parents. No confirmation, no release</li>
+        <li>Waiting children: flagged waiting area, one named adult, one-to-one</li>
+      </ol>
+      <div class="divider"></div>
+      <h3>Child not collected</h3>
+      <ol class="steps green">
+        <li><strong>Two adults stay with the child</strong> — never one</li>
+        <li>Work through every listed contact, log each attempt with times</li>
+        <li>Nobody reached after <span class="todo">30–60 MIN — AGREE</span> → ring children's social care duty line <span class="todo">ADD DORSET NUMBER</span></li>
+        <li>Never take the child home or leave them with a non-listed adult</li>
+      </ol>
+      <div class="divider"></div>
+      <h3>Child doesn't arrive</h3>
+      <ol class="steps green">
+        <li>Check register at session start</li>
+        <li>Ring parents straight away</li>
+        <li>No answer? Try all contacts, log each attempt, escalate to lead</li>
+      </ol>
+      <div class="divider"></div>
+      <h3>Child discloses something</h3>
+      <ol class="steps green">
+        <li><strong>Listen</strong> — calm, no leading questions</li>
+        <li><strong>Reassure them they did the right thing</strong> by speaking up</li>
+        <li><strong>Never promise secrecy</strong></li>
+        <li><strong>Write it down</strong> — their exact words, date, time</li>
+        <li><strong>Tell Nick (DSO) immediately:</strong> <a href="tel:07830324074">07830 324 074</a> — deputy if Nick unavailable: <span class="todo">ANNIKA?</span></li>
+        <li><strong>Don't investigate</strong> or discuss with anyone else</li>
+      </ol>
+      <p class="note">Immediate danger? Call 999 first, Nick second. Written records go to Nick and are stored securely — DSO access only.</p>
+      <div class="divider"></div>
+      <h3>Everyday rules</h3>
+      <ul>
+        <li><strong>Minimum two adults on site</strong> at all times — no adult alone out of sight with a child</li>
+        <li><strong>Toilets:</strong> children go in pairs; adults never alone with a child in the toilet area; any help given within sight of another adult</li>
+        <li><strong>DBS:</strong> all staff hold current enhanced DBS checks — certificates seen and logged. Everyone reads and signs the safeguarding policy before day 1</li>
+      </ul>
+      <div class="divider"></div>
+      <h3>Staff code of conduct — the short version</h3>
+      <ul>
+        <li>Avoid being alone with a child wherever possible</li>
+        <li>No personal contact with children — no personal numbers, messaging or social media</li>
+        <li>Photos on approved devices only, and only with consent</li>
+        <li>Physical contact only when necessary, appropriate and proportionate</li>
+        <li>Report any concern, allegation or incident immediately — never dismiss one</li>
+      </ul>
+      <div class="divider"></div>
+      <h3>Concern about a member of staff</h3>
+      <p>Report it to Nick (DSO) straight away. If the concern is about Nick or you can't raise it internally, ring the NSPCC whistleblowing helpline: <a href="tel:08000280285">0800 028 0285</a> or help@nspcc.org.uk.</p>
+      <div class="divider"></div>
+      <h3>Photos</h3>
+      <ul>
+        <li>Check the consent list before taking any — respect any child who doesn't want to be photographed</li>
+        <li>Approved devices only — never personal phones</li>
+        <li>Never use full names alongside images; store images securely</li>
+        <li>Consent can be withdrawn any time → delete that child's photos</li>
+      </ul>
+      <div class="divider"></div>
+      <h3>Additional needs</h3>
+      <p>Read each child's needs (and don't-needs) in the folder before day 1.</p>
+    </div>
+  </details>
+
+  <!-- BEHAVIOUR -->
+  <details id="behaviour">
+    <summary><span class="s-icon">🤝</span>Behaviour<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="d-body">
+      <p>Day 1: agree the rules with the children so they own them. Our four camp rules:</p>
+      <ul>
+        <li><strong>Be kind to everyone</strong></li>
+        <li><strong>Look after each other</strong></li>
+        <li><strong>Take care of the site</strong></li>
+        <li><strong>Listen to the team</strong></li>
+      </ul>
+      <h3>3 strikes</h3>
+      <ol class="steps green">
+        <li>Reminder</li>
+        <li>Quiet word away from the group</li>
+        <li>Immediate phone call home — and log it</li>
+      </ol>
+    </div>
+  </details>
+
+  <!-- ACTIVITIES -->
+  <details id="activities">
+    <summary><span class="s-icon">⚽</span>Activities<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="d-body">
+      <div class="bigrule">Every activity: named leader, quick dynamic risk check (weather, ground, kit, mood), safety briefing, clear boundaries — and everyone stops on the whistle.</div>
+      <h3>Football</h3>
+      <p>Check the pitch first. No climbing on goals — portable goals checked they're secure. Soft/light balls, no blasting at close range.</p>
+      <h3>Tennis</h3>
+      <p>Spaced-out hitting areas so nobody swings into anyone. Rackets carried, never swung about. Balls collected only when the leader calls it.</p>
+      <h3>Netball</h3>
+      <p>Non-contact — no pushing, grabbing or barging. Check the post is stable and nobody hangs off it. Match children by size and confidence where you can.</p>
+      <h3>Golf</h3>
+      <p><strong>One swinger at a time</strong>, everyone else well behind. Foam/soft balls and clubs. Nobody retrieves anything until the leader calls stop.</p>
+      <h3>Rounders</h3>
+      <p><strong>Drop the bat, don't throw it</strong> — brief this every game. Nobody stands in the swing zone. Post area kept clear so runners don't collide with fielders.</p>
+      <h3>Capture the flag</h3>
+      <p>Open, visible space only. <strong>No hiding in woodland, behind buildings or anywhere near water.</strong> Set the no-go zones before play; staff watch the edges.</p>
+      <h3>Forest school &amp; crafts</h3>
+      <p>Stone painting · leaf &amp; flower printing · clay creatures · wood cookies · God's Eye weaving · den building</p>
+      <ul>
+        <li>Don't pick or eat plants — Annika identifies what's safe to use</li>
+        <li>Sticks carried safely, never thrown</li>
+        <li>Headcounts before, during and after</li>
+        <li>Water areas out of bounds</li>
+        <li>Hands washed after every session</li>
+        <li>Den building: tarps and guy lines set low, lines marked so nobody trips, dens checked before children get inside</li>
+      </ul>
+      <p><strong>Leaf &amp; flower printing uses hammers</strong> — it's a tool activity, so Annika leads it:</p>
+      <ul>
+        <li><strong>1 adult to 4 children</strong>, gloves on, designated area with a safety bubble around each child</li>
+        <li>Safety points: second hand out of the way, tap or whack, look around before swinging</li>
+        <li>Hammers counted out and counted back in</li>
+      </ul>
+      <p class="note">No fire, ropes/swings, slacklines, hammocks or tree climbing this camp. Wood cookies pre-drilled by Annika so no hand drills are needed. <span class="todo">HAMMER USE — INSURANCE CONFIRMED?</span></p>
+      <p class="note">Full detail per activity is in the Activity Risk Assessment 2026-27 in the Drive — read it before leading a session.</p>
+    </div>
+  </details>
+
+  <!-- VALUES BAND -->
+  <details id="band">
+    <summary><span class="s-icon">🎗️</span>Camp Values Band<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="d-body">
+      <div class="bigrule">Never for sporting ability or winning. It's for character, effort and supporting others.</div>
+      <p>One or two children a day. Watch all day for children showing <strong>courage, kindness, teamwork, resilience or leadership</strong>. For example:</p>
+      <ul>
+        <li>Encouraging another child who's feeling nervous</li>
+        <li>Persevering after finding an activity difficult</li>
+        <li>Helping without being asked</li>
+        <li>Excellent teamwork</li>
+        <li>Trying something new despite the nerves</li>
+      </ul>
+      <p>Present it at the <strong>end-of-day reflection</strong>. <strong>Name the value</strong> and say exactly why that child was chosen — e.g. "today's band is for <em>kindness</em> — Maya saw someone struggling with their den and went over without being asked." The public reason is what teaches the rest of the camp.</p>
+      <p class="note">Our job is to notice the small moments that matter. Success here is participation, confidence and kindness — never sporting ability. Every child should leave proud of something.</p>
+    </div>
+  </details>
+
+  <!-- FOOD -->
+  <details id="food">
+    <summary><span class="s-icon">🍉</span>Food &amp; allergies<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="d-body">
+      <div class="bigrule">Nobody shares food. Ever.</div>
+      <ul>
+        <li>Check the allergy list before every snack time</li>
+        <li>Hands washed (soap at the hand-wash station) before eating</li>
+        <li>Drinking water available all day — remind them in the heat</li>
+      </ul>
+      <h3>Snacks</h3>
+      <p>Croissants · apples · watermelon · ice pops</p>
+    </div>
+  </details>
+
+  <!-- WATER -->
+  <details id="water">
+    <summary><span class="s-icon">🌊</span>Water &amp; lakes<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="d-body">
+      <div class="bigrule">The lakes are NOT in use this camp. No lifeguards on site — the water is a hazard, not an activity.</div>
+      <ul>
+        <li>Children <strong>never near the water's edge</strong> — agree and walk the boundary with them on day 1</li>
+        <li>Sessions set up well away from the lakes</li>
+        <li>Headcount before &amp; after every move around the site</li>
+        <li>If a child is missing, <strong>the water's edge is checked first</strong> — see the emergency card</li>
+      </ul>
+      <p class="note">Sauna and paddle boards are off the programme. If that ever changes, insurance and a rescue plan get confirmed in writing first.</p>
+    </div>
+  </details>
+
+  <!-- WEATHER -->
+  <details id="weather">
+    <summary><span class="s-icon">⛈️</span>Wet weather<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="d-body">
+      <div class="bigrule">Default: we stay on site, whatever the weather. Serious conditions → lead decides.</div>
+      <ul>
+        <li><strong>Rain:</strong> carry on — shelter up, umbrellas by the toilet, indoor-style fillers ready (air-dry clay, wood cookies, wool crafts)</li>
+        <li><strong>Severe weather or lightning:</strong> lead assesses — if it's not safe to stay, we look for an alternative venue if one's available (Litton Cheney Hall is the nearest option) or contact parents for early collection</li>
+        <li><strong>Extreme heat:</strong> same approach — more shade, more water, less running about; if the site can't be kept safe, lead decides on venue change or early collection</li>
+        <li>Any change of plan: <strong>parents texted immediately</strong> with where and when</li>
+      </ul>
+    </div>
+  </details>
+
+  <!-- CONTACTS -->
+  <details id="contacts">
+    <summary><span class="s-icon">📞</span>Contacts<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="d-body">
+      <table>
+        <tr><th>Name</th><th>Role</th><th>Phone</th></tr>
+        <tr><td>Nick Peasant</td><td>Lead &amp; DSO</td><td><a href="tel:07830324074">07830 324 074</a></td></tr>
+        <tr><td>Annika</td><td>Forest school · Deputy DSO <span class="todo">CONFIRM</span></td><td><a href="tel:07793742913">07793 742 913</a></td></tr>
+        <tr><td>Josie</td><td>Camp Leader</td><td><a href="tel:07534541435">07534 541 435</a></td></tr>
+        <tr><td>Max</td><td>Camp Leader</td><td><a href="tel:07584205929">07584 205 929</a></td></tr>
+      </table>
+      <p style="font-size:14px;margin-top:8px">Safeguarding email: nick@themindfuldigitalcollective.co.uk<br>NSPCC whistleblowing: <a href="tel:08000280285">0800 028 0285</a><br>Children's social care duty line: <span class="todo">ADD DORSET NUMBER</span></p>
+      <p class="note">Parent numbers live in the site folder with the register — the folder goes wherever the group goes, including any venue change.</p>
+      <p class="note">This page is the quick version. The full documents — Safeguarding &amp; Child Protection Policy, Health &amp; Safety Policy, and Activity Risk Assessment 2026-27 — are in the Drive and are the authority.</p>
+    </div>
+  </details>
+
+</main>
+
+<a class="float-sos" href="#emergency">🚨 Emergency</a>
+
+<footer>Update the amber boxes before week 1</footer>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "Camp Handbook — The Mindful Digital Collective",
+  "short_name": "Camp Handbook",
+  "description": "Staff handbook for The Mindful Digital Collective Summer Camp.",
+  "start_url": "/handbook/",
+  "scope": "/handbook/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FAFBF7",
+  "theme_color": "#16382A",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
